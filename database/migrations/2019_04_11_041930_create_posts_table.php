@@ -23,6 +23,7 @@ class CreatePostsTable extends Migration
             $table->integer('status')->unsigned();
             $table->timestamps();
 
+
             $table->foreign('user_id')->references('id')->on('users');
         });
     }
