@@ -14,7 +14,7 @@ class CreateCookingStepsTable extends Migration
     public function up()
     {
         Schema::create('cooking_steps', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('name')->nullable();
             $table->integer('step_number')->unsigned();
             $table->integer('recipe_id')->unsigned();
@@ -23,8 +23,6 @@ class CreateCookingStepsTable extends Migration
             $table->text('note')->nullable();
             $table->text('image')->nullable();
             $table->timestamps();
-
-            $table->foreign('recipe_id')->references('id')->on('recipes')->onDelete('cascade');
         });
     }
 

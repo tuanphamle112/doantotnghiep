@@ -14,7 +14,7 @@ class CreateRecipesTable extends Migration
     public function up()
     {
         Schema::create('recipes', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->integer('recipe_number')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->string('name');
@@ -27,9 +27,6 @@ class CreateRecipesTable extends Migration
             $table->integer('people_number')->unsigned();
             $table->integer('status')->unsigned()->default(0);
             $table->timestamps();
-
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('level_id')->references('id')->on('levels');
         });
     }
 

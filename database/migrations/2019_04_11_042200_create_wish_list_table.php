@@ -14,14 +14,11 @@ class CreateWishListTable extends Migration
     public function up()
     {
         Schema::create('wish_list', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->integer('user_id')->unsigned();         // Mày là thằng nào
             $table->integer('recipe_id')->unsigned();         // Mày đang theo dõi công thức nào
             $table->string('status')->nullable();
             $table->timestamps();
-
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('recipe_id')->references('id')->on('recipes');
         });
     }
 
