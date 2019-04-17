@@ -14,13 +14,10 @@ class CreateCategoryRecipeTable extends Migration
     public function up()
     {
         Schema::create('category_recipe', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->integer('recipe_id')->unsigned();
             $table->integer('category_id')->unsigned();
             $table->timestamps();
-
-            $table->foreign('recipe_id')->references('id')->on('recipes');
-            $table->foreign('category_id')->references('id')->on('categories');
         });
     }
 
