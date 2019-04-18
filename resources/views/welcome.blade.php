@@ -8,6 +8,7 @@
 </head>
 
 <body>
+    <h3>{{ __('Test') }}</h3>
     <div class="flex-center position-ref full-height">
         @if (Route::has('login'))
         <div class="top-right links">

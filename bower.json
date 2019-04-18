@@ -1,17 +1,18 @@
 {
-    "name": "cooky",
-    "description": "",
-    "main": "",
-    "license": "MIT",
-    "homepage": "https://github.com/tuanbpl-0873/cooky",
-    "ignore": [
-        "**/.*",
-        "node_modules",
-        "bower_components",
-        "test",
-        "tests"
-    ],
-    "dependencies": {
-        "jquery": "^3.4.0"
-    }
+  "name": "cooky",
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "https://github.com/tuanbpl-0873/cooky",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.4.0",
+    "admin-lte": "^2.4.10"
+  }
 }
