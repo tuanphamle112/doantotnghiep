@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use App\Constracts\Eloquent\UserRepository;
+
 class UserController extends Controller
 {
     /**
@@ -12,8 +14,18 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    protected $user;
+
+    public function __construct(UserRepository $user)
+    {
+        return $this->user = $user;
+    }
+
     public function index()
     {
+        $users = $this->user->paginate(config('manual.pagination.user'));
+
+        return view('admin.users.index', ['users' => $users]);
     }
 
     /**
