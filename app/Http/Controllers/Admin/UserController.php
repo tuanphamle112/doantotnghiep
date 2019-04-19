@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use App\Constracts\Eloquent\UserRepository;
+use Hash;
 
 class UserController extends Controller
 {
@@ -46,7 +47,33 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $inputPassword = $request->password;
+
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|confirmed',
+            'phone' => 'required|min:8|max:13',
+        ]);
+
+        $userInfor = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'address' => $request->address,
+            'permission' => $request->permission,
+            'gender' => $request->gender,
+            'password' => Hash::make($inputPassword),
+        ];
+
+        $this->user->create($userInfor);
+        
+        $notification = [
+            'message' => __('Create user successfully!'),
+            'alert-type' => 'success',
+        ];
+            
+        return redirect()->route('users.index')->with($notification);
     }
 
     /**
@@ -68,7 +95,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $users = $this->user->findOrFail($id);
+
+        return view('admin.users.update', ['user' => $users]);
     }
 
     /**
@@ -80,7 +109,22 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+            'email' => 'required|email',
+            'phone' => 'min:8|max:13'
+        ]);
+
+        $this->user
+            ->findOrFail($id)
+            ->update($request->all());
+
+        $notification = [
+            'message' => __('Update user successfully!'),
+            'alert-type' => 'success',
+        ];
+
+        return redirect()->route('users.index')->with($notification);
     }
 
     /**
@@ -91,6 +135,13 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->user->destroy($id);
+
+        $notification = [
+            'message' => __('Delete user successfully!'),
+            'alert-type' => 'warning',
+        ];
+
+        return redirect()->route('users.index')->with($notification);
     }
 }

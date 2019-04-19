@@ -138,6 +138,8 @@
         <footer class="main-footer">
             <!-- Default to the left -->
             <strong>{{ __('Copyright ') }}&copy; {{ __('2016') }} <a href="#">{{ __('Sun') }}</a>.</strong> {{ __('All rights reserved.') }}
+            <input type="hidden" class="toastr-session"
+            data-session="{{ Session::has('message') . ',' . Session::get('alert-type', 'info') . ',' . Session::get('message') }}">
         </footer>
         @show
     </div>
@@ -148,8 +150,7 @@
     <script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('bower_components/admin-lte/dist/js/adminlte.min.js') }}"></script>
-
-    <script src="{{ asset('js/admin/custom.js') }}"></script>
+    <script src="{{ asset('js/admin/master.js') }}"></script>
     <script src="{{ asset('bower_components/toastr/toastr.js') }}"></script>
     @show
 </body>
