@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use App\Constracts\Eloquent\UserRepository;
+use App\Http\Requests\UsersRequest;
+use App\Http\Requests\UserUpdateRequest;
 use Hash;
 
 class UserController extends Controller
@@ -45,16 +47,9 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UsersRequest $request)
     {
         $inputPassword = $request->password;
-
-        $validatedData = $request->validate([
-            'name' => 'required|max:255',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|confirmed',
-            'phone' => 'required|min:8|max:13',
-        ]);
 
         $userInfor = [
             'name' => $request->name,
@@ -107,14 +102,8 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UserUpdateRequest $request, $id)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|max:255',
-            'email' => 'required|email',
-            'phone' => 'min:8|max:13'
-        ]);
-
         $this->user
             ->findOrFail($id)
             ->update($request->all());

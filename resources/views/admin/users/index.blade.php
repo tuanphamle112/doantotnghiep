@@ -148,8 +148,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="repwd">{{ __('Confirm password') }} <span class="require-star">*</span></label>
-                                                <input type="password" class="form-control"
-                                                    name="password_confirmation">
+                                                <input type="password" class="form-control" name="password_confirmation">
                                             </div>
                                             <button type="submit" class="btn btn-success">{{ __('Create User') }}</button>
                                         </form>
