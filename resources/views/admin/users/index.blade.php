@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 
-@section('title', 'Manage Users')
+@section('title', __('Manage Users'))
 
 @section('content')
 <!-- Content Wrapper. Contains page content -->
@@ -90,7 +90,7 @@
                         <h3 class="box-title">{{ __('User list') }}</h3>
                         <div class="insert-button">
                             <button type="button" class="btn btn-success btn-insert" data-toggle="modal"
-                                data-target="#createUser">{{ __('Create New ser') }}</button>
+                                data-target="#createUser">{{ __('Create New User') }}</button>
                         </div>
                         <!-- Modal insert user -->
                         <div class="modal fade" id="createUser" role="dialog">
@@ -199,12 +199,11 @@
                                 <td>
                                     <!-- <a href="#" class="delete-user">Delete</a> -->
                                     @if ($user->id != Auth::user()->id)
-                                    <a href="javascript:void(0)"
-                                        data-text="{{ __('Do you want to delete this user?') }}" class="delete">
+                                    <a href="javascript:void(0)" data-text="{{ __('Do you want to delete this user?') }}" class="delete">
                                         <i class="fa fa-trash-o"></i>
                                     </a>
                                     @endif
-                                    <form id="delete-form" action="{{ route('users.destroy', $user->id) }}" method="post">
+                                    <form class="delete-form" action="{{ route('users.destroy', $user->id) }}" method="post">
                                         {{ csrf_field() }}
                                         {{ method_field('DELETE') }}
                                         <div class="form-group">

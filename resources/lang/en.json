@@ -1,7 +1,6 @@
 {
     "You are logged in!": "You are logged in!",
     "Login": "Login",
-    "Register": "Register",
     "Logout": "Logout",
     "E-Mail Address": "E-Mail Address",
     "Password": "Password",
@@ -14,7 +13,7 @@
     "Before proceeding, please check your email for a verification link.": "Before proceeding, please check your email for a verification link.",
     "If you did not receive the email": "If you did not receive the email",
     "Reset Password": "Reset Password",
-    "Send Password Reset Link": "Gửi đường dẫn lấy lại mật khẩu",
+    "Send Password Reset Link": "Send Password Reset Link",
     "Sign out": "Sign out",
     "Manage Recipes": "Manage Recipes",
     "Recipes list": "Recipes list",
@@ -28,7 +27,7 @@
     "Male": "Male",
     "Female": "Female",
     "Other": "Other",
-    "Address:": "Address:",
+    "Address": "Address",
     "Permission": "Permission",
     "Admin": "Admin",
     "User": "User",
@@ -37,5 +36,11 @@
     "Email": "Email",
     "Edit": "Edit",
     "Likes": "Likes",
-    "Register": "Register"
+    "Register": "Register",
+    "Update User Information :": "Update User Information :",
+    "Update User": "Update User",
+    "Create user successfully!": "Create user successfully!",
+    "Update user successfully!": "Update user successfully!",
+    "Delete user successfully!": "Delete user successfully!",
+    "Update Users": "Update Users"
 }

@@ -1,0 +1,24 @@
+#logout-form {
+    display: none;
+}
+.delete-form .form-group input.btn-danger {
+    display: none;
+}
+.require-star {
+    color: red;
+}
+.box-tools input[name="table_search"] {
+    width: 20%;
+}
+.insert-button .btn-insert {
+    margin-top: 10px;
+}
+.filling-error {
+    background: #FBEFEF;
+    padding: 5px;
+    margin: 3px 0;
+    font-size: 11px;
+    border: 1px dashed #F3D0D0;
+    width: calc(100% - 2px);
+    color: #c70808;
+}

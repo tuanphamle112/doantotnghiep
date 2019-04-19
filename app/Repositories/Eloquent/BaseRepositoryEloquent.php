@@ -40,4 +40,9 @@ class BaseRepositoryEloquent implements BaseRepository
     {
         return $this->model->destroy($id);
     }
+
+    public function findOrFail($id)
+    {
+        return $this->model->findOrFail($id);
+    }
 }

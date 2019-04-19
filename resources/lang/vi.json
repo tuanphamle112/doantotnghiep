@@ -27,7 +27,7 @@
     "Male": "Nam",
     "Female": "Nữ",
     "Other": "Khác",
-    "Address:": "Địa chỉ:",
+    "Address": "Địa chỉ",
     "Permission": "Quyền hạn",
     "Admin": "Admin",
     "User": "Người dùng",
@@ -36,5 +36,11 @@
     "Email": "Email",
     "Edit": "Sửa",
     "Likes": " Lượt thích",
-    "Register": "Người đăng ký"
+    "Update User Information :": "Cập nhật thông tin người dùng",
+    "Update User": "Cập nhật người dùng",
+    "Create user successfully!": "Tạo người dùng thành công",
+    "Update user successfully!": "Cập nhật người dùng thành công",
+    "Delete user successfully!": "Xóa người dùng thành công",
+    "Update Users": "Cập nhật người dùng",
+    "Send Password Reset Link": "Gửi đường dẫn reset mật khẩu"
 }

@@ -15,4 +15,6 @@ interface BaseRepository
     public function fill($id);
 
     public function destroy($id);
+    
+    public function findOrFail($id);
 }
