@@ -4,7 +4,7 @@ namespace App\Constracts\Eloquent;
 
 interface BaseRepository
 {
-    public function all($with = [], $select = null);
+    public function all($with = [], $select = ['*']);
 
     public function paginate($paginate, $with = []);
     

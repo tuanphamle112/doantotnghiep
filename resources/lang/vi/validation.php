@@ -16,4 +16,10 @@ return [
 
     'attributes' => [],
 
+    'ingredients' => "Vui lòng điền ít nhất một nguyên liệu",
+    'recipe_name' => "Vui lòng điền tên công thức",
+    'recipe_description' => "Vui lòng điền miêu tả công thức",
+    'ingredient_character' => 'Trường nguyên liệu không được chứa kí tự đặc biệt',
+    'ingredient_quantity' => 'Vui lòng điền số lượng',
+    'ingredient_name' => "Vui lòng điền tên nguyên liệu",
 ];

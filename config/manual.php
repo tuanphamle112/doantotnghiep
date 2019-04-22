@@ -8,6 +8,6 @@ return [
     'pagination' => [
         'default' => 2,
         'user' => 2,
-        'recipe' => 2
+        'recipe' => 2,
     ],
 ];

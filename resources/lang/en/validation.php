@@ -122,16 +122,11 @@ return [
     |--------------------------------------------------------------------------
     |
     | Here you may specify custom validation messages for attributes using the
-    | convention "attribute.rule" to name the lines. This makes it quick to
+    | convention 'attribute.rule' to name the lines. This makes it quick to
     | specify a specific custom language line for a given attribute rule.
     |
     */
 
-    'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
-        ],
-    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -143,7 +138,12 @@ return [
     | of "email". This simply helps us make our message more expressive.
     |
     */
-
+    'ingredients' => 'Please fill at least one ingredient',
+    'recipe_name' => "Please fill the recipe's name",
+    'recipe_description' => "Please fill the recipe's description",
+    'ingredient_character' => 'Ingredient field must not contain special character',
+    'ingredient_quantity' => 'Please fill the quantity',
+    'ingredient_name' => "Please fill the ingredient's name",
     'attributes' => [],
 
 ];

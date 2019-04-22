@@ -11,7 +11,7 @@ class BaseRepositoryEloquent implements BaseRepository
         $model = $this->model;
     }
 
-    public function all($with = [], $select = null)
+    public function all($with = [], $select = ['*'])
     {
         return $this->model->with($with)->get($select);
     }
