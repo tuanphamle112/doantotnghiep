@@ -41,8 +41,15 @@ class BaseRepositoryEloquent implements BaseRepository
         return $this->model->destroy($id);
     }
 
-    public function findOrFail($id)
+    public function findOrFail($id, $with = [])
     {
-        return $this->model->findOrFail($id);
+        return $this->model->with($with)->findOrFail($id);
+    }
+
+    public function update($id, $data = [])
+    {
+        $field = $this->findOrFail($id);
+
+        return $field->update($data);
     }
 }

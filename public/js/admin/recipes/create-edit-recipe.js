@@ -8,11 +8,7 @@ $(document).ready(function() {
     var step_num_not_decrease = step_num;
     var step_div = $step_item.first().wrap('<p/>').parent().html(); // get div step as a string to append
 
-    if ($(".all-ingredients").val() == "") {
-        var allIngredients = [];
-    } else {
-        var allIngredients = $(".all-ingredients").val().split(",");
-    }
+
     
     for (i = 1; i <= step_num; i++) {
         if ($previewImage.length > 0) {
@@ -96,9 +92,16 @@ $(document).ready(function() {
         var stepArrayChecking = [];
         var $noStep = $('.no-step');
         var $stepBox = $('.wrap-step-box .step-box');
+
         if ($stepBox.length < 2) {
             $noStep.addClass("active");
             e.preventDefault();
+        }
+
+        if ($(".all-ingredients").val() == "") {
+            var allIngredients = [];
+        } else {
+            var allIngredients = $(".all-ingredients").val().split(",");
         }
 
         for (var i = 1; i <= stepNumNotDecrease; i++) {
@@ -158,7 +161,13 @@ $(document).ready(function() {
         var inputString = $(".ingredient-input input.ingredient-field").val();
         var ingredient = inputString.trim().split(" ");
         var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/; // ingredient field does not contain these character
-       
+        
+        if ($(".all-ingredients").val() == "") {
+            var ingredientCurrently = [];
+        } else {
+            var ingredientCurrently = $(".all-ingredients").val().split(",");
+        }
+
         if (format.test(inputString.trim())) {
             message.push(Lang.get('validation.ingredient_character'));
         }
@@ -172,15 +181,16 @@ $(document).ready(function() {
             $(".ingredient-input .filling-error").removeClass("active");
             var indexOfSecondSpace = inputString.indexOf(' ', inputString.indexOf(' ') + 1);
             var ingredientName = inputString.substring(indexOfSecondSpace);
-    
-            var appendValue = "<div class='ingredient-item'><i class='fa fa-check-circle'></i><b>" + ingredient[0] + " </b><b>" + ingredient[1] + " </b><span>" + ingredientName + " </span><i class='fa fa-times-circle close-ingredient' onclick='removeIngredientDiv(this)'></i></div>";
+            var appendValue = "<div class='ingredient-item' data-ingre='" + inputString.trim() + "'><i class='fa fa-check-circle'></i><b>" + ingredient[0] + " </b><b>" + ingredient[1] + " </b><span>" + ingredientName + " </span><i class='fa fa-times-circle close-ingredient' onclick='removeIngredientDiv(this)'></i></div>";
             $(".all-ingredient").append(appendValue);
-            allIngredients.push(inputString);
+            ingredientCurrently.push(inputString);
+            ingredient_num++;
+
         } else {
             checkInputIngreError(".ingredient-input", message);
         }
 
-        $(".all-ingredients").val(allIngredients);
+        $(".all-ingredients").val(ingredientCurrently);
     }
 
     
@@ -325,10 +335,16 @@ function readImage() {
     }
 }
 // End image js
+var ingredient_num = $(".ingredient-item").length;
 
 // Self custom js
 function removeIngredientDiv (e1)
 {
-    $(e1).closest('.ingredient-item').remove(); 
+    var itemContent = $(e1).closest(".ingredient-item").data('ingre');
+    var ingredientsRemoved = $(".all-ingredients").val().split(',');
+
+    $(e1).closest(".ingredient-item").remove(); 
+    ingredientsRemoved.splice(ingredientsRemoved.indexOf(itemContent), 1);
+    $(".all-ingredients").val(ingredientsRemoved)
 }
 // End self custom js

@@ -1,9 +1,10 @@
 @extends('admin.layouts.master')
 
-@section('title', __('Create a recipe'))
+@section('title', __('Update a recipe'))
 
 @section('custom_css')
 <link rel="stylesheet" href="{{ asset('css/admin/recipes/create-recipe.css') }}">
+<link rel="stylesheet" href="{{ asset('css/admin/recipes/update-recipe.css') }}">
 @endsection
 
 @section('content')
@@ -96,7 +97,7 @@
             <div class="col-xs-12 col-sm-12">
                 <div class="box">
                     <div class="box-header">
-                        <h3 class="box-title">{{ __('Create a recipe') }}</h3>
+                        <h3 class="box-title">{{ __('Update a recipe') }}</h3>
                         <div class="box-tools">
                             <div class="input-group input-group-sm">
                                 <input type="text" name="table_search" class="form-control pull-right"
@@ -110,42 +111,51 @@
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                        <form action="{{ route('recipes.store') }}" enctype="multipart/form-data"
+                        <form action="{{ route('recipes.update', $recipe->id) }}" enctype="multipart/form-data"
                             class="wrap-create-form" method="post">
+                            {{ method_field('PUT') }}
                             {{ csrf_field() }}
                             <div class="form-group wrap-main-image">
                                 <div class="input-group">
                                     <label class="mainFileContainer">
                                         <i class="fa fa-camera"></i>
                                         <span>{{ __('Click to add a main picture') }}</span>
-                                        <img id="img-upload" alt="">
-                                        <input type="file" id="imgInp" class="pro-image" name="main_image"
-                                            class="form-control">
+                                        <img id="img-upload" alt="" src="{{ asset('uploads/recipes/' . $recipe->image) }}">
+                                        <input type="file" id="imgInp" class="pro-image" name="main_image" class="form-control">
+                                        <input type="hidden" name="main_image_old" value="{{ $recipe->image }}">
                                     </label>
                                 </div>
                                 <div class="form-group recipe-name">
                                     <label for="name">{{ __('Recipes name') }}</label>
                                     <input type="text" class="form-control input-error" placeholder="{{ __('Recipes name') }}"
-                                        name="name">
+                                        name="name" value="{{ $recipe->name }}">
                                     <div class="filling-error"></div>
                                 </div>
-                                <input type="hidden" name="recipe_number" value="{{ time() }}">
+                                <input type="hidden" class="recipe-number" name="recipe_number" value="{{ $recipe->recipe_number }}">
                                 <div class="form-group recipe-description">
                                     <label for="description">{{ __('Short description') }}</label>
                                     <textarea type="text" class="form-control input-error" name="description"
-                                        placeholder="{{ __('Your short description here...') }}" rows="6"></textarea>
+                                        placeholder="{{ __('Your short description here...') }}" rows="6">{{ $recipe->description }}</textarea>
                                     <div class="filling-error"></div>
                                 </div>
                                 <div class="form-group video-input">
                                     <label for="video">{{ __('Video(Youtube code/link)') }}</label>
                                     <input type="text" class="form-control" placeholder="{{ __('Youtube link here') }}"
-                                        name="video">
+                                        name="video" value="{{ $recipe->video_link }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="status">{{ __('Status') }}</label><br>
+                                    <select class="form-control" name="status">
+                                    @foreach (config("manual.recipe_status") as $key => $value)
+                                        <option value="{{ $value }}" @if ($recipe->status == $value) selected @endif>{{ $key }}</option>
+                                    @endforeach
+                                    </select>
                                 </div>
                                 <div class="form-group recipe-estimate-number">
                                     <label for="gender">{{ __('Level, estimate time and number of people') }}</label><br>
                                     <select class="form-control" name="level">
                                         @foreach ($levels as $level)
-                                        <option value='{{ $level->id }}'>{{ $level->name }}</option>
+                                        <option value="{{ $level->id }}" @if ($level->id == $levelRecipe->id) selected @endif>{{ $level->name }}</option>
                                         @endforeach
                                     </select>
 
@@ -157,7 +167,13 @@
                                 <div class="ingredient-area form-group">
                                     <label for="phone">{{ __('Ingredients') }}:</label>
                                     <div class="all-ingredient">
-                                        <!-- adding ingredient item section -->
+                                    @foreach ($ingredients as $key => $ingredient)
+                                        <div class="ingredient-item" data-ingre="{{ $ingredient }}">
+                                            <i class="fa fa-check-circle"></i>
+                                            <b>{{ $ingredient }}</b>
+                                            <i class="fa fa-times-circle close-ingredient" onclick="removeIngredientDiv(this)"></i>
+                                        </div>
+                                    @endforeach
                                     </div>
                                     <div class="ingredient-input">
                                         <input type="text" class="form-control ingredient-field"
@@ -198,7 +214,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <input type="hidden" class="all-ingredients" name="ingredients" value="">
+                                    <input type="hidden" class="all-ingredients" name="ingredients" value="{{ $ingredientsSet }}">
                                 </div>
                                 <!-- Step -->
                                 <div class="wrap-step-box">
@@ -224,20 +240,17 @@
                                             <div class="step-opts">
                                                 <div class="step-opt">
                                                     <span class="step-tip-ico fa fa-info-circle"></span>
-                                                    <input type="text" name="stepName"
-                                                        placeholder="{{ __('Name of step') }}">
+                                                    <input type="text" name="stepName" placeholder="{{ __('Name of step') }}">
                                                 </div>
                                                 <div class="step-opt">
                                                     <span class="step-tip-ico fa fa-clock-o"></span>
-                                                    <input class="step-time" name="stepTime"
-                                                        type="text" placeholder="{{ __('Time') }}"> {{ __('minute') }}
+                                                    <input class="step-time" name="stepTime" type="text" placeholder="{{ __('Time') }}"> {{ __('minute') }}
                                                 </div>
                                                 <div class="step-opt" class="tips-for-good">
                                                     <span class="step-tip" title="{{ __('Tips for the good') }}">
                                                         <span class="step-tip-ico fa fa-lightbulb-o"></span>
                                                     </span>
-                                                    <input type="text" placeholder="{{ __('Tips for the good') }}"
-                                                        name="stepNote">
+                                                    <input type="text" placeholder="{{ __('Tips for the good') }}" name="stepNote">
                                                 </div>
                                             </div>
                                         </div>
@@ -245,8 +258,9 @@
                                             <fieldset class="form-group">
                                                 <label class="fileContainer">
                                                 {{ __('Add pictures') }}
-                                                    <input type="file" onchange="readImage(this)" class="pro-image"
+                                                    <input type="file" data-type="new" onchange="readImageUpdate(this)" class="pro-image"
                                                         name="stepFile" class="form-control" multiple>
+                                                    <input type="hidden" class="step-hidden-files" name="stepFileHidden" value="">
                                                 </label>
                                                 <div class="picture-overlay"></div>
                                                 <div class="text-gray text-italic text-small">
@@ -259,23 +273,102 @@
                                                 <a href="javascript:void(0)" class="button-clear">
                                                     <i class="fa fa-times"></i> {{ __('Clear') }}
                                                 </a>
-                                                <input type="hidden" name="{{ 'stepstepCount[clear]' }}" value="">
-                                                <div class="preview-images-zone">
+                                                <input type="hidden" class="input-clear" name="{{ 'stepstepCount[clear]' }}" value="">
+                                                <div class="preview-images-zone" data-type="new">
+                                                    <input type="hidden" class="image-num" name="image_numstepCount" value="0">
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                    @foreach($cookingSteps as $cookingStep)
+                                    <div class="step-box">
+                                        <a href="javascript:void(0)" data-no="{{ $cookingStep->step_number }}" class="btn btn-danger btn-close btn-delete-step"><span class="fa fa-trash"></span></a>
+                                        <div class="step-count">{{ $cookingStep->step_number }}</div>
+                                        <input type="hidden" name="step_number" value="{{ $cookingStep->step_number }}">
+                                        <div class="step-direction">
+                                            <textarea rows="4" cols="40" name="{{ 'step' . $cookingStep->step_number . '[content]' }}" class="form-control step-content-{{ $cookingStep->step_number }}" placeholder="{{ __('Fill the instruction for this step') }}">{{ $cookingStep->content }}</textarea>
+                                            <div class="filling-error">
+                                                <span>{{ __("Please fill recipe's step instruction") }}</span><br>
+                                            </div>
+                                        </div>
+                                        <div class="step-acts">
+                                            <a href="javascript:void(0)" class="btn-show-opts">
+                                                <span class="fa fa-plus"></span> <strong>{{ __('More Information') }}</strong>
+                                                <em>{{ __('(Cooking time, Step name, Tips,...)') }}</em>
+                                            </a>
+                                            <div class="step-opts">
+                                                <div class="step-opt">
+                                                    <span class="step-tip-ico fa fa-info-circle"></span> 
+                                                    <input type="text" name="{{ 'step'.$cookingStep->step_number.'[name]' }}"
+                                                        placeholder="{{ __('Name of step') }}" value="{{ $cookingStep->name }}">
+                                                </div>
+                                                <div class="step-opt">
+                                                    <span class="step-tip-ico fa fa-clock-o"></span>
+                                                    <input class="step-time" name="{{ 'step'.$cookingStep->step_number.'[time]'}}"
+                                                        type="text" placeholder="{{ __('Time') }}" value="{{ $cookingStep->time }}"> {{ __('minute') }}
+                                                </div>
+                                                <div class="step-opt" class="tips-for-good">
+                                                    <span class="step-tip" title="{{ __('Tips for the good') }}">
+                                                        <span class="step-tip-ico fa fa-lightbulb-o"></span>
+                                                    </span>
+                                                    <input type="text" placeholder="{{ __('Tips for the good') }}"
+                                                    name="{{ 'step'.$cookingStep->step_number.'[note]' }}" value="{{ $cookingStep->note }}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="wrap-upload-image">
+                                            <fieldset class="form-group">
+                                                <label class="fileContainer">
+                                                {{ __('Add pictures') }}
+                                                    <input type="file" onchange="readImageUpdate(this)"
+                                                    name="{{ 'step_files'.$cookingStep->step_number.'[]' }}" class="form-control pro-image" multiple>
+                                                    <input type="hidden" class="step-hidden-files" 
+                                                    name="{{ 'step_files_hidden'.$cookingStep->step_number }}" value="{{ $cookingStep->image }}">
+                                                </label>
+                                                <div class="picture-overlay"></div>
+                                                <div class="text-gray text-italic text-small">
+                                                    ({{ __('Limit ') }}<span class="text-highlight">6</span> {{ __('images') }})
+                                                </div>
+                                                <div class="text-gray text-italic text-small">
+                                                {{ __('Hold ') }}<span class="text-highlight ng-binding">{{ __('Ctrl') }}</span> {{ __('to choose more picture') }}</div>
+                                            </fieldset>
+
+                                            <div class="wrap-preview">
+                                                <a href="javascript:void(0)" class="button-clear">
+                                                    <i class="fa fa-times"></i> {{ __('Clear') }}
+                                                </a>     
+                                                <input type="hidden" class="input-clear" name="{{ 'step' . $cookingStep->step_number . '[clear]' }}" value="">                 
+                                                <div class="preview-images-zone">
+                                                <?php
+                                                    if (!is_null($cookingStep->image)) {
+                                                        $stepImages = explode(",", ltrim($cookingStep->image, ','));
+                                                    }
+                                                ?>
+                                                @if (!is_null($cookingStep->image))
+                                                    @foreach ($stepImages as $stepImage)
+                                                    <div class="preview-image">
+                                                        <div class="image-zone"><img src="{{ asset('uploads/recipes/' . $stepImage) }}"></div>
+                                                    </div>
+                                                    @endforeach
+                                                @endif
+                                                <input type="hidden" class="image-num" name="{{ 'image_num' . $cookingStep->step_number }}" value="@if(!is_null($cookingStep->image)) {{ count($stepImages) }} @endif">
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    @endforeach
                                 </div>
-                                <input type="hidden" class="step-num" name="step_num">
-                                <input type="hidden" class="step_num_not_decrease" name="step_num_not_decrease"
-                                    value="0">
+                                <input type="hidden" class="step-num" name="step_num" value="{{ $cookingStep->step_number }}">
+                                <input type="hidden" class="step_num_not_decrease" name="step_num_not_decrease" value="{{ $numberOfStep }}">
                                 <!-- Add step button -->
                                 <a class="addmore-ingredients add-more-btn" href="javascript:void(0)">{{ __('+ Add a step') }}</a>
                                 <div class="filling-error no-step">{{ __('Please fill at least one step') }}</div>
                                 <!-- End add step button -->
                                 <!-- End Step -->
-                                <div class="form-group">
-                                    <input type="submit" class="btn btn-success form-control" value="{{ __('Create Recipe') }}">
+                                <div class="form-group submit-button">
+                                    <input type="submit" class="btn btn-success form-control" value="{{ __('Update Recipe') }}">
                                 </div>
                             </div>
                         </form>

@@ -14,7 +14,9 @@ interface BaseRepository
 
     public function fill($id);
 
+    public function update($id, $data = []);
+
     public function destroy($id);
     
-    public function findOrFail($id);
+    public function findOrFail($id, $with = []);
 }

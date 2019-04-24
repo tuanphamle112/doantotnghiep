@@ -10,4 +10,9 @@ return [
         'user' => 2,
         'recipe' => 2,
     ],
+    'recipe_status' => [
+        'Pending' => 0,
+        'Actived' => 1,
+        'Rejected' => 2,
+    ],
 ];

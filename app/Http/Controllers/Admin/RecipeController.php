@@ -143,7 +143,23 @@ class RecipeController extends Controller
      */
     public function edit($id)
     {
-        //
+        $recipe = $this->recipe->findOrFail($id);
+        $levels = $this->level->all();
+
+        $cookingSteps = $recipe->cooking_step;
+        $levelRecipe = $recipe->level;
+        $ingredients = explode(',', $recipe->ingredient->name);
+        $numberOfStep = count($cookingSteps);
+
+        return view('admin.recipes.update', [
+            'recipe' => $recipe,
+            'cookingSteps' => $cookingSteps,
+            'levels' => $levels,
+            'levelRecipe' => $levelRecipe,
+            'ingredients' => $ingredients,
+            'ingredientsSet' => $recipe->ingredient->name,
+            'numberOfStep' => $numberOfStep,
+        ]);
     }
 
     /**
@@ -155,7 +171,79 @@ class RecipeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $ImageStorageFolder = 'recipe' . $request->recipe_number;
+        $mainImageName = $request->main_image_old;
+            
+        $recipeUpdateData = [];
+        if (!is_null($request->main_image)) {
+            $mainImageName = $ImageStorageFolder . '/' . time() . $request->main_image->getClientOriginalName();
+            Helper::putImageToUploadsFolder($mainImageName, $request->main_image);
+            Helper::deleteOldImage($request->main_image_old);
+        };
+        $stepInsert = [];
+
+        for ($i = 1; $i <= $request->step_num; $i++) {
+            $stepFileName = 'step_files' . $i;
+            $allStepFileName = 'step_files_hidden' . $i;
+            $stepName = 'step' . $i;
+            $imageNum = 'image_num' . $i;
+            $stepArray = $request->$stepName; // include content, time, note, name of each step
+            
+            if (!is_null($request->$imageNum)) {
+                $fileCount = $request->$imageNum;
+            } else {
+                $fileCount = 0;
+            }
+            $stepArrayImageName = $request->$allStepFileName;
+            if (!empty($request->$stepFileName)) {
+                foreach ($request->$stepFileName as $file) {
+                    $fileCount++;
+    
+                    if ($fileCount <= 6 && !is_null($file)) {
+                        $stepImageName = $ImageStorageFolder . '/' . $stepFileName .'/' .time() . $file->getClientOriginalName();
+                        Helper::putImageToUploadsFolder($stepImageName, $file);
+                        $stepArrayImageName = $stepArrayImageName . ',' . $stepImageName;
+                    } else {
+                        break;
+                    }
+                }
+            }
+            $stepArray['image'] = $stepArrayImageName;
+
+            if ($stepArray['clear'] == 'cleared') {
+                Helper::deleteDirectory($ImageStorageFolder . '/' . $stepFileName);
+                $this->recipe->updateStepImage($id, $i);
+            }
+            $stepArray['step_number'] = $i;
+            array_push($stepInsert, $stepArray);
+        }
+        $recipes = [
+            'name' => $request->name,
+            'recipe_number' => $request->recipe_number,
+            'user_id' => Auth::id(),
+            'estimate_time' => $request->estimate_time,
+            'description' => $request->description,
+            'video_link' => $request->video,
+            'level_id' => $request->level,
+            'image' => $mainImageName,
+            'status' => $request->status,
+            'people_number' => $request->people_number,
+        ];
+
+        $ingredient = [
+            'name'  => $request->ingredients,
+        ];
+        $this->recipe->update($id, $recipes);
+        $this->recipe->updateIngredient($id, $ingredient);
+        $this->recipe->deleteCookingStep($id);
+        $this->recipe->createCookingStep($id, $stepInsert);
+        
+        $notification = [
+            'message' => __('Update recipe successfully!'),
+            'alert-type' => 'success',
+        ];
+        
+        return redirect()->route('recipes.index')->with($notification);
     }
 
     /**
@@ -166,6 +254,17 @@ class RecipeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $recipe = $this->recipe->findOrFail($id);
+
+        Helper::deleteDirectory('recipe' . $recipe->recipe_number);
+
+        $this->recipe->destroy($id);
+
+        $notification = [
+            'message' => __('Delete recipe successfully!'),
+            'alert-type' => 'warning'
+        ];
+
+        return redirect()->route('recipes.index')->with($notification);
     }
 }
