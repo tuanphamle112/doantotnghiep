@@ -97,5 +97,11 @@
     "Hold ": "Hold ",
     "Ctrl": "Ctrl",
     "to choose more picture": "to choose more picture",
-    "Create recipe successfully!": "'Create recipe successfully!'"
+    "Create recipe successfully!": "Create recipe successfully!",
+    "Update recipe successfully!": "Update recipe successfully!",
+    "Update a recipe": "Update a recipe",
+    "Clear": "Clear",
+    "Fill the instruction for this step": "Fill the instruction for this step",
+    "Update Recipe": "Update Recipe",
+    "Delete recipe successfully!": "Delete recipe successfully!"
 }

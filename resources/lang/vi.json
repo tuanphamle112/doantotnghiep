@@ -96,5 +96,11 @@
     "Hold ": "Giữ phím ",
     "Ctrl": "Ctrl",
     "to choose more picture": "dể chọn nhiều ảnh",
-    "Create recipe successfully!": "Tạo công thức thành công"
+    "Create recipe successfully!": "Tạo công thức thành công",
+    "Update recipe successfully!": "Cập nhật công thức thành công",
+    "Update a recipe": "Update a recipe",
+    "Clear": "Xóa hết",
+    "Fill the instruction for this step": " Nhập hướng dẫn cách làm cho bước này",
+    "Update Recipe": "Cập nhật công thức",
+    "Delete recipe successfully!": "Xóa công thức thành công"
 }

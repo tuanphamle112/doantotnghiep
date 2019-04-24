@@ -45,4 +45,14 @@ class Helper
         
         Storage::disk('public_uploads')->put($fileName, $fileContent);
     }
+
+    public static function deleteOldImage($file)
+    {
+        Storage::disk('public_uploads')->delete($file);
+    }
+
+    public static function deleteDirectory($folder)
+    {
+        Storage::disk('public_uploads')->deleteDirectory($folder);
+    }
 }
