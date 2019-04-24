@@ -24,6 +24,7 @@ Route::group(['middleware' => 'locale'], function () {
     // admin route
     Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
         Route::resource('users', 'Admin\UserController');
+        Route::resource('recipes', 'Admin\RecipeController');
     });
     Route::get('change-language/{language}', 'HomeController@changeLanguage')->name('change-language');
 });

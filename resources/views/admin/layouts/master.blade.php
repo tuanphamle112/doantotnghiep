@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
     <meta charset="utf-8">
@@ -117,7 +117,7 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="">{{ __('Recipes list') }}</a></li>
+                            <li><a href="{{ route('recipes.index') }}">{{ __('Recipes list') }}</a></li>
                         </ul>
                     </li>
                     <li class="active">
