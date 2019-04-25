@@ -16,7 +16,8 @@ class RepositoryServiceProvider extends ServiceProvider
         $models = [
             'User',
             'Recipe',
-            'Level'
+            'Level',
+            'Category',
         ];
 
         foreach ($models as $model) {

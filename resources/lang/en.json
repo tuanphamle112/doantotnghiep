@@ -103,5 +103,15 @@
     "Clear": "Clear",
     "Fill the instruction for this step": "Fill the instruction for this step",
     "Update Recipe": "Update Recipe",
-    "Delete recipe successfully!": "Delete recipe successfully!"
+    "Delete recipe successfully!": "Delete recipe successfully!",
+    "Manage Categories": "Manage Categories",
+    "Category List": "Category List",
+    "Create new category": "Create new category",
+    "Create Category": "Create Category",
+    "Create category successfully!": "Create category successfully!",
+    "Do you want to delete this category ?": "Do you want to delete this category ?",
+    "No sub category": "No sub category",
+    "Link": "Link",
+    "Add New Sub Category": "Add New Sub Category",
+    "Parent Categories": "Parent Categories"
 }

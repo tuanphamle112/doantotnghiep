@@ -143,7 +143,7 @@
 
                                 <td><a href="{{ route('recipes.show', ['id' => $recipe->id]) }}">{{ __('Detail') }}</a></td>
                                 <td><a href="{{ route('recipes.edit', ['id' => $recipe->id]) }}">{{ __('Edit') }}</a></td>
-                                <td>
+                                <td class="wrap-delete-form">
                                     <a href="javascript:void(0)"
                                         data-text="{{ __('Do you want to delete this recipe?') }}" class="delete">
                                         <i class="fa fa-trash-o"></i>

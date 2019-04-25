@@ -33,7 +33,7 @@ $(document).ready( function() {
 
         if (confirm(message)) {
             // Post the form
-            $(e.target).parent().next('form').submit() // Post the surrounding form
+            $(e.target).closest('.wrap-delete-form').find('.delete-form').submit()
         }
     });
 

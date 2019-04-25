@@ -195,7 +195,7 @@
                                 @endif
                                 <td>{{ $user->gender }}</td>
                                 <td><a href="{{ route('users.edit', ['id'=> $user->id]) }}">{{ __('Edit') }}</a></td>
-                                <td>
+                                <td class="wrap-delete-form">
                                     <!-- <a href="#" class="delete-user">Delete</a> -->
                                     @if ($user->id != Auth::user()->id)
                                     <a href="javascript:void(0)" data-text="{{ __('Do you want to delete this user?') }}" class="delete">

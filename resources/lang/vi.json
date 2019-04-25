@@ -102,5 +102,15 @@
     "Clear": "Xóa hết",
     "Fill the instruction for this step": " Nhập hướng dẫn cách làm cho bước này",
     "Update Recipe": "Cập nhật công thức",
-    "Delete recipe successfully!": "Xóa công thức thành công"
+    "Delete recipe successfully!": "Xóa công thức thành công",
+    "Manage Categories": "Quản lý danh mục",
+    "Category List": "Danh sách danh mục",
+    "Create new category": "Tạo danh mục mới",
+    "Create Category": "Tạo danh mục",
+    "Create category successfully!": "Tạo danh mục thành công",
+    "Do you want to delete this category ?": "Bạn có muốn xóa danh mục này không ?",
+    "No sub category": "Không có danh mục con",
+    "Link": "Link",
+    "Add New Sub Category": "Thêm danh mục con",
+    "Parent Categories": "Danh mục cha"
 }
