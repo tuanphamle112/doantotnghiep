@@ -122,7 +122,7 @@
                                             <a href="{{ route('category.subCreate', $category->id) }}" class="btn btn-primary"><i class="fa fa-plus"></i></a>
                                         </span>
                                         <span class="text-right">
-                                            <a href="" class="btn btn-primary">
+                                            <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-primary">
                                                 <i class="fa fa-pencil"></i>
                                             </a>
                                         </span>
@@ -156,7 +156,7 @@
                                                 </div>
                                                 <div class="col-sm-3 text-right wrap-delete-form">
                                                         <span class="text-right">
-                                                            <a href="" class="btn btn-primary">
+                                                            <a href="{{ route('categories.edit', $children->id) }}" class="btn btn-primary">
                                                                 <i class="fa fa-pencil"></i>
                                                             </a>
                                                         </span>

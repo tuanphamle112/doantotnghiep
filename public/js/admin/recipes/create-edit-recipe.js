@@ -85,14 +85,13 @@ $(document).ready(function() {
     }
 
     $(".wrap-create-form").submit(function(e) {
-
         var stepNumNotDecrease = $(".step_num_not_decrease").val();
 
         var stepContentName = "";
         var stepArrayChecking = [];
         var $noStep = $('.no-step');
         var $stepBox = $('.wrap-step-box .step-box');
-
+        var $categoriesSelect = $(".categories-select");
         if ($stepBox.length < 2) {
             $noStep.addClass("active");
             e.preventDefault();
@@ -102,6 +101,16 @@ $(document).ready(function() {
             var allIngredients = [];
         } else {
             var allIngredients = $(".all-ingredients").val().split(",");
+        }
+
+        if ($categoriesSelect.val().length == 0)
+        {
+            $categoriesSelect.next('.filling-error').addClass("active");
+            e.preventDefault();
+        }
+        else
+        {
+            $categoriesSelect.next('.filling-error').removeClass("active");
         }
 
         for (var i = 1; i <= stepNumNotDecrease; i++) {

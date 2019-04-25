@@ -112,5 +112,10 @@
     "No sub category": "Không có danh mục con",
     "Link": "Link",
     "Add New Sub Category": "Thêm danh mục con",
-    "Parent Categories": "Danh mục cha"
+    "Parent Categories": "Danh mục cha",
+    "Update Categories": "Cập nhật danh mục",
+    "Edit Category": "Sửa danh mục",
+    "Update category successfully!": "Sửa danh mục thành công",
+    "Select Categories": "Chọn danh mục",
+    "Please choose at least one category": "Vui lòng chọn ít nhất 1 danh mục"
 }
