@@ -25,6 +25,8 @@ Route::group(['middleware' => 'locale'], function () {
     Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
         Route::resource('users', 'Admin\UserController');
         Route::resource('recipes', 'Admin\RecipeController');
+        Route::resource('categories', 'Admin\CategoryController');
+        Route::get('category/{id}/create', 'Admin\CategoryController@subCreate')->name('category.subCreate');
     });
     Route::get('change-language/{language}', 'HomeController@changeLanguage')->name('change-language');
 });

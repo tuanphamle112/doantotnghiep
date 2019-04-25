@@ -9,6 +9,7 @@ return [
         'default' => 2,
         'user' => 2,
         'recipe' => 2,
+        'category' => 2,
     ],
     'recipe_status' => [
         'Pending' => 0,

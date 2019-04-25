@@ -20,7 +20,7 @@ trait CategoryRelation
 
     public function getParentCategory()
     {
-        return $this->belongsTo(category::class, 'parent_id');
+        return $this->belongsTo(Category::class, 'parent_id');
     }
 
     public function post()
