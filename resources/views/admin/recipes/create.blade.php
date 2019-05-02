@@ -154,6 +154,15 @@
                                     <input type="text" class="form-control" name="people_number" value="1">
                                     <span>{{ __('people') }}</span>
                                 </div>
+                                <div class="form-group categories">
+                                    <label for="gender">{{ __('Select Categories') }}</label><br>
+                                    <select class="form-control categories-select" name="categories[]" multiple>
+                                        @foreach ($categories as $category)
+                                        <option value='{{ $category->id }}'>{{ $category->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    <div class="filling-error">{{ __('Please take at least one category') }}</div>
+                                </div>
                                 <div class="ingredient-area form-group">
                                     <label for="phone">{{ __('Ingredients') }}:</label>
                                     <div class="all-ingredient">

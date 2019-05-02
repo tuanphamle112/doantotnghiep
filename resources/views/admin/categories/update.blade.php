@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 
-@section('title', __('Manage Categories'))
+@section('title', __('Update Categories'))
 
 @section('custom_css')
 <link rel="stylesheet" href="{{ asset('css/admin/categories/index-category.css') }}">
@@ -93,37 +93,40 @@
                 <div class="box">
                     <div class="box-header">
                         <div class="col-md-10">
-                            <h3 class="box-title">{{ __('Add New Sub Category') }}</h3>
+                            <h3 class="box-title">{{ __('Edit Category') }}</h3>
                         </div>
                     </div><!-- /.box-header -->
                     <div class="box-body row">
                         <div class="col-sm-1"></div>
-                        <form method="POST" action="{{ route('categories.store') }}" id="add-new-category" class="col-sm-10 col-sx-12">
+                        <form method="POST" action="{{ route('categories.update', $category->id) }}" id="add-new-category" class="col-sm-10 col-sx-12">
+                            {{ method_field('PUT') }}
                             {{ csrf_field() }}    
                             <div class="form-group">
                                 <label for="name">{{ __('Name') }}</label>
-                                <input type="text" name="name" class="form-control" placeholder="{{ __('Name') }}">
+                                <input type="text" name="name" class="form-control" placeholder="{{ __('Name') }}" value="{{ $category->name }}">
                                 <span class="text-danger">{{ $errors->first('name') }}</span>
                             </div>
                             <div class="form-group">
                                 <label for="link">{{ __('Link') }}</label>
-                                <input type="text" name="link" class="form-control" placeholder="{{ __('Link') }}">
+                                <input type="text" name="link" class="form-control" placeholder="{{ __('Link') }}" value="{{ $category->link }}">
                                 <span class="text-danger">{{ $errors->first('link') }}</span>
                             </div>
+                            @if ($category->parent_id != null)
                             <div class="form-group">
                                 <label for="link">{{ __('Parent Categories') }}</label>
                                 <select class="form-control" name="parent_id" id="parent_id">
                                     @foreach ($optionParentCategory as $key => $value)
-                                    <option value='{{ $key }}' @if ($parentCategory->id == $key) selected @endif>{{ $value }}</option>
+                                    <option value='{{ $key }}' @if ($category->parent_id == $key) selected @endif>{{ $value }}</option>
                                     @endforeach
                                 </select>
                                 <span class="text-danger">{{ $errors->first('parent_id') }}</span>
                             </div>
+                            @endif
                             <div class="form-group ">
                                 <div class="margin-top-10px">
                                     <label for="description">{{ __('Short description') }}</label>
                                     <textarea type="text" class="form-control" name="description"
-                                        placeholder="{{ __('Your short description here...') }}" rows="6"></textarea>
+                                        placeholder="{{ __('Your short description here...') }}" rows="6">{{ $category->description }}</textarea>
                                 </div>
                             </div>
                             <div class="wrap-insert-button">

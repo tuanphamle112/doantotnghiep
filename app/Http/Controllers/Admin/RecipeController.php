@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 
 use App\Constracts\Eloquent\RecipeRepository;
 use App\Constracts\Eloquent\LevelRepository;
+use App\Constracts\Eloquent\CategoryRepository;
 use App\Helpers\Helper;
 
 use Auth;
@@ -21,13 +22,16 @@ class RecipeController extends Controller
      */
     protected $recipe;
     protected $level;
+    protected $category;
 
     public function __construct(
         RecipeRepository $recipe,
-        LevelRepository $level
+        LevelRepository $level,
+        CategoryRepository $category
     ) {
         $this->recipe = $recipe;
         $this->level = $level;
+        $this->category = $category;
     }
 
     public function index()
@@ -45,9 +49,11 @@ class RecipeController extends Controller
     public function create()
     {
         $levels = $this->level->all();
+        $categories = $this->category->all();
 
         return view('admin.recipes.create', [
             'levels' => $levels,
+            'categories' => $categories,
         ]);
     }
 
@@ -114,6 +120,7 @@ class RecipeController extends Controller
 
         $recipe = $this->recipe->create($recipes);
         $recipe->ingredient()->create($ingredient);
+        $recipe->categories()->sync($request->categories);
         $recipe->cooking_step()->createMany($stepInsert);
 
         $notification = [
@@ -145,11 +152,13 @@ class RecipeController extends Controller
     {
         $recipe = $this->recipe->findOrFail($id);
         $levels = $this->level->all();
+        $categories = $this->category->all();
 
         $cookingSteps = $recipe->cooking_step;
         $levelRecipe = $recipe->level;
         $ingredients = explode(',', $recipe->ingredient->name);
         $numberOfStep = count($cookingSteps);
+        $categoriesSelected = $recipe->categories;
 
         return view('admin.recipes.update', [
             'recipe' => $recipe,
@@ -159,6 +168,8 @@ class RecipeController extends Controller
             'ingredients' => $ingredients,
             'ingredientsSet' => $recipe->ingredient->name,
             'numberOfStep' => $numberOfStep,
+            'categories' => $categories,
+            'categoriesSelected' => $categoriesSelected,
         ]);
     }
 
@@ -233,8 +244,11 @@ class RecipeController extends Controller
         $ingredient = [
             'name'  => $request->ingredients,
         ];
+
+        $recipe = $this->recipe->findOrFail($id);
         $this->recipe->update($id, $recipes);
         $this->recipe->updateIngredient($id, $ingredient);
+        $recipe->categories()->sync($request->categories);
         $this->recipe->deleteCookingStep($id);
         $this->recipe->createCookingStep($id, $stepInsert);
         

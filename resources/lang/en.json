@@ -113,5 +113,10 @@
     "No sub category": "No sub category",
     "Link": "Link",
     "Add New Sub Category": "Add New Sub Category",
-    "Parent Categories": "Parent Categories"
+    "Parent Categories": "Parent Categories",
+    "Update Categories": "Update Categories",
+    "Edit Category": "Edit Category",
+    "Update category successfully!": "Update category successfully!",
+    "Select Categories": "Select Categories",
+    "Please choose at least one category": "Please choose at least one category"
 }

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Constracts\Eloquent\CategoryRepository;
 use App\Http\Requests\CreateCategoryRequest;
+use App\Helpers\Helper;
 
 class CategoryController extends Controller
 {
@@ -57,7 +58,15 @@ class CategoryController extends Controller
      */
     public function store(CreateCategoryRequest $request)
     {
-        $this->category->create($request->all());
+        $link = Helper::changeLink($request->link);
+        $data = [
+            'name' => $request->name,
+            'link' => $link,
+            'description' => $request->description,
+            'parent_id' => $request->parent_id,
+        ];
+
+        $this->category->create($data);
 
         $notification = [
             'message' => __('Create category successfully!'),
@@ -86,7 +95,14 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $category = $this->category->findOrFail($id);
+
+        $optionParentCategory = $this->category->getOptionParentCategories();
+
+        return view('admin.categories.update', [
+            'category' => $category,
+            'optionParentCategory' => $optionParentCategory,
+        ]);
     }
 
     /**
@@ -98,7 +114,22 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $link = Helper::changeLink($request->link);
+        $data = [
+            'name' => $request->name,
+            'link' => $link,
+            'description' => $request->description,
+            'parent_id' => $request->parent_id,
+        ];
+
+        $this->category->update($id, $data);
+
+        $notification = [
+            'message' => __('Update category successfully!'),
+            'alert-type' => 'success',
+        ];
+            
+        return redirect()->route('categories.index')->with($notification);
     }
 
     public function subCreate($id)
