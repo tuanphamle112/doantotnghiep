@@ -373,7 +373,9 @@
                                     </div>
                                     @endforeach
                                 </div>
+                                @if (count($cookingSteps) > 0)
                                 <input type="hidden" class="step-num" name="step_num" value="{{ $cookingStep->step_number }}">
+                                @endif
                                 <input type="hidden" class="step_num_not_decrease" name="step_num_not_decrease" value="{{ $numberOfStep }}">
                                 <!-- Add step button -->
                                 <a class="addmore-ingredients add-more-btn" href="javascript:void(0)">{{ __('+ Add a step') }}</a>

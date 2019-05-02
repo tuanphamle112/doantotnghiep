@@ -14,13 +14,8 @@
 
 
 Route::group(['middleware' => 'locale'], function () {
-    Route::get('/', function () {
-        return view('welcome');
-    });
-    
     Auth::routes();
-    
-    Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/', 'HomeController@index')->name('home');
     // admin route
     Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
         Route::resource('users', 'Admin\UserController');

@@ -38,7 +38,7 @@ class RecipeController extends Controller
     {
         $recipes = $this->recipe->paginate(config('manual.pagination.recipe'), ['level']);
         
-        return view('admin.recipes.index', ['recipes' => $recipes]);
+        return view('admin.recipes.index', compact('recipes'));
     }
 
     /**
@@ -51,10 +51,10 @@ class RecipeController extends Controller
         $levels = $this->level->all();
         $categories = $this->category->all();
 
-        return view('admin.recipes.create', [
-            'levels' => $levels,
-            'categories' => $categories,
-        ]);
+        return view('admin.recipes.create', compact(
+            'levels',
+            'categories'
+        ));
     }
 
     /**
@@ -153,24 +153,24 @@ class RecipeController extends Controller
         $recipe = $this->recipe->findOrFail($id);
         $levels = $this->level->all();
         $categories = $this->category->all();
-
+        $ingredientsSet =  $recipe->ingredient->name;
         $cookingSteps = $recipe->cooking_step;
         $levelRecipe = $recipe->level;
         $ingredients = explode(',', $recipe->ingredient->name);
         $numberOfStep = count($cookingSteps);
         $categoriesSelected = $recipe->categories;
 
-        return view('admin.recipes.update', [
-            'recipe' => $recipe,
-            'cookingSteps' => $cookingSteps,
-            'levels' => $levels,
-            'levelRecipe' => $levelRecipe,
-            'ingredients' => $ingredients,
-            'ingredientsSet' => $recipe->ingredient->name,
-            'numberOfStep' => $numberOfStep,
-            'categories' => $categories,
-            'categoriesSelected' => $categoriesSelected,
-        ]);
+        return view('admin.recipes.update', compact(
+            'recipe',
+            'cookingSteps',
+            'levels',
+            'levelRecipe',
+            'ingredients',
+            'ingredientsSet',
+            'numberOfStep',
+            'categories',
+            'categoriesSelected'
+        ));
     }
 
     /**
@@ -269,9 +269,9 @@ class RecipeController extends Controller
     public function destroy($id)
     {
         $recipe = $this->recipe->findOrFail($id);
-
         Helper::deleteDirectory('recipe' . $recipe->recipe_number);
-
+        $recipe->categories()->detach();
+        
         $this->recipe->destroy($id);
 
         $notification = [

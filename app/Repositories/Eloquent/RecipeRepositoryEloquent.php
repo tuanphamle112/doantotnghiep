@@ -45,4 +45,18 @@ class RecipeRepositoryEloquent extends BaseRepositoryEloquent implements RecipeR
     {
         return $this->findOrFail($id)->cooking_step()->createMany($data);
     }
+
+    public function getAllActiveRecipe($with = [], $select = ['*'])
+    {
+        $recipes = $this->model->with($with)->where('status', config('manual.recipe_status.Actived'))->take(config('manual.home_page.take.feature_recipe'))->orderBy('id', 'DESC')->get();
+
+        return $recipes;
+    }
+
+    public function getOneFeatureRecipe($with = [], $select = ['*'])
+    {
+        $recipe = $this->model->with($with)->where('status', config('manual.recipe_status.Actived'))->orderBy('id', 'DESC')->first();
+
+        return $recipe;
+    }
 }

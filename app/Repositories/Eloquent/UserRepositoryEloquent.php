@@ -15,4 +15,11 @@ class UserRepositoryEloquent extends BaseRepositoryEloquent implements UserRepos
     {
         $this->model = $user;
     }
+
+    public function getFeatureMember($with = [], $select = ['*'])
+    {
+        $user = $this->model->with($with)->where('permission', config('manual.permission.user'))->orderBy('id', 'DESC')->first();
+        
+        return $user;
+    }
 }
