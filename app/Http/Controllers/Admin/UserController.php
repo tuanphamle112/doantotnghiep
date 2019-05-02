@@ -28,7 +28,7 @@ class UserController extends Controller
     {
         $users = $this->user->paginate(config('manual.pagination.user'));
 
-        return view('admin.users.index', ['users' => $users]);
+        return view('admin.users.index', compact('users'));
     }
 
     /**
@@ -90,9 +90,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $users = $this->user->findOrFail($id);
+        $user = $this->user->findOrFail($id);
 
-        return view('admin.users.update', ['user' => $users]);
+        return view('admin.users.update', compact('user'));
     }
 
     /**

@@ -25,7 +25,7 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = [];
-        $categoryParents = $this->category->getAllParentCategories(config('manual.pagination.category'));
+        $categoryParents = $this->category->getParentCategoriesPaginate(config('manual.pagination.category'));
         
         foreach ($categoryParents as $categoryParent) {
             $parent_id = $categoryParent->id;
@@ -37,7 +37,7 @@ class CategoryController extends Controller
         $data['categories'] = $categories;
         $data['categoryParents'] = $categoryParents; //Paginate
 
-        return view('admin.categories.index', ['data' => $data]);
+        return view('admin.categories.index', compact('data'));
     }
 
     /**
@@ -99,10 +99,10 @@ class CategoryController extends Controller
 
         $optionParentCategory = $this->category->getOptionParentCategories();
 
-        return view('admin.categories.update', [
-            'category' => $category,
-            'optionParentCategory' => $optionParentCategory,
-        ]);
+        return view('admin.categories.update', compact(
+            'category',
+            'optionParentCategory'
+        ));
     }
 
     /**
@@ -115,6 +115,7 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         $link = Helper::changeLink($request->link);
+
         $data = [
             'name' => $request->name,
             'link' => $link,
@@ -138,10 +139,10 @@ class CategoryController extends Controller
 
         $optionParentCategory = $this->category->getOptionParentCategories();
 
-        return view('admin.categories.addSub', [
-            'parentCategory' => $parentCategory,
-            'optionParentCategory' => $optionParentCategory,
-        ]);
+        return view('admin.categories.addSub', compact(
+            'parentCategory',
+            'optionParentCategory'
+        ));
     }
 
     /**

@@ -126,8 +126,8 @@
                                 <td>{{ $recipe->name }}</td>
                                 <td>{{ $recipe->recipe_number }}</td>
                                 <td>{{ $recipe->estimate_time }} <span>{{ __('hours') }}</span></td>
-                                <td>{{ $recipe->description }}</td>
-                                <td>{{ $recipe->image }}</td>
+                                <td><p class="long-text">{{ $recipe->description }}</p></td>
+                                <td><p class="long-text">{{ $recipe->image }}</p></td>
                                 <td>{{ $recipe->video_link }}</td>
                                 <td>{{ $recipe->rating_point }}</td>
                                 <td>{{ $recipe->level->name }}</td>

@@ -16,9 +16,14 @@ class CategoryRepositoryEloquent extends BaseRepositoryEloquent implements Categ
         $this->model = $category;
     }
 
-    public function getAllParentCategories($paginate)
+    public function getParentCategoriesPaginate($paginate)
     {
         return $this->model->where('parent_id', null)->paginate($paginate);
+    }
+
+    public function getAllParentCategories()
+    {
+        return $this->model->where('parent_id', null)->get();
     }
 
     public function getChildrenCategories($parent_id)
@@ -26,7 +31,7 @@ class CategoryRepositoryEloquent extends BaseRepositoryEloquent implements Categ
         return $this->model->where('parent_id', $parent_id)->get();
     }
 
-    public function getOptionParentCategories() 
+    public function getOptionParentCategories()
     {
         $categories = $this->model->whereNull('parent_id')->get();
         $result = [];
@@ -34,6 +39,6 @@ class CategoryRepositoryEloquent extends BaseRepositoryEloquent implements Categ
             $result[$category->id] = $category->name;
         }
 
-       	return $result;
+        return $result;
     }
 }

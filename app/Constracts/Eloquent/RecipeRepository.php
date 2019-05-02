@@ -17,4 +17,8 @@ interface RecipeRepository extends BaseRepository
     public function deleteCookingStep($id);
 
     public function createCookingStep($id, $data = []);
+
+    public function getAllActiveRecipe($with = [], $select = ['*']);
+
+    public function getOneFeatureRecipe($with = [], $select = ['*']);
 }

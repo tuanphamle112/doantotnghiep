@@ -45,33 +45,39 @@
                 <!-- Navbar Right Menu -->
                 <div class="navbar-custom-menu">
                     <ul class="nav navbar-nav">
+                        <li><a href="{{ route('home') }}">{{ __('Go To User Page') }}</a></li>
+                        <li><a href="{{ route('change-language', ['vi']) }}">{{ __('Vietnamese') }}</a></li>
+                        <li><a href="{{ route('change-language', ['en']) }}">{{ __('English') }}</a></li>
                         <li class="dropdown user user-menu">
                             <!-- Menu Toggle Button -->
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <!-- The user image in the navbar-->
-                                <img src="" class="user-image">
-                                <!-- hidden-xs hides the username on small devices so only the image appears. -->
                                 <span class="hidden-xs">{{ Auth::user()->name }}</span>
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- The user image in the menu -->
                                 <li class="user-header">
-                                    <img src="" class="img-circle">
-
+                                    @if (Auth::user()->avatar != null)
+                                    <img src="{{ asset('upload/' . Auth::user()->avatar) }}" class="img-circle">
+                                    @else
+                                    <img src="{{ asset('images/default2.png') }}" class="img-circle">
+                                    @endif
                                     <p>
                                     {{ __('Admin- Tpl@') }}
                                     </p>
                                 </li>
                                 <li class="user-footer">
                                     <div class="pull-right">
-                                        <a href="#" class="btn btn-default btn-flat">{{ __('Sign out') }}</a>
+                                        <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="btn btn-default btn-flat">{{ __('Sign out') }}</a>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                                            @csrf
+                                        </form>
                                     </div>
                                 </li>
                             </ul>
                         </li>
+                        
                         <!-- /.messages-menu -->
                         <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-                        </li>
                     </ul>
                 </div>
             </nav>

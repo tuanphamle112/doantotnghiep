@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App;
 
+use App\Constracts\Eloquent\CategoryRepository;
+use App\Constracts\Eloquent\RecipeRepository;
+use App\Constracts\Eloquent\UserRepository;
+
 use App\Helpers\Helper;
 
 class HomeController extends Controller
@@ -14,9 +18,18 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('auth');
+    protected $category;
+    protected $recipe;
+    protected $user;
+
+    public function __construct(
+        CategoryRepository $category,
+        RecipeRepository $recipe,
+        UserRepository $user
+    ) {
+        $this->category = $category;
+        $this->recipe = $recipe;
+        $this->user = $user;
     }
 
     /**
@@ -26,7 +39,25 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $categories = [];
+        $categoryParents = $this->category->getAllParentCategories();
+        $allActiveRecipes = $this->recipe->getAllActiveRecipe(['level']);
+        $featureRecipe = $this->recipe->getOneFeatureRecipe(['level']);
+        $featureMember = $this->user->getFeatureMember();
+        
+        foreach ($categoryParents as $categoryParent) {
+            $parent_id = $categoryParent->id;
+            $categoryChildren = $this->category->getChildrenCategories($parent_id);
+
+            $categoryParent->children = $categoryChildren;
+            $categories[] = $categoryParent;
+        }
+        return view('frontend.homepage', compact(
+            'categories',
+            'allActiveRecipes',
+            'featureRecipe',
+            'featureMember'
+        ));
     }
 
     public function changeLanguage(Request $request)
