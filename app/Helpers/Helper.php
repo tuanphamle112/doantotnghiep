@@ -55,11 +55,4 @@ class Helper
     {
         Storage::disk('public_uploads')->deleteDirectory($folder);
     }
-
-    public static function changeLink($link)
-    {
-        $newLink = str_replace(' ', '-', $link);
-        
-        return $newLink;
-    }
 }

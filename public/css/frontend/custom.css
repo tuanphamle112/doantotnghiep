@@ -22,3 +22,8 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+.gdrts-stars-empty {
+    color: #dddddd;
+    font-size: 20px;
+    line-height: 20px;
+}

@@ -102,7 +102,7 @@
                     </div>
                 </div><!-- /.box-header -->
                 <div class="box-body">
-                    <?php $categories = $data['categories']; ?>
+                    @php $categories = $data['categories']; @endphp
                     @foreach ($categories as $category)
                         <div class="panel panel-default">
                             <div class="panel-heading">
