@@ -153,17 +153,17 @@
                             <figure>
                                 <img src="{{ asset('uploads/recipes/' . $featureRecipe->image) }}"
                                     alt="{{ $featureRecipe->name }}">
-                                <figcaption><a href="#"><i class="icon icon-themeenergy_eye2"></i>
+                                <figcaption><a href="{{ url('/recipe/' . changeLink($featureRecipe->name) . '/' . $featureRecipe->id) }}"><i class="icon icon-themeenergy_eye2"></i>
                                         <span>{{ __('View recipe') }}</span></a>
                                 </figcaption>
                             </figure>
 
                             <div class="container">
-                                <h2><a href="#">{{ $featureRecipe->name }}</a></h2>
+                                <h2><a href="{{ url('/recipe/' . changeLink($featureRecipe->name) . '/' . $featureRecipe->id) }}">{{ $featureRecipe->name }}</a></h2>
                                 <p>{{ $featureRecipe->description }}</p>
                                 <div class="actions">
                                     <div>
-                                        <a href="#" class="button">{{ __('See the full recipe') }}</a>
+                                        <a href="{{ url('/recipe/' . changeLink($featureRecipe->name) . '/' . $featureRecipe->id) }}" class="button">{{ __('See the full recipe') }}</a>
                                         <div class="more"><a href="#">{{ __('See past featured recipes') }}</a></div>
                                     </div>
                                 </div>
@@ -228,13 +228,13 @@
                         <figure>
                             <img src="{{ asset('uploads/recipes/' . $activeRecipe->image) }}">
                             <figcaption>
-                                <a href="#"><i class="icon icon-themeenergy_eye2"></i>
+                                <a href="{{ url('/recipe/' . changeLink($activeRecipe->name) . '/' . $activeRecipe->id) }}"><i class="icon icon-themeenergy_eye2"></i>
                                     <span>{{ __('View recipe') }}</span></a>
                             </figcaption>
                         </figure>
                         <div class="container">
                             <h2>
-                                <a href="#">{{ $activeRecipe->name }}</a>
+                                <a href="{{ url('/recipe/' . changeLink($activeRecipe->name) . '/' . $activeRecipe->id) }}">{{ $activeRecipe->name }}</a>
                             </h2>
                             <div class="actions">
                                 <div>
@@ -280,12 +280,12 @@
                         <figure>
                             <img src="{{ asset('uploads/recipes/' . $activeRecipe->image) }}"
                                 alt="{{ $activeRecipe->name }}">
-                            <figcaption><a href="#"><i class="icon icon-themeenergy_eye2"></i>
+                            <figcaption><a href="{{ url('/recipe/' . changeLink($activeRecipe->name) . '/' . $activeRecipe->id) }}"><i class="icon icon-themeenergy_eye2"></i>
                                     <span>{{ __('View post') }}</span></a>
                             </figcaption>
                         </figure>
                         <div class="container">
-                            <h2><a href="#">{{ $activeRecipe->name }}</a></h2>
+                            <h2><a href="{{ url('/recipe/' . changeLink($activeRecipe->name) . '/' . $activeRecipe->id) }}">{{ $activeRecipe->name }}</a></h2>
                             <div class="actions">
                                 <div>
                                     <div class="date"><i class="fa fa-calendar"

@@ -19,7 +19,7 @@
     <header class="head" role="banner">
         <!--wrap-->
         <div class="wrap clearfix">
-            <a href="#" class="logo"><img src="{{ config('manual.default_media.logo') }}" alt="{{ __('Tpl@ Cooking') }}"></a>
+            <a href="#" class="logo"><img src="{{ asset(config('manual.default_media.logo')) }}" alt="{{ __('Tpl@ Cooking') }}"></a>
             <!--primary navigation-->
             <nav id="nav" class="main-nav">
                 <ul id="menu-primary">
@@ -51,7 +51,7 @@
                     </li>
                     @if (Auth::check())
                     <li class="user-info">
-                        <a href=""><img src="{{ config('manual.default_media.avatar.man') }}" alt="avatar" width="60px" height="60px"></a>
+                        <a href=""><img src="{{ asset(config('manual.default_media.avatar.man')) }}" alt="avatar" width="60px" height="60px"></a>
                         <ul class="sub-menu">
                             <li><a href="">{{ __('Profile') }}</a></li>
                             <li><a href="">{{ __('Wish List') }}</a></li>

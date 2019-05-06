@@ -58,7 +58,7 @@ class CategoryController extends Controller
      */
     public function store(CreateCategoryRequest $request)
     {
-        $link = Helper::changeLink($request->link);
+        $link = changeLink($request->link);
         $data = [
             'name' => $request->name,
             'link' => $link,
@@ -114,7 +114,7 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $link = Helper::changeLink($request->link);
+        $link = changeLink($request->link);
 
         $data = [
             'name' => $request->name,

@@ -1,0 +1,30 @@
+
+.wrap-step-images {
+    display: inline-block;
+}
+.wrap-single-image {
+    float: left;
+    padding: 5px 10px;
+}
+.step-image-2 img {
+    height: 235px;
+}
+.step-image-more img {
+    height: 220px;
+}
+.wrap-step-images .step-image-2 {
+    max-width: 49%;
+
+}
+.wrap-step-images .step-image-more {
+    max-width: 33%;
+}
+.content {
+    width: 100%;
+}
+.ingredients dt, .user dt, .recipe dt {
+    width: 25% !important;
+}
+.ingredients dd, .user dd, .recipe dd {
+    width: 75% !important;
+}
