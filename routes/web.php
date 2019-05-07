@@ -24,6 +24,14 @@ Route::group(['middleware' => 'locale'], function () {
         Route::get('category/{id}/create', 'Admin\CategoryController@subCreate')->name('category.subCreate');
     });
     //user route
+    Route::group(['middleware' => 'isLogin'], function () {
+        Route::group(['prefix' => 'create-recipe'], function () {
+            Route::get('recipe-info', 'Frontend\CreateRecipeController@showFirstForm')->name('name-form');
+            Route::post('submit-recipe-info', 'Frontend\CreateRecipeController@createFirstForm')->name('recipe.first');
+            Route::get('ingredient/{id}', 'Frontend\CreateRecipeController@createSecondForm')->name('recipe.second');
+        });
+    });
+
     Route::get('/recipe/{recipeName}/{id}', 'Frontend\DetailRecipeController@index')->name('detail-recipe');
     Route::get('change-language/{language}', 'HomeController@changeLanguage')->name('change-language');
 });

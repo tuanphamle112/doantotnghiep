@@ -22,9 +22,7 @@
 .content {
     width: 100%;
 }
-.ingredients dt, .user dt, .recipe dt {
-    width: 25% !important;
-}
-.ingredients dd, .user dd, .recipe dd {
+
+.ingredients dd, .user dd {
     width: 75% !important;
 }

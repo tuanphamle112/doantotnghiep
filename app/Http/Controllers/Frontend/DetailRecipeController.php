@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 
 use App\Constracts\Eloquent\CategoryRepository;
 use App\Constracts\Eloquent\RecipeRepository;
+use App\Helpers\Helper;
 
 class DetailRecipeController extends Controller
 {
@@ -20,15 +21,11 @@ class DetailRecipeController extends Controller
         $this->category = $category;
         $this->recipe = $recipe;
     }
-    public function index($name, $id)
+    public function getCategoriesForNav()
     {
         $categories = [];
         $categoryParents = $this->category->getAllParentCategories();
-        $recipe = $this->recipe->findOrFail($id);
-        $cookingSteps = $recipe->cooking_step;
-        $createdAtRecipe = $recipe->user->created_at->format('Y-m-d');
-        $ingredientArray = explodeComma($recipe->ingredient->name);
-        
+
         foreach ($categoryParents as $categoryParent) {
             $parent_id = $categoryParent->id;
             $categoryChildren = $this->category->getChildrenCategories($parent_id);
@@ -36,6 +33,18 @@ class DetailRecipeController extends Controller
             $categoryParent->children = $categoryChildren;
             $categories[] = $categoryParent;
         }
+
+        return $categories;
+    }
+
+    public function index($name, $id)
+    {
+        $recipe = $this->recipe->findOrFail($id);
+        $cookingSteps = $recipe->cooking_step;
+        $createdAtRecipe = $recipe->user->created_at->format('Y-m-d');
+        $ingredientArray = explodeComma($recipe->ingredient->name);
+       
+        $categories = $this->getCategoriesForNav();
 
         return view('frontend.detail-recipe', compact(
             'categories',

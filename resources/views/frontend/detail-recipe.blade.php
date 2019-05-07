@@ -65,7 +65,7 @@
                                     <a href="#">{{ $recipe->level->name }}</a>
                                 </dd>
                                 <dt>{{ __('Serves') }}</dt>
-                                <dd>{{ $recipe->people_number }}</dd>{{ __(' peoples') }}
+                                <dd>{{ $recipe->people_number }}</dd>
                             </dl>
 
                             <dl class="user">
@@ -97,7 +97,13 @@
                         <!--// one-third -->
                         <!--two-third-->
                         <div class="two-third">
-                            <div class="image"><img src="{{ asset('uploads/recipes/' . $recipe->image) }}" alt="{{ $recipe->name }}"></div>
+                            <div class="image">
+                                @if ($recipe->image != null)
+                                <img src="{{ asset(config('manual.recipe_url') . $recipe->image) }}" alt="{{ $recipe->name }}">
+                                @else
+                                <img src="{{ config('manual.default_media.avatar.man') }}" alt="{{ $recipe->name }}">
+                                @endif
+                            </div>
                             <div class="intro">
                                 <p><strong>{{ $recipe->description }}</strong></p>
                             </div>
@@ -121,17 +127,21 @@
                                             @endif
                                         </div>
                                         <div class="wrap-step-images">
-                                            @foreach ($images as $image)
-                                            @if (count($images) == 2 || count($images) == 4)
-                                            <div class="wrap-single-image step-image-2">
-                                            @elseif (count($images) >= 3)
-                                            <div class="wrap-single-image step-image-more">
-                                            @else
-                                            <div class="wrap-single-image">
+                                            @if ($step->image != null)
+                                                @foreach ($images as $image)
+                                                @if (count($images) == 2 || count($images) == 4)
+                                                <div class="wrap-single-image step-image-2">
+                                                @elseif (count($images) >= 3)
+                                                <div class="wrap-single-image step-image-more">
+                                                @else
+                                                <div class="wrap-single-image">
+                                                @endif
+                                                    @if ($image != "")
+                                                    <img src="{{ asset(config('manual.recipe_url') . $image) }}">
+                                                    @endif
+                                                </div>
+                                                @endforeach
                                             @endif
-                                                <img src="{{ asset('uploads/recipes/' . $image) }}">
-                                            </div>
-                                            @endforeach
                                         </div>
                                     </li>
                                     @endforeach
