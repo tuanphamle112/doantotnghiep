@@ -27,8 +27,8 @@ class DetailRecipeController extends Controller
         $categoryParents = $this->category->getAllParentCategories();
 
         foreach ($categoryParents as $categoryParent) {
-            $parent_id = $categoryParent->id;
-            $categoryChildren = $this->category->getChildrenCategories($parent_id);
+            $parentId = $categoryParent->id;
+            $categoryChildren = $this->category->getChildrenCategories($parentId);
 
             $categoryParent->children = $categoryChildren;
             $categories[] = $categoryParent;
@@ -40,7 +40,7 @@ class DetailRecipeController extends Controller
     public function index($name, $id)
     {
         $recipe = $this->recipe->findOrFail($id);
-        $cookingSteps = $recipe->cooking_step;
+        $cookingSteps = $recipe->cookingStep;
         $createdAtRecipe = $recipe->user->created_at->format('Y-m-d');
         $ingredientArray = explodeComma($recipe->ingredient->name);
        

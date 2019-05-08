@@ -26,9 +26,9 @@ class CategoryRepositoryEloquent extends BaseRepositoryEloquent implements Categ
         return $this->model->where('parent_id', null)->get();
     }
 
-    public function getChildrenCategories($parent_id)
+    public function getChildrenCategories($parentId)
     {
-        return $this->model->where('parent_id', $parent_id)->get();
+        return $this->model->where('parent_id', $parentId)->get();
     }
 
     public function getOptionParentCategories()

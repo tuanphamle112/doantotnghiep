@@ -26,7 +26,7 @@ trait RecipeRelation
         return $this->hasOne(Ingredient::class, 'recipe_id');
     }
 
-    public function cooking_step()
+    public function cookingStep()
     {
         return $this->hasMany(CookingStep::class, 'recipe_id');
     }

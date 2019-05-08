@@ -6,9 +6,9 @@ use App\Constracts\Eloquent\BaseRepository;
 
 interface RecipeRepository extends BaseRepository
 {
-    public function insertIngredient($data=[]);
+    public function insertIngredient($data = []);
 
-    public function insertCookingStep($data=[]);
+    public function insertCookingStep($data = []);
 
     public function updateStepImage($id, $i);
 

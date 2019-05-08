@@ -46,8 +46,8 @@ class HomeController extends Controller
         $featureMember = $this->user->getFeatureMember();
         
         foreach ($categoryParents as $categoryParent) {
-            $parent_id = $categoryParent->id;
-            $categoryChildren = $this->category->getChildrenCategories($parent_id);
+            $parentId = $categoryParent->id;
+            $categoryChildren = $this->category->getChildrenCategories($parentId);
 
             $categoryParent->children = $categoryChildren;
             $categories[] = $categoryParent;
