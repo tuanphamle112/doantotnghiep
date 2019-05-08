@@ -8,7 +8,7 @@ interface CategoryRepository extends BaseRepository
 {
     public function getParentCategoriesPaginate($paginate);
 
-    public function getChildrenCategories($parent_id);
+    public function getChildrenCategories($parentId);
 
     public function getOptionParentCategories();
 

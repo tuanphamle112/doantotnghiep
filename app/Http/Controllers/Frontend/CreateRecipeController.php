@@ -39,8 +39,8 @@ class CreateRecipeController extends Controller
         $categoryParents = $this->category->getAllParentCategories();
 
         foreach ($categoryParents as $categoryParent) {
-            $parent_id = $categoryParent->id;
-            $categoryChildren = $this->category->getChildrenCategories($parent_id);
+            $parentId = $categoryParent->id;
+            $categoryChildren = $this->category->getChildrenCategories($parentId);
 
             $categoryParent->children = $categoryChildren;
             $categories[] = $categoryParent;
@@ -64,9 +64,9 @@ class CreateRecipeController extends Controller
     {
         // upload file
         $mainImageName = '';
-        $ImageStorageFolder = 'recipe' . $request->recipe_number;
+        $imageStorageFolder = 'recipe' . $request->recipe_number;
         if (!is_null($request->main_image)) {
-            $mainImageName = $ImageStorageFolder . '/' . time() . $request->main_image->getClientOriginalName();
+            $mainImageName = $imageStorageFolder . '/' . time() . $request->main_image->getClientOriginalName();
 
             Helper::putImageToUploadsFolder($mainImageName, $request->main_image);
         };
@@ -80,7 +80,7 @@ class CreateRecipeController extends Controller
             'video_link' => $request->video,
             'level_id' => $request->level,
             'image' => $mainImageName,
-            'people_number' => $request->people_number
+            'people_number' => $request->people_number,
         ];
 
         $recipe = $this->recipe->create($recipes);

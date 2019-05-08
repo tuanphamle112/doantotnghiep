@@ -17,16 +17,18 @@ build:
       - yarn install # L
       - framgia-ci test-connect mysql_test 3306 60
       - php artisan migrate --database=mysql_test
+      - framgia-ci run --logs
 test:
-  phpcs:
-    ignore: false
-    command: echo '' | phpcs --standard=Framgia --report-checkstyle=.framgia-ci-reports/phpcs.xml app
   phpunit:
     ignore: false
     command:
       - php -dzend_extension=xdebug.so vendor/bin/phpunit
         --coverage-clover=.framgia-ci-reports/coverage-clover.xml
         --coverage-html=.framgia-ci-reports/coverage
+  phpcs:
+    ignore: false
+    command: echo '' | phpcs --standard=Framgia --report-checkstyle=.framgia-ci-reports/phpcs.xml app
+  
 cache:
   composer:
     folder: vendor
