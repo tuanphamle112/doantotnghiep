@@ -120,7 +120,7 @@
     border-radius: 12px;
     position: relative;
     margin-bottom: 15px;
-    border: .5px solid #ddd;
+    border: 1px solid #ddd;
     padding: 30px;
 }
 .step-box:hover {
@@ -145,7 +145,7 @@
 .step-box .step-direction textarea {
     color: #333;
     width: 100%;
-    border: .5px solid #ddd;
+    border: 1px solid #ddd;
     box-shadow: none;
     background: #f8f8f8;
     border-radius: 12px;
@@ -174,7 +174,7 @@ textarea.form-control {
     width: 14px;
 }
 .step-opt input[type=text] {
-    border: .5px solid #ddd;
+    border: 1px solid #ddd;
     width: 320px;
     outline: none;
     background: #fff;
@@ -193,7 +193,7 @@ textarea.form-control {
 }
 .attached-photos-container {
     position: relative;
-    border: .5px solid #ddd;
+    border: 1px solid #ddd;
     border-radius: 12px;
     padding: 15px 30px;
     display: none;
@@ -424,7 +424,7 @@ textarea.form-control {
     margin: auto;
     position: absolute;
     margin-top: -26px;
-    margin-left: 252px;
+    margin-left: 307px;
     border-radius: 20px;
     background-color: #ccccccab;
     display: none;

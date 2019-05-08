@@ -19,7 +19,7 @@
     <header class="head" role="banner">
         <!--wrap-->
         <div class="wrap clearfix">
-            <a href="#" class="logo"><img src="{{ asset(config('manual.default_media.logo')) }}" alt="{{ __('Tpl@ Cooking') }}"></a>
+            <a href="{{ route('home') }}" class="logo"><img src="{{ asset(config('manual.default_media.logo')) }}" alt="{{ __('Tpl@ Cooking') }}"></a>
             <!--primary navigation-->
             <nav id="nav" class="main-nav">
                 <ul id="menu-primary">
@@ -83,7 +83,7 @@
                         </a>
                         @endif
                     </li>
-                    <li class="dark"><a href="#" title="Submit a recipe"><i class="icon icon-themeenergy_fork-spoon"></i> <span>{{ __('Submit a recipe') }}</span></a></li>
+                    <li class="dark"><a href="{{ route('name-form') }}"><i class="icon icon-themeenergy_fork-spoon"></i> <span>{{ __('Submit a recipe') }}</span></a></li>
                 </ul>
             </nav>
         </div>
@@ -93,15 +93,9 @@
     <main class="main" role="main">
         @yield('content')
     </main>
+    @yield('contact')
     @section('footer')
-    <section class="cta">
-        <div class="wrap clearfix">
-            <a href="#"
-                class="button big white right">{{ __('Contact Us') }}</a>
-            <h2>{{ __('If you have any problems. Feel free to contact us. Tpl@ Cooking support 24/24') }}</h2>
-        </div>
-    </section>
-    <!--//call to action-->
+
     <!--footer-->
     <footer class="foot" role="contentinfo">
         <div class="wrap clearfix">
@@ -155,7 +149,6 @@
     @show
 
     @section('script')
-    <!-- jQuery 3 -->
     <script src="{{ asset('bower_components/jquery/dist/jquery.min.js') }} "></script>
     <!-- Bootstrap 3.3.7 -->
     <script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>

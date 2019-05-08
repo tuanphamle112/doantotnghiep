@@ -28,7 +28,7 @@ class RecipeRepositoryEloquent extends BaseRepositoryEloquent implements RecipeR
 
     public function updateStepImage($id, $i)
     {
-        return $this->findOrFail($id)->cooking_step()->where('step_number', $i)->update(['image' => '']);
+        return $this->findOrFail($id)->cooking_step()->where('step_number', $i)->update(['image' => null]);
     }
 
     public function updateIngredient($id, $data = [])

@@ -219,13 +219,13 @@ class RecipeController extends Controller
                     }
                 }
             }
-            $stepArray['image'] = $stepArrayImageName;
-
+            $stepArray['image'] = ltrim($stepArrayImageName, ',');
             if ($stepArray['clear'] == 'cleared') {
                 Helper::deleteDirectory($ImageStorageFolder . '/' . $stepFileName);
                 $this->recipe->updateStepImage($id, $i);
             }
             $stepArray['step_number'] = $i;
+
             array_push($stepInsert, $stepArray);
         }
         $recipes = [

@@ -7,8 +7,8 @@ return [
     ],
     'pagination' => [
         'default' => 2,
-        'user' => 2,
-        'recipe' => 2,
+        'user' => 3,
+        'recipe' => 5,
         'category' => 2,
     ],
     'recipe_status' => [
@@ -29,6 +29,7 @@ return [
             'man' => 'images/default1.jpeg',
             'women' => 'images/default2.png',
         ],
-        
+        'recipe' => 'images/37.jpg',
     ],
+    'recipe_url' => 'uploads/recipes/'
 ];

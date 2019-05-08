@@ -38,7 +38,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="selector"><span>{{ __('Select difficulty') }}</span>
+                        <div class="selector last-selector"><span>{{ __('Select difficulty') }}</span>
                             <select name="diff">
                                 <option value="0">{{ __('Select difficulty') }}</option>
                             </select>
@@ -151,8 +151,12 @@
                         </header>
                         <article class="entry">
                             <figure>
-                                <img src="{{ asset('uploads/recipes/' . $featureRecipe->image) }}"
-                                    alt="{{ $featureRecipe->name }}">
+                                @if ($featureRecipe->image != null)
+                                <img src="{{ asset(config('manual.recipe_url') . $featureRecipe->image) }}" alt="{{ $featureRecipe->name }}">
+                                @else
+                                <img src="{{ config('manual.default_media.recipe') }}" alt="{{ $featureRecipe->name }}">
+                                @endif
+                            
                                 <figcaption><a href="{{ url('/recipe/' . changeLink($featureRecipe->name) . '/' . $featureRecipe->id) }}"><i class="icon icon-themeenergy_eye2"></i>
                                         <span>{{ __('View recipe') }}</span></a>
                                 </figcaption>
@@ -226,7 +230,11 @@
                     @foreach ($allActiveRecipes as $activeRecipe)
                     <div class="entry one-third recipe-item">
                         <figure>
-                            <img src="{{ asset('uploads/recipes/' . $activeRecipe->image) }}">
+                            @if ($activeRecipe->image != null)
+                            <img src="{{ asset(config('manual.recipe_url') . $activeRecipe->image) }}">
+                            @else
+                            <img src="{{ config('manual.default_media.recipe') }}" alt="{{ $activeRecipe->name }}">
+                            @endif
                             <figcaption>
                                 <a href="{{ url('/recipe/' . changeLink($activeRecipe->name) . '/' . $activeRecipe->id) }}"><i class="icon icon-themeenergy_eye2"></i>
                                     <span>{{ __('View recipe') }}</span></a>
@@ -278,7 +286,7 @@
                     @foreach ($allActiveRecipes as $activeRecipe)
                     <div class="entry one-third post-item">
                         <figure>
-                            <img src="{{ asset('uploads/recipes/' . $activeRecipe->image) }}"
+                            <img src="{{ asset(config('manual.recipe_url') . $activeRecipe->image) }}"
                                 alt="{{ $activeRecipe->name }}">
                             <figcaption><a href="{{ url('/recipe/' . changeLink($activeRecipe->name) . '/' . $activeRecipe->id) }}"><i class="icon icon-themeenergy_eye2"></i>
                                     <span>{{ __('View post') }}</span></a>
@@ -313,8 +321,18 @@
     <!--//row-->
 </div>
 <!--//wrap-->
-@endsection
 
+@endsection
+@section('contact')
+<section class="cta">
+    <div class="wrap clearfix">
+        <a href="#"
+            class="button big white right">{{ __('Contact Us') }}</a>
+        <h2>{{ __('If you have any problems. Feel free to contact us. Tpl@ Cooking support 24/24') }}</h2>
+    </div>
+</section>
+<!--//call to action-->
+@endsection
 @section('script')
 
 @parent

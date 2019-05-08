@@ -120,7 +120,7 @@
                                     <label class="mainFileContainer">
                                         <i class="fa fa-camera"></i>
                                         <span>{{ __('Click to add a main picture') }}</span>
-                                        <img id="img-upload" alt="" src="{{ asset('uploads/recipes/' . $recipe->image) }}">
+                                        <img id="img-upload" alt="" src="{{ asset(config('manual.recipe_url') . $recipe->image) }}">
                                         <input type="file" id="imgInp" class="pro-image" name="main_image" class="form-control">
                                         <input type="hidden" name="main_image_old" value="{{ $recipe->image }}">
                                     </label>
@@ -352,19 +352,21 @@
                                                 </a>     
                                                 <input type="hidden" class="input-clear" name="{{ 'step' . $cookingStep->step_number . '[clear]' }}" value="">                 
                                                 <div class="preview-images-zone">
-                                                <?php
+                                                @php
                                                     if (!is_null($cookingStep->image)) {
-                                                        $stepImages = explode(",", ltrim($cookingStep->image, ','));
+                                                        $stepImages = explode(',', ltrim($cookingStep->image, ','));
                                                     }
-                                                ?>
+                                                @endphp
                                                 @if (!is_null($cookingStep->image))
                                                     @foreach ($stepImages as $stepImage)
+                                                    @if ($stepImage != '')
                                                     <div class="preview-image">
-                                                        <div class="image-zone"><img src="{{ asset('uploads/recipes/' . $stepImage) }}"></div>
+                                                        <div class="image-zone"><img src="{{ asset(config('manual.recipe_url') . $stepImage) }}"></div>
                                                     </div>
+                                                    @endif
                                                     @endforeach
                                                 @endif
-                                                <input type="hidden" class="image-num" name="{{ 'image_num' . $cookingStep->step_number }}" value="@if(!is_null($cookingStep->image)) {{ count($stepImages) }} @endif">
+                                                <input type="hidden" class="image-num" name="{{ 'image_num' . $cookingStep->step_number }}" value="@if (!is_null($cookingStep->image)) {{ count($stepImages) }} @endif">
 
                                                 </div>
                                             </div>

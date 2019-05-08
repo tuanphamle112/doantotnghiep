@@ -1,0 +1,20 @@
+
+.checkout-steps a {
+    color: #F4716A !important;
+}
+.active>a {
+    background-color: #f4716a !important;
+    color: white !important;
+}
+.row {
+    padding-bottom: 15px !important;
+}
+.checkout-steps li:before {
+    content:'' !important;
+}
+.center-input input {
+    margin-left: 38%;
+}
+.submit_recipe section {
+    padding: 0px;
+}
