@@ -3,8 +3,9 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <title>{{ __('Tpl@ Cooking') }} - @yield('title')</title>
     <link rel="stylesheet" href="{{ asset('bower_components/SocialChef/css/icons.css') }}" type="text/css" media="screen">
     <link rel="stylesheet"  href="{{ asset('bower_components/SocialChef/css/style.css') }}" type="text/css" media="screen,projection,print">
@@ -83,7 +84,7 @@
                         </a>
                         @endif
                     </li>
-                    <li class="dark"><a href="{{ route('name-form') }}"><i class="icon icon-themeenergy_fork-spoon"></i> <span>{{ __('Submit a recipe') }}</span></a></li>
+                    <li class="dark"><a href="{{ route('form.name') }}"><i class="icon icon-themeenergy_fork-spoon"></i> <span>{{ __('Submit a recipe') }}</span></a></li>
                 </ul>
             </nav>
         </div>

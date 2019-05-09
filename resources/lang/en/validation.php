@@ -144,6 +144,7 @@ return [
     'ingredient_character' => 'Ingredient field must not contain special character',
     'ingredient_quantity' => 'Please fill the quantity',
     'ingredient_name' => "Please fill the ingredient's name",
+    'ingredient_unit' => "Please fill the ingredient's unit",
     'attributes' => [],
 
 ];

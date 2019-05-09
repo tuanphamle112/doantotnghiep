@@ -10,6 +10,7 @@ use App\Constracts\Eloquent\RecipeRepository;
 use App\Constracts\Eloquent\UserRepository;
 use App\Constracts\Eloquent\LevelRepository;
 use App\Http\Requests\CreateRecipeFirstRequest;
+use App\Http\Requests\CookingStepRequest;
 
 use App\Helpers\Helper;
 use Auth;
@@ -49,7 +50,7 @@ class CreateRecipeController extends Controller
         return $categories;
     }
 
-    public function showFirstForm()
+    public function showName()
     {
         $categories = $this->getCategoriesForNav();
         $levels = $this->level->all();
@@ -60,14 +61,13 @@ class CreateRecipeController extends Controller
         ));
     }
 
-    public function createFirstForm(CreateRecipeFirstRequest $request)
+    public function createName(CreateRecipeFirstRequest $request)
     {
         // upload file
         $mainImageName = '';
         $imageStorageFolder = 'recipe' . $request->recipe_number;
         if (!is_null($request->main_image)) {
             $mainImageName = $imageStorageFolder . '/' . time() . $request->main_image->getClientOriginalName();
-
             Helper::putImageToUploadsFolder($mainImageName, $request->main_image);
         };
 
@@ -85,10 +85,121 @@ class CreateRecipeController extends Controller
 
         $recipe = $this->recipe->create($recipes);
 
-        return redirect()->route('recipe.second', ['id' => $recipe->id]);
+        return redirect()->route('form.ingredient', ['id' => $recipe->id]);
     }
 
-    public function createSecondForm(Request $request, $id)
+    public function createIngredient(Request $request, $id)
     {
+        $categories = $this->getCategoriesForNav();
+
+        return view('frontend.create-recipe.ingredient-form', compact(
+            'id',
+            'categories'
+        ));
+    }
+
+    public function submitIngredient(Request $request, $id)
+    {
+        $recipe = $this->recipe->findOrFail($id);
+
+        $ingredients= [
+            'name' => $request->ingredients,
+        ];
+
+        $recipe->ingredient()->create($ingredients);
+        return redirect()->route('form.step', [
+            'id' => $recipe->id,
+            'stepId' => 1,
+        ]);
+    }
+
+    public function createCookingStep(Request $request, $id, $stepId)
+    {
+        $categories = $this->getCategoriesForNav();
+        $recipe = $this->recipe->findOrFail($id);
+
+        return view('frontend.create-recipe.cooking-step', compact(
+            'id',
+            'stepId',
+            'categories',
+            'recipe'
+        ));
+    }
+
+    public function submitCookingStep(CookingStepRequest $request, $id, $stepId)
+    {
+        $recipe = $this->recipe->findOrFail($id);
+        $thisStep = $this->recipe->findCookingStep($id, $stepId);
+        switch ($request->submit_step) {
+            case 'next_step':
+                $nextStep = $stepId + 1;
+                $dataStepInfo = [
+                    'step_number' => $request->step_number,
+                    'name' => $request->name,
+                    'time' => $request->time,
+                    'note' => $request->note,
+                    'content' => $request->content,
+                ];
+                if (isset($thisStep)) {
+                    $this->recipe->updateCookingStep($id, $stepId, $dataStepInfo);
+                } else {
+                    $recipe->cookingStep()->create($dataStepInfo);
+                }
+
+                return redirect()->route('form.step', [
+                    $id,
+                    $nextStep,
+                ]);
+            break;
+        
+            case 'next_form':
+                $dataStepInfo = [
+                    'step_number' => $request->step_number,
+                    'name' => $request->name,
+                    'time' => $request->time,
+                    'note' => $request->note,
+                    'content' => $request->content,
+                ];
+                if (isset($thisStep)) {
+                    $this->recipe->updateCookingStep($id, $stepId, $dataStepInfo);
+                } else {
+                    $recipe->cookingStep()->create($dataStepInfo);
+                }
+                
+                return redirect()->route('form.categories', [
+                    $id,
+                ]);
+            break;
+        }
+    }
+
+    public function uploadStepImage(Request $request)
+    {
+        $imageStorageFolder = 'recipe' . $request->recipe_number;
+        $stepFileName = 'step_files' . $request->step_number;
+        $stepArrayImageName = '';
+        $recipe = $this->recipe->findOrFail($request->id);
+        foreach ($request->step_file as $file) {
+            $getFileOriginalName = time() . $file->getClientOriginalName();
+            $stepImageName = $imageStorageFolder . '/' . $stepFileName . '/' . $getFileOriginalName;
+            Helper::putImageToUploadsFolder($stepImageName, $file);
+            
+            $stepArrayImageName = $stepArrayImageName . ',' . $stepImageName;
+        }
+        $stepImage = ltrim($stepArrayImageName, ',');
+
+        $dataStep = [
+            'step_number' => $request->step_number,
+            'image' => $stepImage,
+        ];
+        $success = 'success';
+        $recipe->cookingStep()->create($dataStep);
+
+        return response()->json(['success' => json_decode($success)]);
+    }
+
+    public function createCategories($id)
+    {
+        return 'ok';
     }
 }

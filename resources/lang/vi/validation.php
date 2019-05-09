@@ -21,5 +21,6 @@ return [
     'recipe_description' => "Vui lòng điền miêu tả công thức",
     'ingredient_character' => 'Trường nguyên liệu không được chứa kí tự đặc biệt',
     'ingredient_quantity' => 'Vui lòng điền số lượng',
+    'ingredient_unit' => 'Vui lòng điền đơn vị',
     'ingredient_name' => "Vui lòng điền tên nguyên liệu",
 ];
