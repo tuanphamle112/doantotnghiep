@@ -17,18 +17,28 @@ Route::group(['middleware' => 'locale'], function () {
     Auth::routes();
     Route::get('/', 'HomeController@index')->name('home');
     // admin route
-    Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
-        Route::resource('users', 'Admin\UserController');
-        Route::resource('recipes', 'Admin\RecipeController');
-        Route::resource('categories', 'Admin\CategoryController');
-        Route::get('category/{id}/create', 'Admin\CategoryController@subCreate')->name('category.subCreate');
+    Route::group(['middleware' => 'admin', 'prefix' => 'admin', 'namespace' => 'Admin'], function () {
+        Route::resource('users', 'UserController');
+        Route::resource('recipes', 'RecipeController');
+        Route::resource('categories', 'CategoryController');
+        Route::get('category/{id}/create', 'CategoryController@subCreate')->name('category.subCreate');
     });
     //user route
     Route::group(['middleware' => 'isLogin'], function () {
-        Route::group(['prefix' => 'create-recipe'], function () {
-            Route::get('recipe-info', 'Frontend\CreateRecipeController@showFirstForm')->name('name-form');
-            Route::post('submit-recipe-info', 'Frontend\CreateRecipeController@createFirstForm')->name('recipe.first');
-            Route::get('ingredient/{id}', 'Frontend\CreateRecipeController@createSecondForm')->name('recipe.second');
+        Route::group(['prefix' => 'create-recipe', 'namespace' => 'Frontend'], function () {
+            Route::get('recipe-info', 'CreateRecipeController@showName')->name('form.name');
+            Route::post('submit-recipe-info', 'CreateRecipeController@createName')->name('recipe.name');
+            
+            Route::get('ingredient/{id}', 'CreateRecipeController@createIngredient')->name('form.ingredient');
+            Route::post('ingredient/{id}', 'CreateRecipeController@submitIngredient')->name('recipe.ingredient');
+
+            Route::get('step/{id}/step-{stepId}', 'CreateRecipeController@createCookingStep')->name('form.step');
+            Route::post('step/{id}/step-{stepId}', 'CreateRecipeController@submitCookingStep')->name('recipe.step');
+            
+            Route::post('/upload-step-image', 'CreateRecipeController@uploadStepImage');
+
+            Route::get('categories/{id}', 'CreateRecipeController@createCategories')->name('form.categories');
+            Route::post('categories/{id}', 'CreateRecipeController@submitCategories')->name('recipe.categories');
         });
     });
 

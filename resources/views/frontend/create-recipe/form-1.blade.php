@@ -38,9 +38,9 @@
                         </ul>
                     </div>
                 @endif
-                <form action="{{ route('recipe.first') }}" enctype="multipart/form-data" class="wrap-create-form" method="post">
+                <form action="{{ route('recipe.name') }}" enctype="multipart/form-data" class="wrap-create-form" method="post">
                     {{ csrf_field() }}
-                    <div class="form-group wrap-main-image">
+                    <div class="wrap-main-image">
                         <div class="input-group">
                             <label class="mainFileContainer">
                                 <i class="fa fa-camera"></i>
@@ -82,7 +82,7 @@
                         </div>
                     </div>
                     <div class="f-row full center-input">
-                        <input type="submit" value="{{ __('Next Step') }}" name="submitRecipe" id="submit_recipe" class="button">
+                        <input type="submit" value="{{ __('Next') }}" name="submitRecipe" id="submit_recipe" class="button">
                     </div>
                 </form>
             </div>

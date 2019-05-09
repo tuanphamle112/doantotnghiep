@@ -46,6 +46,22 @@ class RecipeRepositoryEloquent extends BaseRepositoryEloquent implements RecipeR
         return $this->findOrFail($id)->cookingStep()->createMany($data);
     }
 
+    public function findCookingStep($id, $stepId)
+    {
+        return $this->findOrFail($id)
+        ->cookingStep()
+        ->where('step_number', $stepId)
+        ->first();
+    }
+
+    public function updateCookingStep($id, $stepId, $data = [])
+    {
+        return $this->findOrFail($id)
+        ->cookingStep()
+        ->where('step_number', $stepId)
+        ->update($data);
+    }
+
     public function getAllActiveRecipe($with = [], $select = ['*'])
     {
         $recipes = $this->model

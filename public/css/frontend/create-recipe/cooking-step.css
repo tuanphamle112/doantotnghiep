@@ -1,0 +1,81 @@
+.wrap-step-box {
+    margin-top: 25px;
+    margin-bottom: 50px !important;
+    width: 80%;
+    margin:auto;
+    border: 1px solid #ccc;
+    padding: 25px;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #cccccc2e;
+}
+.wrap-step-box .form-group {
+    margin-top: 10px;
+}
+.step-name {
+    float: left;
+    width: 48%;
+}
+.step-time {
+    float: right;
+    width: 48%;
+}
+.step-button .step-nav {
+    width: 200px;
+    text-align: center;
+    max-width: 100%;
+    border: 2px solid black;
+}
+.step-button .back-step {
+    float: left;
+}
+.step-button .next-step {
+    float: right;
+}
+.step-button .button {
+    width: 150px !important;
+    background-color: #fff !important;
+    color: #F4716A !important;
+    border: 2px solid #F4716A !important;
+}
+.wrap-create-form {
+    padding-top: 25px;
+}
+.step-banner {
+    padding: 15px;
+    text-align: center;
+    background-color: #F4716A;
+    font-size: 23px;
+    text-transform: uppercase;
+    color: #fff;
+    font-weight: bold;
+}
+.filling-error {
+    background: #FBEFEF;
+    padding: 5px;
+    margin: 3px 0;
+    font-size: 14px;
+    border: 1px dashed #F3D0D0;
+    width: calc(100% - 2px);
+    color: #c70808;
+}
+.filling-error li:before {
+    content: '' !important;
+}
+.file-footer-buttons button {
+    width: initial !important;
+}
+.fileinput-remove {
+    display: none;
+}
+.wrap-file-input {
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+.file-drop-zone {
+    background-color: #fff;
+}
+.input-group-append button {
+    width: initial;
+    background-color: initial;
+}

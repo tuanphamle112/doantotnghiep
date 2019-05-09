@@ -28,7 +28,6 @@ test:
   phpcs:
     ignore: false
     command: echo '' | phpcs --standard=Framgia --report-checkstyle=.framgia-ci-reports/phpcs.xml app
-  
 cache:
   composer:
     folder: vendor
