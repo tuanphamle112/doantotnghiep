@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="{{ asset('bower_components/SocialChef/css/theme-default.css') }}" type="text/css" media="screen,projection,print">
     <link rel="stylesheet" href="{{ asset('bower_components/font-awesome/css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/frontend/custom.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('bower_components/toastr/toastr.min.css') }}">
     @yield('custom_css')
 </head>
 
@@ -146,6 +148,8 @@
         </div>
         <!--//wrap-->
     </footer>
+    <input type="hidden" class="toastr-session"
+            data-session="{{ Session::has('message') . ',' . Session::get('alert-type', 'info') . ',' . Session::get('message') }}">
     <!--//footer-->
     @show
 
@@ -153,6 +157,7 @@
     <script src="{{ asset('bower_components/jquery/dist/jquery.min.js') }} "></script>
     <!-- Bootstrap 3.3.7 -->
     <script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/frontend/master.js') }}"></script>
     <script src="{{ asset('bower_components/toastr/toastr.js') }}"></script>
     @show
 </body>
