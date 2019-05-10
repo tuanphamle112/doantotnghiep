@@ -200,6 +200,31 @@ class CreateRecipeController extends Controller
 
     public function createCategories($id)
     {
-        return 'ok';
+        $categories = $this->getCategoriesForNav();
+        $allCategories = $this->category->all();
+
+        return view('frontend.create-recipe.categories', compact(
+            'id',
+            'categories',
+            'allCategories'
+        ));
+    }
+
+    public function submitCategories(Request $request, $id)
+    {
+        $recipe = $this->recipe->findOrFail($id);
+
+        if ($request->categories == null) {
+            return redirect()->back()->withErrors([__('Please take at least one category')]);
+        }
+
+        $recipe->categories()->sync($request->categories);
+
+        $notification = [
+            'message' => __('Create recipe successfully! Your Recipe Are Being Check By Admin'),
+            'alert-type' => 'success',
+        ];
+
+        return redirect()->route('home')->with($notification);
     }
 }
