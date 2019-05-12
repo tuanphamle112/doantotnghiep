@@ -84,4 +84,15 @@ class RecipeRepositoryEloquent extends BaseRepositoryEloquent implements RecipeR
 
         return $recipe;
     }
+
+    public function getAllRecipeOfOneUser($paginate, $userId, $with = [], $select = ['*'])
+    {
+        $recipes = $this->model
+        ->with($with)
+        ->where('user_id', $userId)
+        ->orderBy('id', 'DESC')
+        ->paginate($paginate);
+
+        return $recipes;
+    }
 }

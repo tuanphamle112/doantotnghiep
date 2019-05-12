@@ -1,6 +1,6 @@
 @extends('frontend.layouts.master')
 
-@section('title', __('Detail recipe'))
+@section('title', __('Create recipe'))
 
 @section('custom_css')
 <link rel="stylesheet" href="{{ asset('css/frontend/create-recipe/general.css') }}">

@@ -77,7 +77,7 @@
                                 class="icon icon-themeenergy_search"></i> <span>{{ __('Look for recipes') }}</span></a></li>
                     <li class="medium my-account">
                         @if (Auth::check())
-                        <a href="#" title="My account"><i class="icon icon-themeenergy_chef-hat"></i>
+                        <a href="{{ route('my-recipe.index') }}" title="My account"><i class="icon icon-themeenergy_chef-hat"></i>
                             <span>{{ __('Manage my recipes') }}</span>
                         </a>
                         @else
