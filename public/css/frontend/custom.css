@@ -30,3 +30,6 @@
 form .last-selector {
     margin-bottom: 20px;
 }
+.post-item h2 {
+    min-height: 65px;
+}

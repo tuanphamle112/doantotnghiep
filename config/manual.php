@@ -10,6 +10,7 @@ return [
         'user' => 3,
         'recipe' => 5,
         'category' => 2,
+        'recipe_home' => 12,
     ],
     'recipe_status' => [
         'Pending' => 0,
@@ -31,5 +32,5 @@ return [
         ],
         'recipe' => 'images/37.jpg',
     ],
-    'recipe_url' => 'uploads/recipes/'
+    'recipe_url' => 'uploads/recipes/',
 ];

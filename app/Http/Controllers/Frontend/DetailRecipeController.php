@@ -46,7 +46,7 @@ class DetailRecipeController extends Controller
        
         $categories = $this->getCategoriesForNav();
 
-        return view('frontend.detail-recipe', compact(
+        return view('frontend.recipes.detail-recipe', compact(
             'categories',
             'recipe',
             'createdAtRecipe',

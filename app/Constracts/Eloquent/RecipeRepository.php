@@ -21,4 +21,6 @@ interface RecipeRepository extends BaseRepository
     public function getAllActiveRecipe($with = [], $select = ['*']);
 
     public function getOneFeatureRecipe($with = [], $select = ['*']);
+
+    public function getAllRecipeOfOneUser($paginate, $userId, $with = [], $select = ['*']);
 }

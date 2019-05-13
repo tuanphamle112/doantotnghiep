@@ -55,7 +55,7 @@ class CreateRecipeController extends Controller
         $categories = $this->getCategoriesForNav();
         $levels = $this->level->all();
 
-        return view('frontend.create-recipe.form-1', compact(
+        return view('frontend.recipes.create-recipe.form-1', compact(
             'categories',
             'levels'
         ));
@@ -92,7 +92,7 @@ class CreateRecipeController extends Controller
     {
         $categories = $this->getCategoriesForNav();
 
-        return view('frontend.create-recipe.ingredient-form', compact(
+        return view('frontend.recipes.create-recipe.ingredient-form', compact(
             'id',
             'categories'
         ));
@@ -118,7 +118,7 @@ class CreateRecipeController extends Controller
         $categories = $this->getCategoriesForNav();
         $recipe = $this->recipe->findOrFail($id);
 
-        return view('frontend.create-recipe.cooking-step', compact(
+        return view('frontend.recipes.create-recipe.cooking-step', compact(
             'id',
             'stepId',
             'categories',
@@ -203,7 +203,7 @@ class CreateRecipeController extends Controller
         $categories = $this->getCategoriesForNav();
         $allCategories = $this->category->all();
 
-        return view('frontend.create-recipe.categories', compact(
+        return view('frontend.recipes.create-recipe.categories', compact(
             'id',
             'categories',
             'allCategories'

@@ -1,6 +1,6 @@
 @extends('frontend.layouts.master')
 
-@section('title', __('Detail recipe'))
+@section('title', __('Create recipe'))
 
 @section('custom_css')
 <link rel="stylesheet" href="{{ asset('css/frontend/create-recipe/general.css') }}">
@@ -37,7 +37,7 @@
 
                     <div class="wrap-step-box form-group">
                         <div class="step-banner">
-                            <span>Step {{ $stepId }}</span>
+                            <span>{{ __('Step') }} {{ $stepId }}</span>
                         </div>
                         <div class="wrap-step-content form-group">
                             <div class="form-group recipe-description">

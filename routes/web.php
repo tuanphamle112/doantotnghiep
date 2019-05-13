@@ -24,8 +24,8 @@ Route::group(['middleware' => 'locale'], function () {
         Route::get('category/{id}/create', 'CategoryController@subCreate')->name('category.subCreate');
     });
     //user route
-    Route::group(['middleware' => 'isLogin'], function () {
-        Route::group(['prefix' => 'create-recipe', 'namespace' => 'Frontend'], function () {
+    Route::group(['middleware' => 'isLogin', 'namespace' => 'Frontend'], function () {
+        Route::group(['prefix' => 'create-recipe'], function () {
             Route::get('recipe-info', 'CreateRecipeController@showName')->name('form.name');
             Route::post('submit-recipe-info', 'CreateRecipeController@createName')->name('recipe.name');
             
@@ -40,6 +40,7 @@ Route::group(['middleware' => 'locale'], function () {
             Route::get('categories/{id}', 'CreateRecipeController@createCategories')->name('form.categories');
             Route::post('categories/{id}', 'CreateRecipeController@submitCategories')->name('recipe.categories');
         });
+        Route::resource('my-recipe', 'MyRecipeController');
     });
 
     Route::get('/recipe/{recipeName}/{id}', 'Frontend\DetailRecipeController@index')->name('detail-recipe');
