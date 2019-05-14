@@ -13,4 +13,12 @@ interface CategoryRepository extends BaseRepository
     public function getOptionParentCategories();
 
     public function getAllParentCategories();
+
+    public function getParentCategoryByLink($link);
+
+    public function getSubCategoryByParentId($parentId);
+
+    public function getSubCaregoryByLink($link, $parentId);
+
+    public function getAllRecipeIdByCategory($listCateId);
 }

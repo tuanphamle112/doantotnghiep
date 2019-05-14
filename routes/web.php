@@ -58,6 +58,10 @@ Route::group(['middleware' => 'locale'], function () {
             Route::post('categories/{id}', 'MyRecipeController@submitUpdateCategories')->name('update-recipe.categories');
         });
     });
+    Route::get('/recipes', 'Frontend\RecipeController@index')->name('list-recipe.index');
+    // Route::get('{categoryId}', 'Frontend\RecipeController@getRecipeByCategory')->name('recipes.category');
+    Route::get('/{parent}', 'Frontend\RecipeController@showParentCategories')->name('nav');
+    Route::get('/{parentLink}/{subLink}', 'Frontend\MedicinesListController@showSubCategory')->name('sub_Nav');
 
     Route::get('/recipe/{recipeName}/{id}', 'Frontend\DetailRecipeController@index')->name('detail-recipe');
     Route::get('change-language/{language}', 'HomeController@changeLanguage')->name('change-language');

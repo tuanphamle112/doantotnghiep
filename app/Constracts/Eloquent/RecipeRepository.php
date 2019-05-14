@@ -29,4 +29,6 @@ interface RecipeRepository extends BaseRepository
     public function getOldImage($id, $stepNumber);
 
     public function getLastStepId($id);
+
+    public function getRecipeByCategory($paginate, $categoryId);
 }
