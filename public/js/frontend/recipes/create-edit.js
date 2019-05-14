@@ -27,7 +27,7 @@ $(document).ready(function() {
         $('.ingredient-quantity').focus();
     });
     // file input
-    $("#input-701").fileinput({
+    $('#input-701').fileinput({
         uploadUrl: "/create-recipe/upload-step-image",
         uploadAsync: false,
         autoReplace: true,
@@ -47,7 +47,70 @@ $(document).ready(function() {
             headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } 
         },
     });
+    
+    function getDeleteConfig() 
+    {
+        var previewConfig = [];
+        var data = [];
+        if ($('.step-image').val().trim() != '') {
+            var imageString = $('.step-image').val();
+            var images = imageString.split(',');
+            for (var i = 0;i < images.length; i ++) {
+                var configObject = {
+                    url: '/update-recipe/delete-step-image',
+                    extra: {
+                        imageName: images[i],
+                        imageString: imageString,
+                        recipeId: $('input[name="recipe_id"]').val(),
+                        stepId: $('input[name="step_number"]').val(),
+                        '_token': $('meta[name="csrf-token"]').attr('content')
+                    }
+                }
+                previewConfig.push(configObject);
+                images[i] = '/uploads/recipes/' + images[i];
+            }
+        }
+        data.push(previewConfig);
+        data.push(images);
 
+        return data;
+    }
+
+    var deleteConfig = getDeleteConfig();
+    var fileInputOption = {
+        uploadUrl: '/update-recipe/upload-step-image',
+        uploadAsync: false,
+        overwriteInitial: false,
+        initialPreview: deleteConfig[1],
+        initialPreviewConfig: deleteConfig[0],
+        maxFileCount: 6,
+        removeIcon: '<i class="fa fa-trash-o"></i> ',
+        allowedFileExtensions: ["jpg", "png", "jpeg"],
+        initialPreviewAsData: true,
+        initialPreviewFileType: 'image',
+        autoOrientImage: false,
+        showBrowse: false,
+        browseOnZoneClick: true,
+        uploadExtraData: function () {
+            return {
+                recipe_number: $("input[name='recipe_number']").val(),
+                step_number: $("input[name='step_number']").val(),
+                id: $("input[name='recipe_id']").val()
+            }
+        },
+        ajaxSettings: { 
+            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } 
+        },
+    }
+
+    //upload file input
+    $('#input-702').fileinput(fileInputOption);
+
+    $('body').on('filedeleted', '#input-702', function (event, key, XMLRequest, data) { 
+        var image_cutted = XMLRequest.responseJSON.imageCutted; 
+        $('.step-image').val(image_cutted);
+        deleteConfig = getDeleteConfig();
+    });
     // read url main image
     function readURL(input) {
         if (input.files && input.files[0]) {

@@ -107,6 +107,7 @@ class CreateRecipeController extends Controller
         ];
 
         $recipe->ingredient()->create($ingredients);
+        
         return redirect()->route('form.step', [
             'id' => $recipe->id,
             'stepId' => 1,
@@ -150,7 +151,7 @@ class CreateRecipeController extends Controller
                     $id,
                     $nextStep,
                 ]);
-            break;
+                break;
         
             case 'next_form':
                 $dataStepInfo = [
@@ -165,11 +166,16 @@ class CreateRecipeController extends Controller
                 } else {
                     $recipe->cookingStep()->create($dataStepInfo);
                 }
-                
-                return redirect()->route('form.categories', [
-                    $id,
-                ]);
-            break;
+                if (count($recipe->categories) > 0) {
+                    return redirect()->route('form-update.categories', [
+                        $id,
+                    ]);
+                } else {
+                    return redirect()->route('form.categories', [
+                        $id,
+                    ]);
+                }
+                break;
         }
     }
 
@@ -202,11 +208,13 @@ class CreateRecipeController extends Controller
     {
         $categories = $this->getCategoriesForNav();
         $allCategories = $this->category->all();
+        $lastStepId = $this->recipe->getLastStepId($id);
 
         return view('frontend.recipes.create-recipe.categories', compact(
             'id',
             'categories',
-            'allCategories'
+            'allCategories',
+            'lastStepId'
         ));
     }
 

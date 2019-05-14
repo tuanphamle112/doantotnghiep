@@ -41,19 +41,9 @@
                         </h2>
                         <div class="actions">
                             <div>
-                                @if ($recipe->level->name == "Easy")
-                                <div class="difficulty"><i class="ico i-easy"></i>
-                                    {{ $recipe->level->name }}
+                                <div class="difficulty">
+                                    <a href="{{ route('my-recipe.edit', $recipe->id) }}">{{ __('Update Recipe')}}</a>
                                 </div>
-                                @elseif ($recipe->level->name == "Normal")
-                                <div class="difficulty"><i class="ico i-moderate"></i>
-                                    {{ $recipe->level->name }}
-                                </div>
-                                @else
-                                <div class="difficulty"><i class="ico i-hard"></i>
-                                    {{ $recipe->level->name }}
-                                </div>
-                                @endif
                                 @if ($recipe->status == config('manual.recipe_status.Pendding'))
                                 <td><span class="label label-warning">{{ __('Pendding') }}</span></td>
                                 @elseif ($recipe->status == config('manual.recipe_status.Actived'))

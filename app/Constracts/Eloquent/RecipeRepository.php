@@ -23,4 +23,10 @@ interface RecipeRepository extends BaseRepository
     public function getOneFeatureRecipe($with = [], $select = ['*']);
 
     public function getAllRecipeOfOneUser($paginate, $userId, $with = [], $select = ['*']);
+    
+    public function getRecipeStepInfo($id, $stepNumber);
+
+    public function getOldImage($id, $stepNumber);
+
+    public function getLastStepId($id);
 }

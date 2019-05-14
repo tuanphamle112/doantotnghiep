@@ -28,7 +28,18 @@ class RecipeRepositoryEloquent extends BaseRepositoryEloquent implements RecipeR
 
     public function updateStepImage($id, $i)
     {
-        return $this->findOrFail($id)->cookingStep()->where('step_number', $i)->update(['image' => null]);
+        return $this->findOrFail($id)
+        ->cookingStep()
+        ->where('step_number', $i)
+        ->update(['image' => null]);
+    }
+
+    public function updateStepImageWithData($id, $i, $dataString = '')
+    {
+        return $this->findOrFail($id)
+        ->cookingStep()
+        ->where('step_number', $i)
+        ->update(['image' => $dataString]);
     }
 
     public function updateIngredient($id, $data = [])
@@ -94,5 +105,35 @@ class RecipeRepositoryEloquent extends BaseRepositoryEloquent implements RecipeR
         ->paginate($paginate);
 
         return $recipes;
+    }
+
+    public function getRecipeStepInfo($id, $stepNumber)
+    {
+        $recipe = $this->model->findOrFail($id);
+        $step = $recipe->cookingStep()
+        ->where('step_number', $stepNumber)
+        ->first();
+
+        return $step;
+    }
+
+    public function getOldImage($id, $stepNumber)
+    {
+        $recipe = $this->model->findOrFail($id);
+        $step = $recipe->cookingStep()
+        ->where('step_number', $stepNumber)
+        ->first();
+
+        return $step->image;
+    }
+
+    public function getLastStepId($id)
+    {
+        $recipe = $this->model->findOrFail($id);
+        $stepId = $recipe->cookingStep()
+        ->orderBy('step_number', 'DESC')
+        ->first();
+
+        return $stepId->step_number;
     }
 }

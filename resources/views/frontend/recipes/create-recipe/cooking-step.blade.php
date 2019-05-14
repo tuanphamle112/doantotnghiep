@@ -76,13 +76,15 @@
                         <input type="hidden" name="step_number" value="{{ $stepId }}">
                         <input type="hidden" name="recipe_id" value="{{ $recipe->id }}">
                         <div class="step-button">
-                            <a href="#" class="button back-step">{{ __('Back Step') }}</a>
+                            @if ($stepId > 1)
+                            <a href="{{ route('form-update.step', [$recipe->id, $stepId-1]) }}" class="button back-step">{{ __('Back Step') }}</a>
+                            @endif
                             <button type="submit" name="submit_step" value="next_step" class="button next-step">{{ __('Next Step') }}</button>
                         </div>
                     </div>
                     
                     <div class="f-row full">
-                        <a href="#" class="button back-form-1">{{ __('Back') }}</a>
+                        <a href="{{ route('form-update.ingredient', $id) }}" class="button back-form-1">{{ __('Back') }}</a>
                         <button type="submit" name="submit_step" value="next_form" class="button next-form">{{ __('Next') }}</button>
                     </div>
                 </form>
