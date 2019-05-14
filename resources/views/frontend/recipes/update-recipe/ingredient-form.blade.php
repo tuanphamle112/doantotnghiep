@@ -38,7 +38,7 @@
                         </ul>
                     </div>
                 @endif
-                <form action="{{ route('recipe.ingredient', $id) }}" class="wrap-create-form" method="post">
+                <form action="{{ route('update-recipe.ingredient', $id) }}" class="wrap-create-form" method="post">
                     {{ csrf_field() }}
                     <div class="wrap-ingredient">
                         <div class="form-group ingredient-small">
@@ -58,11 +58,17 @@
                         </div>
                         <div class="filling-error ingredient-error"></div>
                         <div class="ingredient-container">
-                            <!-- append ingredient item here -->
+                            @foreach ($ingredients as $name)
+                            <div class="ingredient-item" data-ingre="{{ $name }}">
+                                <i class='fa fa-check-circle'></i>
+                                    <span><b>{{ $name }}</b></span>
+                                <i class='fa fa-times-circle close-ingredient' onclick='removeIngredientDiv(this)'></i>
+                            </div>
+                            @endforeach
                         </div>
                         <br class="clearBoth" />
                     </div>
-                    <input type="hidden" class="ingredients" name="ingredients">
+                    <input type="hidden" class="ingredients" name="ingredients" value="{{ $ingredientsString }}">
                     <div class="f-row full">
                         <a href="{{ route('my-recipe.edit', $id) }}" class="button back-form-1">{{ __('Back') }}</a>
                         <input type="submit" value="{{ __('Next') }}" class="button next-form">

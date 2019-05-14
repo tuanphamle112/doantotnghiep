@@ -41,6 +41,22 @@ Route::group(['middleware' => 'locale'], function () {
             Route::post('categories/{id}', 'CreateRecipeController@submitCategories')->name('recipe.categories');
         });
         Route::resource('my-recipe', 'MyRecipeController');
+        Route::group(['prefix' => 'update-recipe'], function () {
+            Route::post('submit-recipe-info/{id}', 'MyRecipeController@updateRecipeInfo')->name('update-recipe.info');
+
+            Route::get('ingredient/{id}', 'MyRecipeController@updateIngredient')->name('form-update.ingredient');
+            Route::post('ingredient/{id}', 'MyRecipeController@submitIngredient')->name('update-recipe.ingredient');
+
+            Route::get('step/{id}/step-{stepId}', 'MyRecipeController@updateCookingStep')->name('form-update.step');
+            Route::post('step/{id}/step-{stepId}', 'MyRecipeController@submitUpdateCookingStep')->name('update-recipe.step');
+
+            Route::post('/upload-step-image', 'MyRecipeController@uploadStepImage');
+
+            Route::post('/delete-step-image', 'MyRecipeController@deleteStepImage');
+
+            Route::get('categories/{id}', 'MyRecipeController@updateCategories')->name('form-update.categories');
+            Route::post('categories/{id}', 'MyRecipeController@submitUpdateCategories')->name('update-recipe.categories');
+        });
     });
 
     Route::get('/recipe/{recipeName}/{id}', 'Frontend\DetailRecipeController@index')->name('detail-recipe');

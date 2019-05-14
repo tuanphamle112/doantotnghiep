@@ -38,7 +38,7 @@
                         </ul>
                     </div>
                 @endif
-                <form action="{{ route('recipe.categories', $id) }}" class="wrap-create-form" method="post">
+                <form action="{{ route('update-recipe.categories', $id) }}" class="wrap-create-form" method="post">
                     {{ csrf_field() }}
                     <div class="wrap-categories">
                         <div class="form-group search-categories">
@@ -48,17 +48,22 @@
                         <div class="categories-list">
                             @foreach ($allCategories as $category)
                             <label class="checkbox-item">
-                                <input type="checkbox" name="categories[]" value="{{ $category->id }}"/>
+                                <input type="checkbox" name="categories[]" value="{{ $category->id }}"
+                                @foreach ($recipeCategory as $cate)
+                                    @if ($cate->id == $category->id) checked @endif
+                                @endforeach
+                                />
                                 <span class="label-text">{{ $category->name }}</span>
                             </label>
                             @endforeach
                         </div>
                     </div>
                     <div class="f-row full">
-                        <a href="{{ route('form-update.step', [$id, $lastStepId-1]) }}" class="button back-form-1">{{ __('Back Step') }}</a>
+                        <a href="{{ route('form-update.step', [$id, $lastStepId]) }}" class="button back-form-1">{{ __('Back Step') }}</a>
                         <input type="submit" value="{{ __('Finish') }}" class="button next-form">
                     </div>
                 </form>
+
             </div>
         </section>
 
