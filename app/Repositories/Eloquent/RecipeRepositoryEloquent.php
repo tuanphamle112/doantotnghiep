@@ -136,4 +136,11 @@ class RecipeRepositoryEloquent extends BaseRepositoryEloquent implements RecipeR
 
         return $stepId->step_number;
     }
+
+    public function getRecipeByCategory($paginate, $categoryId)
+    {
+        $recipe = $this->model->with(['level', 'categories'])
+        ->where('category_id', $categoryId)
+        ->paginate($paginate);
+    }
 }

@@ -2,6 +2,10 @@
 
 namespace App\Helpers;
 
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Database\Eloquent\Collection;
+
 use Session;
 use Auth;
 use App;
@@ -54,5 +58,14 @@ class Helper
     public static function deleteDirectory($folder)
     {
         Storage::disk('public_uploads')->deleteDirectory($folder);
+    }
+
+    public static function paginate($items, $perPage = 10, $page = null, $options = [])
+    {
+        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
+        $items = $items instanceof Collection ? $items : Collection::make($items);
+        $itemForpage = $items->forPage($page, $perPage);
+        
+        return new LengthAwarePaginator($itemForpage, $items->count(), $perPage, $page, $options, true);
     }
 }

@@ -27,7 +27,7 @@
             <nav id="nav" class="main-nav">
                 <ul id="menu-primary">
                     <li>
-                        <a href="#"><span>{{ __('Recipes') }}</span></a>
+                        <a href="{{ route('list-recipe.index') }}"><span>{{ __('Recipes') }}</span></a>
                     </li>
                     <li>
                         <a href="#"><span>{{ __('Categories') }}</span></a>
