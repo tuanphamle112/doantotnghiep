@@ -26,6 +26,13 @@ $(document).ready(function() {
         $name.val('');
         $('.ingredient-quantity').focus();
     });
+    //checkfile upload or not
+    $('.next-step').on('click', function(e) {
+        if ($('#input-701').val() != '' && $('.upload-status').val() == '') {
+            e.preventDefault();
+            $('.wrap-file-input .image-error').attr('style', 'display:block !important');
+        }
+    });
     // file input
     $('#input-701').fileinput({
         uploadUrl: "/create-recipe/upload-step-image",
@@ -47,7 +54,10 @@ $(document).ready(function() {
             headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } 
         },
     });
-    
+    $('body').on('fileuploaded', '#input-701', function (event, key, XMLRequest, data) { 
+        $('.wrap-file-input image-error').attr('style', 'display:none !important');
+        $('.upload-status').val('uploaded');
+    });
     function getDeleteConfig() 
     {
         var previewConfig = [];

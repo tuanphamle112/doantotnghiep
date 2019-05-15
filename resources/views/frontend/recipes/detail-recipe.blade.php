@@ -68,16 +68,20 @@
                                 <dd>{{ $recipe->people_number }}</dd>
                             </dl>
 
-                            <dl class="user">
-                                <dt>{{ __('Posted by') }}</dt>
-                                <dd class="vcard author post-author"><span class="fn"><a href="#">{{ $recipe->user->name }}</a></span>
+                            <dl class="basic user-data">
+                                <dt class="first-dt">
+                                    {{ __('Posted by') }}
+                                </dt>
+                                <dd class="vcard author post-author user-avt-post">
+                                    <span class="fn"><a href="#"><img src="{{ asset(config('manual.default_media.avatar.man')) }}" alt="">	&nbsp;{{ $recipe->user->name }}</a>
+                                </span>
                                 </dd>
                                 <dt>{{ __('Posted on') }}</dt>
                                 <dd class="post-date updated">{{ $createdAtRecipe }}
                                 </dd>
                             </dl>
                             
-                            <dl class="ingredients">
+                            <dl class="basic ingredients-data">
                                 @foreach ($ingredientArray as $data)
                                 @php  $ingredient = quantityIngredients($data); @endphp
                                 <dt>{{ $ingredient['quantity'] }}</dt>
@@ -99,9 +103,9 @@
                         <div class="two-third">
                             <div class="image">
                                 @if ($recipe->image != null)
-                                <img src="{{ asset(config('manual.recipe_url') . $recipe->image) }}" alt="{{ $recipe->name }}">
+                                <img src="{{ asset(config('manual.recipe_url') . $recipe->image) }}" class="main-img" alt="{{ $recipe->name }}">
                                 @else
-                                <img src="{{ config('manual.default_media.avatar.man') }}" alt="{{ $recipe->name }}">
+                                <img src="{{ config('manual.default_media.avatar.man') }}" class="main-img" alt="{{ $recipe->name }}">
                                 @endif
                             </div>
                             <div class="intro">

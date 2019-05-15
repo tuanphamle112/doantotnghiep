@@ -152,9 +152,9 @@
                         <article class="entry">
                             <figure>
                                 @if ($featureRecipe->image != null)
-                                <img src="{{ asset(config('manual.recipe_url') . $featureRecipe->image) }}" alt="{{ $featureRecipe->name }}">
+                                <img src="{{ asset(config('manual.recipe_url') . $featureRecipe->image) }}" class="main-image-home" alt="{{ $featureRecipe->name }}">
                                 @else
-                                <img src="{{ config('manual.default_media.recipe') }}" alt="{{ $featureRecipe->name }}">
+                                <img src="{{ config('manual.default_media.recipe') }}" class="main-image-home" alt="{{ $featureRecipe->name }}">
                                 @endif
                             
                                 <figcaption><a href="{{ url('/recipe/' . changeLink($featureRecipe->name) . '/' . $featureRecipe->id) }}"><i class="icon icon-themeenergy_eye2"></i>

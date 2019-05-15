@@ -63,7 +63,7 @@ class RecipeController extends Controller
         $levels = $this->level->all();
         $paginate = config('manual.pagination.recipe_home');
 
-        $parentCategory = $this->category->getParentCategoryByLink($parentLink)->first();
+        $parentCategory = $this->category->getParentCategoryByLink($parentLink)->firstOrFail();
 
         $subCategories = $this->category->getSubCategoryByParentId($parentCategory->id)->get();
         $categoryIDs = [$parentCategory->id];
@@ -77,12 +77,36 @@ class RecipeController extends Controller
             $listRecipe=$listRecipe->merge($category->recipe);
         }
         $allRecipe = Helper::paginate($listRecipe);
-   
+
         return view('frontend.recipes.recipe-by-category', compact(
             'categories',
             'levels',
             'recipes',
             'parentCategory',
+            'allRecipe'
+        ));
+    }
+
+    public function showSubCategory($parentLink, $subLink)
+    {
+        $categories = $this->getCategoriesForNav();
+        $levels = $this->level->all();
+        $paginate = config('manual.pagination.recipe_home');
+
+        $parentCategory = $this->category->getParentCategoryByLink($parentLink)->firstOrFail();
+        $subCategory = $this->category->getSubCategoryByLink($subLink, $parentCategory->id)->firstOrFail();
+
+        $recipeBySubCategory = $this->category
+        ->getRecipeBySubCategory($parentCategory->id, $subCategory->id);
+        
+        $allRecipe = Helper::paginate($recipeBySubCategory->recipe);
+
+        return view('frontend.recipes.recipe-by-subcategory', compact(
+            'categories',
+            'levels',
+            'recipes',
+            'parentCategory',
+            'subCategory',
             'allRecipe'
         ));
     }

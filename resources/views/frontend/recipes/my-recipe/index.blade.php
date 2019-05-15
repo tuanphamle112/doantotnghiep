@@ -51,7 +51,8 @@
                                 @else
                                 <td><span class="label label-danger">{{ __('Reject') }}</span></td>
                                 @endif
-                                <div class="comments"><i class="fa fa-comment" aria-hidden="true"></i><a href="#">0</a>
+                                <div class="comments">
+                                    <a href="#"><i class="fa fa-trash" aria-hidden="true"></i></a>
                                 </div>
                             </div>
                         </div>
