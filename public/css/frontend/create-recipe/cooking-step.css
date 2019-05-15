@@ -59,6 +59,9 @@
     width: calc(100% - 2px);
     color: #c70808;
 }
+.image-error {
+    display: none;
+}
 .filling-error li:before {
     content: '' !important;
 }

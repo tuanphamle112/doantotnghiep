@@ -68,7 +68,7 @@ class CreateRecipeController extends Controller
         $imageStorageFolder = 'recipe' . $request->recipe_number;
         if (!is_null($request->main_image)) {
             $mainImageName = $imageStorageFolder . '/' . time() . $request->main_image->getClientOriginalName();
-            Helper::putImageToUploadsFolder($mainImageName, $request->main_image);
+            // Helper::putImageToUploadsFolder($mainImageName, $request->main_image);
         };
 
         $recipes = [
@@ -82,7 +82,6 @@ class CreateRecipeController extends Controller
             'image' => $mainImageName,
             'people_number' => $request->people_number,
         ];
-
         $recipe = $this->recipe->create($recipes);
 
         return redirect()->route('form.ingredient', ['id' => $recipe->id]);
@@ -198,10 +197,10 @@ class CreateRecipeController extends Controller
             'step_number' => $request->step_number,
             'image' => $stepImage,
         ];
-        $success = 'success';
+        $success = 'uploaded';
         $recipe->cookingStep()->create($dataStep);
 
-        return response()->json(['success' => json_decode($success)]);
+        return response()->json(['success' => $success]);
     }
 
     public function createCategories($id)

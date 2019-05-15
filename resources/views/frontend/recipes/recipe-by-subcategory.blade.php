@@ -16,6 +16,7 @@
         <ul>
             <li><a href="{{ route('home') }}">'{{ __('Home') }}</a></li>
             <li>{{ $parentCategory->name }}</li>
+            <li>{{ $subCategory->name }}</li>
         </ul>
     </nav>
     <div class="row">
@@ -44,12 +45,10 @@
                         </h2>
                         <div class="actions">
                             <div>
-                                <div>
-                                    <div class="date"><i class="fa fa-calendar"
-                                            aria-hidden="true"></i>{{ __('December 13, 2014') }}</div>
-                                    <div class="comments"><i class="fa fa-comment" aria-hidden="true"></i><a
-                                            href="#">0</a>
-                                    </div>
+                                <div class="date"><i class="fa fa-calendar"
+                                        aria-hidden="true"></i>{{ __('December 13, 2014') }}</div>
+                                <div class="comments"><i class="fa fa-comment" aria-hidden="true"></i><a
+                                        href="#">0</a>
                                 </div>
                             </div>
                         </div>

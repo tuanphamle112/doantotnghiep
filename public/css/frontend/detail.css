@@ -22,7 +22,21 @@
 .content {
     width: 100%;
 }
-
-.ingredients dd, .user dd {
+.user-data dt, .ingredients-data dt {
+    width: 25% !important;
+}
+.ingredients-data dd, .user-data dd {
     width: 75% !important;
+
+}
+.user-avt-post img{
+    width: 40px;
+    display: inline;
+    vertical-align: middle;
+}
+.user-data .first-dt {
+    height: 56px;
+}
+.main-img {
+    max-height: 400px !important;
 }

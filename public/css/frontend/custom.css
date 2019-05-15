@@ -33,3 +33,6 @@ form .last-selector {
 .post-item h2 {
     min-height: 65px;
 }
+.main-image-home {
+    max-height: 430px;
+}

@@ -26,6 +26,9 @@
             <div class="entries row">
                 <!--item-->
                 @foreach ($recipes as $recipe)
+                @if ($recipe->status != config('manual.recipe_status.Actived'))
+                    @continue
+                @endif
                 <div class="entry one-fourth recipe-item">
                     <figure>
                         @if ($recipe->image != null)

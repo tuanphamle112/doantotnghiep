@@ -52,7 +52,7 @@ class CategoryRepositoryEloquent extends BaseRepositoryEloquent implements Categ
         return $this->model->where('parent_id', $parentId);
     }
 
-    public function getSubCaregoryByLink($link, $parentId)
+    public function getSubCategoryByLink($link, $parentId)
     {
         return $this->model->where('link', $link)->where('parent_id', $parentId);
     }
@@ -60,5 +60,14 @@ class CategoryRepositoryEloquent extends BaseRepositoryEloquent implements Categ
     public function getAllRecipeIdByCategory($listCateId)
     {
         return $this->model->whereIn('id', $listCateId)->get()->load(['recipe']);
+    }
+
+    public function getRecipeBySubCategory($parentId, $subcateId)
+    {
+        return $this->model
+        ->where('id', $subcateId)
+        ->where('parent_id', $parentId)
+        ->firstOrFail()
+        ->load(['recipe']);
     }
 }
