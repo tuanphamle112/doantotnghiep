@@ -112,7 +112,7 @@ class RecipeRepositoryEloquent extends BaseRepositoryEloquent implements RecipeR
         $recipe = $this->model->findOrFail($id);
         $step = $recipe->cookingStep()
         ->where('step_number', $stepNumber)
-        ->firstOrFail();
+        ->first();
 
         return $step;
     }

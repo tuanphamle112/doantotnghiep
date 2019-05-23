@@ -1,0 +1,138 @@
+
+
+#item-header-content .wrap-avatar {
+    width: 250px;
+    height: auto;
+    text-align: center;
+}
+.avatar-round {
+    width: 215px;
+    height: 215px;
+    border-radius: 50% !important;
+    margin: auto
+
+}
+#item-header-content {
+    background: url(../images/food.jpg) 0 0 repeat;
+}
+.edit-icon {
+    width: 60px;
+    height: 30px;
+    background-color: #666666;
+    padding: 3px;
+    position: absolute;
+    bottom: 26%;
+    left: 10%;
+    border-radius: 5px;
+    display: none;
+    transition: 0.5s;
+}
+.wrap-avatar:hover .edit-icon {
+    display: block;
+    transition: 0.5s;
+}
+.wrap-upload .button-upload-avatar {
+    border: 1px solid #e9ebee;
+    cursor: pointer;
+    padding: 10px;
+    text-align: center;
+}
+.img-padding-circle {
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    padding: 4px;
+    position: relative;
+}
+.image-upload {
+    margin-top: 30px;
+}
+.wrap-upload-note {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    margin-left: 5px;
+    background-color: yellow;
+    padding: 4px;
+}
+.wrap-upload-note span {
+    font-size: 14px;
+}
+.wrap-upload-note b {
+    font-size: 15px !important;
+}
+#edit_photo {
+    display: none;
+}
+input[type="file"] {
+    padding-top: 7px;
+}
+#submit_photo {
+    width: 50%;
+    margin-left: 25%;
+}
+.edit-icon a {
+    color: #fff !important;
+    margin-right: 5px;
+}
+#attachfile {
+    color: black !important;
+}
+.modal {
+    overflow: initial !important;
+}
+.modal-header h4 {
+    padding: initial !important;
+}
+.modal-header button {
+    color: initial !important;
+    background-color: initial !important;
+}
+#modalAvatar {
+    margin: initial !important;
+    width: initial !important;
+}
+.profile-fields .label{
+    display: table-cell !important; 
+    font-size: 14px !important;
+    font-weight: 700;
+    line-height: 1;
+    color: initial !important;
+    white-space: nowrap;
+    text-align: initial;
+    border-radius: unset !important;
+}
+.profile-fields {
+    border-collapse:separate; 
+    border-spacing:0 15px; 
+}
+.tab-item {
+    display: none;
+}
+#submit-user {
+    width: 263px;
+    text-align: center;
+    max-width: 100%;
+}
+.wrap-update-user {
+    width: 100%;
+}
+.wrap-update-user .wrap-form-input {
+    width: 70%;
+    margin: auto;
+}
+.update-user {
+    margin-top: 45px;
+    margin-left: -35px;
+}
+.filling-error {
+    background: #FBEFEF;
+    padding: 5px;
+    margin: 3px 0;
+    font-size: 11px;
+    border: 1px dashed #F3D0D0;
+    width: calc(100% - 2px);
+    color: #c70808;
+    display:none;
+}
+.active {
+    display: block !important;
+}

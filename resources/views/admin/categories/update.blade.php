@@ -98,7 +98,7 @@
                     </div><!-- /.box-header -->
                     <div class="box-body row">
                         <div class="col-sm-1"></div>
-                        <form method="POST" action="{{ route('categories.update', $category->id) }}" id="add-new-category" class="col-sm-10 col-sx-12">
+                        <form method="POST" action="{{ route('categories.update', $category->id) }}" id="add-new-category" enctype="multipart/form-data" class="col-sm-10 col-sx-12">
                             {{ method_field('PUT') }}
                             {{ csrf_field() }}    
                             <div class="form-group">
@@ -127,6 +127,21 @@
                                     <label for="description">{{ __('Short description') }}</label>
                                     <textarea type="text" class="form-control" name="description"
                                         placeholder="{{ __('Your short description here...') }}" rows="6">{{ $category->description }}</textarea>
+                                </div>
+                            </div>
+                            <input type="hidden" name="old_icon" value="{{ $category->icon }}">
+                            <div class="wrap-upload-image">
+                                <fieldset class="form-group">
+                                    <label class="fileContainer">
+                                    {{ __('Add pictures') }}
+                                        <input type="file" onchange="readImage(this)" class="pro-image"
+                                            name="icon" class="form-control">
+                                    </label>
+                                </fieldset>
+                                <div class="wrap-preview">
+                                    <div class="preview-images-zone">
+                                        <img width="20%" src="{{ asset('uploads/categories/' . $category->icon) }}" alt=""> 
+                                    </div>
                                 </div>
                             </div>
                             <div class="wrap-insert-button">

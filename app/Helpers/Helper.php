@@ -50,6 +50,18 @@ class Helper
         Storage::disk('public_uploads')->put($fileName, $fileContent);
     }
 
+    public static function putImageToUploadsBaseFolder($fileName, $file) 
+    {
+        $fileContent = self::getContentFile($file);
+        
+        Storage::disk('public_uploads_base')->put($fileName, $fileContent);
+    }
+
+    public static function deleteOldImageBase($file)
+    {
+        Storage::disk('public_uploads_base')->delete($file);
+    }
+
     public static function deleteOldImage($file)
     {
         Storage::disk('public_uploads')->delete($file);

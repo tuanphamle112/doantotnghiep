@@ -59,11 +59,17 @@ class CategoryController extends Controller
     public function store(CreateCategoryRequest $request)
     {
         $link = changeLink($request->link);
+        if (!is_null($request->icon)) {
+            $categoryImageName = time() . $request->icon->getClientOriginalName();
+            $categoryIcon = 'categories/' . $categoryImageName;
+            Helper::putImageToUploadsBaseFolder($categoryIcon, $request->icon);
+        };
         $data = [
             'name' => $request->name,
             'link' => $link,
             'description' => $request->description,
             'parent_id' => $request->parent_id,
+            'icon' => $categoryImageName,
         ];
 
         $this->category->create($data);
@@ -115,12 +121,21 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         $link = changeLink($request->link);
+        if (!is_null($request->icon)) {
+            $categoryImageName = time() . $request->icon->getClientOriginalName();
+            $categoryIcon = 'categories/' . $categoryImageName;
 
+            if (!is_null($request->old_icon)) {
+                Helper::deleteOldImageBase('categories/' . $request->old_icon);
+            }
+            Helper::putImageToUploadsBaseFolder($categoryIcon, $request->icon);
+        };
         $data = [
             'name' => $request->name,
             'link' => $link,
             'description' => $request->description,
             'parent_id' => $request->parent_id,
+            'icon' => $categoryImageName,
         ];
 
         $this->category->update($id, $data);

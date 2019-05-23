@@ -49,7 +49,7 @@
                                 @if ($recipe->image != null)
                                 <img id="img-upload" src="{{ asset(config('manual.recipe_url') . $recipe->image) }}" alt="{{ $recipe->name }}">
                                 @else
-                                <img id="img-upload" src="{{ config('manual.default_media.recipe') }}" alt="{{ $recipe->name }}">
+                                <img id="img-upload" src="{{ asset(config('manual.default_media.recipe')) }}" alt="{{ $recipe->name }}">
                                 @endif
                                 <input type="file" id="imgInp" class="pro-image" name="main_image"
                                     class="form-control">

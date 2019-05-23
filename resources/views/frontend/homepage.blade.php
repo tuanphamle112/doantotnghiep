@@ -152,22 +152,29 @@
                         <article class="entry">
                             <figure>
                                 @if ($featureRecipe->image != null)
-                                <img src="{{ asset(config('manual.recipe_url') . $featureRecipe->image) }}" class="main-image-home" alt="{{ $featureRecipe->name }}">
+                                <img src="{{ asset(config('manual.recipe_url') . $featureRecipe->image) }}"
+                                    class="main-image-home" alt="{{ $featureRecipe->name }}">
                                 @else
-                                <img src="{{ config('manual.default_media.recipe') }}" class="main-image-home" alt="{{ $featureRecipe->name }}">
+                                <img src="{{ config('manual.default_media.recipe') }}" class="main-image-home"
+                                    alt="{{ $featureRecipe->name }}">
                                 @endif
-                            
-                                <figcaption><a href="{{ url('/recipe/' . changeLink($featureRecipe->name) . '/' . $featureRecipe->id) }}"><i class="icon icon-themeenergy_eye2"></i>
+
+                                <figcaption><a
+                                        href="{{ url('/recipe/' . changeLink($featureRecipe->name) . '/' . $featureRecipe->id) }}"><i
+                                            class="icon icon-themeenergy_eye2"></i>
                                         <span>{{ __('View recipe') }}</span></a>
                                 </figcaption>
                             </figure>
 
                             <div class="container">
-                                <h2><a href="{{ url('/recipe/' . changeLink($featureRecipe->name) . '/' . $featureRecipe->id) }}">{{ $featureRecipe->name }}</a></h2>
+                                <h2><a
+                                        href="{{ url('/recipe/' . changeLink($featureRecipe->name) . '/' . $featureRecipe->id) }}">{{ $featureRecipe->name }}</a>
+                                </h2>
                                 <p>{{ $featureRecipe->description }}</p>
                                 <div class="actions">
                                     <div>
-                                        <a href="{{ url('/recipe/' . changeLink($featureRecipe->name) . '/' . $featureRecipe->id) }}" class="button">{{ __('See the full recipe') }}</a>
+                                        <a href="{{ url('/recipe/' . changeLink($featureRecipe->name) . '/' . $featureRecipe->id) }}"
+                                            class="button">{{ __('See the full recipe') }}</a>
                                         <div class="more"><a href="#">{{ __('See past featured recipes') }}</a></div>
                                     </div>
                                 </div>
@@ -236,13 +243,16 @@
                             <img src="{{ config('manual.default_media.recipe') }}" alt="{{ $activeRecipe->name }}">
                             @endif
                             <figcaption>
-                                <a href="{{ url('/recipe/' . changeLink($activeRecipe->name) . '/' . $activeRecipe->id) }}"><i class="icon icon-themeenergy_eye2"></i>
+                                <a
+                                    href="{{ url('/recipe/' . changeLink($activeRecipe->name) . '/' . $activeRecipe->id) }}"><i
+                                        class="icon icon-themeenergy_eye2"></i>
                                     <span>{{ __('View recipe') }}</span></a>
                             </figcaption>
                         </figure>
                         <div class="container">
                             <h2>
-                                <a href="{{ url('/recipe/' . changeLink($activeRecipe->name) . '/' . $activeRecipe->id) }}">{{ $activeRecipe->name }}</a>
+                                <a
+                                    href="{{ url('/recipe/' . changeLink($activeRecipe->name) . '/' . $activeRecipe->id) }}">{{ $activeRecipe->name }}</a>
                             </h2>
                             <div class="actions">
                                 <div>
@@ -288,12 +298,16 @@
                         <figure>
                             <img src="{{ asset(config('manual.recipe_url') . $activeRecipe->image) }}"
                                 alt="{{ $activeRecipe->name }}">
-                            <figcaption><a href="{{ url('/recipe/' . changeLink($activeRecipe->name) . '/' . $activeRecipe->id) }}"><i class="icon icon-themeenergy_eye2"></i>
+                            <figcaption><a
+                                    href="{{ url('/recipe/' . changeLink($activeRecipe->name) . '/' . $activeRecipe->id) }}"><i
+                                        class="icon icon-themeenergy_eye2"></i>
                                     <span>{{ __('View post') }}</span></a>
                             </figcaption>
                         </figure>
                         <div class="container">
-                            <h2><a href="{{ url('/recipe/' . changeLink($activeRecipe->name) . '/' . $activeRecipe->id) }}">{{ $activeRecipe->name }}</a></h2>
+                            <h2><a
+                                    href="{{ url('/recipe/' . changeLink($activeRecipe->name) . '/' . $activeRecipe->id) }}">{{ $activeRecipe->name }}</a>
+                            </h2>
                             <div class="actions">
                                 <div>
                                     <div class="date"><i class="fa fa-calendar"
@@ -317,6 +331,32 @@
                 </div>
             </div>
         </section>
+
+        <!-- right side -->
+        <aside id="secondary-right" class="right-sidebar sidebar widget-area one-fourth" role="complementary">
+            <ul>
+                <li class="widget widget-sidebar">
+                    <!--cwrap-->
+                    <div class="cwrap">
+                        <h5>Latest posts</h5>
+                        <ul class="articles_latest">
+                            <li>
+                                <a href="#">
+                                    <img src="#" alt="#">
+                                    <h6>Indulge yourself in chocolate</h6>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--//cwrap-->
+                </li>
+                <li class="widget widget-sidebar">
+                    <div class="textwidget"><a href="#" style="margin:0 -20px;float:left;"><img src=""></a>
+                    </div>
+                </li>
+            </ul>
+        </aside>
+        <!-- End right side -->
     </div>
     <!--//row-->
 </div>
@@ -326,8 +366,7 @@
 @section('contact')
 <section class="cta">
     <div class="wrap clearfix">
-        <a href="#"
-            class="button big white right">{{ __('Contact Us') }}</a>
+        <a href="#" class="button big white right">{{ __('Contact Us') }}</a>
         <h2>{{ __('If you have any problems. Feel free to contact us. Tpl@ Cooking support 24/24') }}</h2>
     </div>
 </section>

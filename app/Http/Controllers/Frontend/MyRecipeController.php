@@ -156,7 +156,7 @@ class MyRecipeController extends Controller
     public function updateRecipeInfo(CreateRecipeFirstRequest $request, $id)
     {
         // upload file
-        $mainImageName = $request->main_image_old;
+        $avatarOld = $request->avatar_old;
         $imageStorageFolder = 'recipe' . $request->recipe_number;
         if (!is_null($request->main_image)) {
             $mainImageName = $imageStorageFolder . '/' . time() . $request->main_image->getClientOriginalName();
@@ -184,14 +184,18 @@ class MyRecipeController extends Controller
     {
         $categories = $this->getCategoriesForNav();
         $recipe = $this->recipe->findOrfail($id);
-        $ingredientsString = $recipe->ingredient->name;
-        $ingredients = explode(',', $recipe->ingredient->name);
+        if ($recipe->ingredient != null) {
+            $ingredientsString = $recipe->ingredient->name;
+            $ingredients = explode(',', $recipe->ingredient->name);
+        }
+
 
         return view('frontend.recipes.update-recipe.ingredient-form', compact(
             'id',
             'categories',
             'ingredients',
-            'ingredientsString'
+            'ingredientsString',
+            'recipe'
         ));
     }
 
@@ -216,7 +220,7 @@ class MyRecipeController extends Controller
         $categories = $this->getCategoriesForNav();
         $recipe = $this->recipe->findOrFail($id);
         $stepInfo = $this->recipe->getRecipeStepInfo($id, $stepNumber);
-
+        
         return view('frontend.recipes.update-recipe.cooking-step', compact(
             'id',
             'stepNumber',
@@ -282,8 +286,8 @@ class MyRecipeController extends Controller
         $imageString = $request->imageString;
         $imageDeleteName = $request->imageName;
         $imageArray = explode(',', $imageString);
-        
-        if ((count($imageArray) > 1 && $key = array_search($imageDeleteName, $imageArray)) != false) {
+        if (count($imageArray) > 1 && array_search($imageDeleteName, $imageArray) !== false) {
+            $key = array_search($imageDeleteName, $imageArray);
             unset($imageArray[$key]);
             $imageSaveAble = implode(',', $imageArray);
         } else {
@@ -342,6 +346,18 @@ class MyRecipeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $recipe = $this->recipe->findOrFail($id);
+        
+        Helper::deleteDirectory('recipe' . $recipe->recipe_number);
+        $recipe->categories()->detach();
+        
+        $this->recipe->destroy($id);
+
+        $notification = [
+            'message' => __('Delete recipe successfully!'),
+            'alert-type' => 'warning',
+        ];
+
+        return redirect()->route('my-recipe.index')->with($notification);
     }
 }

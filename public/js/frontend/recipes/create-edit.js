@@ -57,42 +57,35 @@ $(document).ready(function() {
     $('body').on('fileuploaded', '#input-701', function (event, key, XMLRequest, data) { 
         $('.wrap-file-input image-error').attr('style', 'display:none !important');
         $('.upload-status').val('uploaded');
-    });
-    function getDeleteConfig() 
-    {
-        var previewConfig = [];
-        var data = [];
-        if ($('.step-image').val().trim() != '') {
-            var imageString = $('.step-image').val();
-            var images = imageString.split(',');
-            for (var i = 0;i < images.length; i ++) {
-                var configObject = {
-                    url: '/update-recipe/delete-step-image',
-                    extra: {
-                        imageName: images[i],
-                        imageString: imageString,
-                        recipeId: $('input[name="recipe_id"]').val(),
-                        stepId: $('input[name="step_number"]').val(),
-                        '_token': $('meta[name="csrf-token"]').attr('content')
-                    }
-                }
-                previewConfig.push(configObject);
-                images[i] = '/uploads/recipes/' + images[i];
-            }
-        }
-        data.push(previewConfig);
-        data.push(images);
 
-        return data;
+    });
+    var previewConfig = [];
+    var images = [];
+    if ($('.step-image').val().trim() != '') {
+        var imageString = $('.step-image').val();
+        var images = imageString.split(',');
+        for (var i = 0;i < images.length; i ++) {
+            var configObject = {
+                url: '/update-recipe/delete-step-image',
+                extra: {
+                    imageName: images[i],
+                    imageString: imageString,
+                    recipeId: $('input[name="recipe_id"]').val(),
+                    stepId: $('input[name="step_number"]').val(),
+                    '_token': $('meta[name="csrf-token"]').attr('content')
+                }
+            }
+            previewConfig.push(configObject);
+            images[i] = '/uploads/recipes/' + images[i];
+        }
     }
 
-    var deleteConfig = getDeleteConfig();
     var fileInputOption = {
         uploadUrl: '/update-recipe/upload-step-image',
         uploadAsync: false,
         overwriteInitial: false,
-        initialPreview: deleteConfig[1],
-        initialPreviewConfig: deleteConfig[0],
+        initialPreview: images,
+        initialPreviewConfig: previewConfig,
         maxFileCount: 6,
         removeIcon: '<i class="fa fa-trash-o"></i> ',
         allowedFileExtensions: ["jpg", "png", "jpeg"],
@@ -118,8 +111,8 @@ $(document).ready(function() {
 
     $('body').on('filedeleted', '#input-702', function (event, key, XMLRequest, data) { 
         var image_cutted = XMLRequest.responseJSON.imageCutted; 
+        location.reload();
         $('.step-image').val(image_cutted);
-        deleteConfig = getDeleteConfig();
     });
     // read url main image
     function readURL(input) {
