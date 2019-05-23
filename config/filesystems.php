@@ -68,6 +68,10 @@ return [
             'driver' => 'local',
             'root'   => public_path() . '/uploads/recipes',
         ],
+        'public_uploads_base' => [
+            'driver' => 'local',
+            'root'   => public_path() . '/uploads',
+        ],
 
     ],
 

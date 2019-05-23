@@ -38,6 +38,7 @@
                         </ul>
                     </div>
                 @endif
+                @if ($recipe->ingredient != null)
                 <form action="{{ route('update-recipe.ingredient', $id) }}" class="wrap-create-form" method="post">
                     {{ csrf_field() }}
                     <div class="wrap-ingredient">
@@ -74,6 +75,38 @@
                         <input type="submit" value="{{ __('Next') }}" class="button next-form">
                     </div>
                 </form>
+                @else
+                <form action="{{ route('recipe.ingredient', $id) }}" class="wrap-create-form" method="post">
+                    {{ csrf_field() }}
+                    <div class="wrap-ingredient">
+                        <div class="form-group ingredient-small">
+                            <label for="name">{{ __('Quantity') }}</label>
+                            <input type="number" class="form-control ingredient-quantity" placeholder="{{ __('Ingredient Quantity') }}">
+                        </div>
+                        <div class="form-group ingredient-small">
+                            <label for="name">{{ __('Unit') }}</label>
+                            <input type="text" class="form-control ingredient-unit" placeholder="{{ __('Ingredient Unit') }}">
+                        </div>
+                        <div class="form-group ingredient-name">
+                            <label for="name">{{ __('Name') }}</label>
+                            <input type="text" class="form-control input-ingredient-name" placeholder="{{ __('Ingredient Name') }}">
+                        </div>
+                        <div class="wrap-add-button">
+                            <button class="btn-default add-ingredient">{{ __('Add') }}</button>
+                        </div>
+                        <div class="filling-error ingredient-error"></div>
+                        <div class="ingredient-container">
+                            <!-- append ingredient item here -->
+                        </div>
+                        <br class="clearBoth" />
+                    </div>
+                    <input type="hidden" class="ingredients" name="ingredients">
+                    <div class="f-row full">
+                        <a href="{{ route('my-recipe.edit', $id) }}" class="button back-form-1">{{ __('Back') }}</a>
+                        <input type="submit" value="{{ __('Next') }}" class="button next-form">
+                    </div>
+                </form>
+                @endif
             </div>
         </section>
 

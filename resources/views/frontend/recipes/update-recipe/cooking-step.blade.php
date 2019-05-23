@@ -72,10 +72,13 @@
                                     <input id="input-702" class="step-update" name="step_file[]" type="file" multiple>
                                 </div>
                             </div>
+                            <div class="filling-error image-error">{{ __('Please upload your images first') }}</div>
+                            
                             <input type="hidden" name="recipe_number" value="{{ $recipe->recipe_number }}">
                             <input type="hidden" name="step_number" value="{{ $stepNumber }}">
                             <input type="hidden" name="recipe_id" value="{{ $id }}">
-                            <input type="hidden" class="step-image" value="{{ $stepInfo->image }}">
+                            <input type="hidden" class="step-image" value="{{ ltrim($stepInfo->image, ',') }}">
+                            <input type="hidden" name="uploaded" class="upload-status" value="">
                             <div class="step-button">
                                 @if ($stepNumber > 1)
                                 <a href="{{ route('form-update.step', [$id, $stepNumber-1]) }}" class="button back-step">{{ __('Back Step') }}</a>

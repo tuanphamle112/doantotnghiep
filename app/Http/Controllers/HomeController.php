@@ -73,7 +73,6 @@ class HomeController extends Controller
         if ($lang == 'vi') {
             $language = 'vi';
         }
-
         Helper::setLanguage($language);
 
         return redirect()->back();

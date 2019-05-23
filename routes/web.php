@@ -16,6 +16,8 @@
 Route::group(['middleware' => 'locale'], function () {
     Auth::routes();
     Route::get('/', 'HomeController@index')->name('home');
+    Route::get('/change-language/{language}', 'HomeController@changeLanguage')->name('change-language');
+
     // admin route
     Route::group(['middleware' => 'admin', 'prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::resource('users', 'UserController');
@@ -58,6 +60,12 @@ Route::group(['middleware' => 'locale'], function () {
                 Route::get('categories/{id}', 'MyRecipeController@updateCategories')->name('form-update.categories');
                 Route::post('categories/{id}', 'MyRecipeController@submitUpdateCategories')->name('update-recipe.categories');
             });
+            Route::get('/profile/{id}', 'ProfileController@index')->name('profile.index');
+            Route::put('/profile/avatar/update/{id}', 'ProfileController@updateMyAvatar')->name('profile.avatar');
+
+            Route::put('/profile/info-update/{id}', 'ProfileController@updateMyInfo')->name('profile.info');
+            Route::get('/change-password', 'ProfileController@showChangePasswordForm')->name('changePassword.form');
+            Route::post('/change-password', 'ProfileController@changePassword')->name('changePassword');
         });
         Route::get('/recipes', 'RecipeController@index')->name('list-recipe.index');
         Route::get('/{parent}', 'RecipeController@showParentCategories')->name('nav');
@@ -65,6 +73,4 @@ Route::group(['middleware' => 'locale'], function () {
     
         Route::get('/recipe/{recipeName}/{id}', 'DetailRecipeController@index')->name('detail-recipe');
     });
-    Route::get('change-language/{language}', 'HomeController@changeLanguage')->name('change-language');
-    
 });

@@ -5,6 +5,9 @@
     margin-left: 130px;
     border-radius: 5px;
 }
+.user-info>a>img {
+    height: 60px !important;
+}
 .user-info > a {
     height: 76px !important;
 }
@@ -35,4 +38,7 @@ form .last-selector {
 }
 .main-image-home {
     max-height: 430px;
+}
+.delete-form {
+    display: none;
 }

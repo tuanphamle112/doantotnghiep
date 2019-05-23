@@ -51,8 +51,20 @@
                                 @else
                                 <td><span class="label label-danger">{{ __('Reject') }}</span></td>
                                 @endif
-                                <div class="comments">
-                                    <a href="#"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                <div class="wrap-delete-form">
+                                    <div class="comments">
+                                        <a href="javascript:void(0)"
+                                            data-text="{{ __('Do you want to delete this recipe?') }}" class="delete">
+                                            <i class="fa fa-trash-o"></i>
+                                        </a>
+                                    </div>
+                                    <form class="delete-form" action="{{ route('my-recipe.destroy', $recipe->id) }}" method="post">
+                                        {{ csrf_field() }}
+                                        {{ method_field('DELETE') }}
+                                        <div class="form-group">
+                                            <input type="submit" class="btn btn-danger">
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>

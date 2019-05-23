@@ -204,7 +204,7 @@
                                     </ul>
                                 </div>
                                 @endif
-                                <form id="create-form" action="{{ route('categories.store') }}" method="post">
+                                <form id="create-form" action="{{ route('categories.store') }}" method="post" enctype="multipart/form-data">
                                     {{ csrf_field() }}
                                     <div class="form-group">
                                         <div class="col-sm-6">
@@ -223,6 +223,20 @@
                                                 placeholder="{{ __('Your short description here...') }}" rows="6"></textarea>
                                         </div>
                                     </div>
+                                    <div class="wrap-upload-image">
+                                        <fieldset class="form-group">
+                                            <label class="fileContainer">
+                                            {{ __('Add pictures') }}
+                                                <input type="file" onchange="readImage(this)" class="pro-image"
+                                                    name="icon" class="form-control">
+                                            </label>
+                                        </fieldset>
+                                        <div class="wrap-preview">
+                                            <div class="preview-images-zone">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
                                     <div class="wrap-insert-button">
                                         <button type="submit" class="btn btn-success btn-category-insert">{{ __('Create Category') }}</button>
                                     </div>

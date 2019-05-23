@@ -7,9 +7,12 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ __('Tpl@ Cooking') }} - @yield('title')</title>
-    <link rel="stylesheet" href="{{ asset('bower_components/SocialChef/css/icons.css') }}" type="text/css" media="screen">
-    <link rel="stylesheet"  href="{{ asset('bower_components/SocialChef/css/style.css') }}" type="text/css" media="screen,projection,print">
-    <link rel="stylesheet" href="{{ asset('bower_components/SocialChef/css/theme-default.css') }}" type="text/css" media="screen,projection,print">
+    <link rel="stylesheet" href="{{ asset('bower_components/SocialChef/css/icons.css') }}" type="text/css"
+        media="screen">
+    <link rel="stylesheet" href="{{ asset('bower_components/SocialChef/css/style.css') }}" type="text/css"
+        media="screen,projection,print">
+    <link rel="stylesheet" href="{{ asset('bower_components/SocialChef/css/theme-default.css') }}" type="text/css"
+        media="screen,projection,print">
     <link rel="stylesheet" href="{{ asset('bower_components/font-awesome/css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/frontend/custom.css') }}">
 
@@ -22,7 +25,8 @@
     <header class="head" role="banner">
         <!--wrap-->
         <div class="wrap clearfix">
-            <a href="{{ route('home') }}" class="logo"><img src="{{ asset(config('manual.default_media.logo')) }}" alt="{{ __('Tpl@ Cooking') }}"></a>
+            <a href="{{ route('home') }}" class="logo"><img src="{{ asset(config('manual.default_media.logo')) }}"
+                    alt="{{ __('Tpl@ Cooking') }}"></a>
             <!--primary navigation-->
             <nav id="nav" class="main-nav">
                 <ul id="menu-primary">
@@ -38,7 +42,9 @@
                                 @if (count($category->children) > 0)
                                 <ul class="sub-menu">
                                     @foreach ($category->children as $child)
-                                    <li><a href="{{ url($category->link . '/' . $child->link) }}"><span>{{ $child->name }}</span></a></li>
+                                    <li><a
+                                            href="{{ url($category->link . '/' . $child->link) }}"><span>{{ $child->name }}</span></a>
+                                    </li>
                                     @endforeach
                                 </ul>
                                 @endif
@@ -54,14 +60,24 @@
                     </li>
                     @if (Auth::check())
                     <li class="user-info">
-                        <a href=""><img src="{{ asset(config('manual.default_media.avatar.man')) }}" alt="avatar" width="60px" height="60px"></a>
+                        @if (Auth::user()->avatar != null)
+                        <a href="{{ route('profile.index', Auth::user()->id) }}"><img
+                                src="{{ asset('uploads/avatars/' . Auth::user()->avatar) }}" alt="avatar" width="60px"
+                                height="60px"></a>
+                        @else
+                        <a href="{{ route('profile.index', Auth::user()->id) }}"><img
+                                src="{{ asset(config('manual.default_media.avatar.man')) }}" alt="avatar" width="60px"
+                                height="60px"></a>
+                        @endif
                         <ul class="sub-menu">
-                            <li><a href="">{{ __('Profile') }}</a></li>
+                            <li><a href="{{ route('profile.index', Auth::user()->id) }}">{{ __('Profile') }}</a></li>
                             <li><a href="">{{ __('Wish List') }}</a></li>
                             @if (Auth::user()->permission == config('manual.permission.admin'))
                             <li><a href="{{ route('users.index') }}"><span>{{ __('Go to Admin Page') }}</span></a></li>
                             @endif
-                            <li><a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">{{ __('Logout') }}</a></li>
+                            <li><a href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
+                            </li>
 
                             <form id="logout-form" action="{{ route('logout') }}" method="POST">
                                 @csrf
@@ -74,10 +90,12 @@
             <nav class="user-nav" role="navigation">
                 <ul id="menu-primary">
                     <li class="light"><a href="#" title="Search for recipes"><i
-                                class="icon icon-themeenergy_search"></i> <span>{{ __('Look for recipes') }}</span></a></li>
+                                class="icon icon-themeenergy_search"></i> <span>{{ __('Look for recipes') }}</span></a>
+                    </li>
                     <li class="medium my-account">
                         @if (Auth::check())
-                        <a href="{{ route('my-recipe.index') }}" title="My account"><i class="icon icon-themeenergy_chef-hat"></i>
+                        <a href="{{ route('my-recipe.index') }}" title="My account"><i
+                                class="icon icon-themeenergy_chef-hat"></i>
                             <span>{{ __('Manage my recipes') }}</span>
                         </a>
                         @else
@@ -86,7 +104,8 @@
                         </a>
                         @endif
                     </li>
-                    <li class="dark"><a href="{{ route('form.name') }}"><i class="icon icon-themeenergy_fork-spoon"></i> <span>{{ __('Submit a recipe') }}</span></a></li>
+                    <li class="dark"><a href="{{ route('form.name') }}"><i class="icon icon-themeenergy_fork-spoon"></i>
+                            <span>{{ __('Submit a recipe') }}</span></a></li>
                 </ul>
             </nav>
         </div>
@@ -114,15 +133,16 @@
                             <article class="sc_contact_widget one-fourth">
                                 <h5>{{ __('Need help?') }}</h5>
                                 <p>{{ __('Contact us via phone or email') }}</p>
-                                <p><em>{{ __('Tel:') }}</em>{{ __(' 1-555-555-5555') }}<br><a href="#">{{ __('info@tplchef.com') }}</a></p>
+                                <p><em>{{ __('Tel:') }}</em>{{ __(' 1-555-555-5555') }}<br><a
+                                        href="#">{{ __('info@tplchef.com') }}</a></p>
                             </article>
                         </li>
                         <li class="widget widget-sidebar">
                             <article class="one-fourth">
                                 <h5>Follow us</h5>
                                 <ul class="social">
-                                    <li><a href="http://www.facebook.com/"><i
-                                                class="fa fa-fw fa-facebook" aria-hidden="true"></i></a></li>
+                                    <li><a href="http://www.facebook.com/"><i class="fa fa-fw fa-facebook"
+                                                aria-hidden="true"></i></a></li>
                                     <li><a href="http://twitter.com/twitter" title="twitter"><i
                                                 class="fa fa-fw fa-twitter" aria-hidden="true"></i></a></li>
                                     <li><a href="http://linkedin/" title="linkedin"><i class="fa fa-fw fa-linkedin"
@@ -149,7 +169,7 @@
         <!--//wrap-->
     </footer>
     <input type="hidden" class="toastr-session"
-            data-session="{{ Session::has('message') . ',' . Session::get('alert-type', 'info') . ',' . Session::get('message') }}">
+        data-session="{{ Session::has('message') . ',' . Session::get('alert-type', 'info') . ',' . Session::get('message') }}">
     <!--//footer-->
     @show
 
