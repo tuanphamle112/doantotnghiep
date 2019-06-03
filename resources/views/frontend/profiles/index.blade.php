@@ -15,7 +15,7 @@
     <nav role="navigation" class="breadcrumbs">
         <ul>
             <li><a href="{{ route('home') }}">'{{ __('Home') }}</a></li>
-            <li>{{ __('Recipes') }}</li>
+            <li>{{ __('Profiles') }}</li>
         </ul>
     </nav>
     <div class="row">
@@ -47,7 +47,7 @@
                                     @if (Auth::user()->id == $user->id)
                                     <div class="edit-icon">
                                         <a href="#" data-toggle="modal" data-target="#modalAvatar">
-                                            <i class="fa fa-pencil" aria-hidden="true"></i> Edit
+                                            <i class="fa fa-pencil" aria-hidden="true"></i> {{ __('Edit') }}
                                         </a>
                                     </div>
                                     @endif
@@ -69,7 +69,7 @@
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal">×</button>
                                     <h4 class="modal-title">
-                                        Cập nhật avatar
+                                        {{ __('Update Avatar') }}
                                     </h4>
                                 </div>
                                 <div class="modal-body upload-avatar-form">
@@ -78,7 +78,7 @@
                                             <a href="javascript:void(0)" id="attachfile">
                                                 <div class="col-md-12 col-sm-12 col-sx-12 button-upload-avatar">
                                                     <i class="fa fa-plus" aria-hidden="true"></i>
-                                                    <span>Tải ảnh lên</span>
+                                                    <span>{{ __('Upload Image') }}</span>
                                                 </div>
                                             </a>
                                         </div>
@@ -98,9 +98,7 @@
                                             </div>
                                         </div>
                                         <div class="wrap-upload-note">
-                                            <span><b>Chú ý : </b>Kích cỡ ảnh nên dùng: chiều rộng và chiều cao
-                                                nên lớn hơn 350px. </span>
-
+                                            <span><b>{{ __('Note : ') }}</b>{{ __('Recommend picture size for image: height and width should be greater than 350px') }}</span>
                                         </div>
                                         <div class="form-upload-avatar">
                                             <form method="POST" action="{{ route('profile.avatar', Auth::user()->id) }}"
@@ -127,18 +125,18 @@
                     <div class="item-list-tabs no-ajax" id="object-nav" role="navigation">
                         <ul>
                             @if (Auth::user()->id == $user->id)
-                            <li id="activity-personal-li"><a id="user-activity" href="#">Activity</a></li>
+                            <li id="activity-personal-li"><a id="user-activity" href="#">{{ __('Activity') }}</a></li>
                             @endif
                             <li id="xprofile-personal-li" class="current selected"><a id="user-xprofile"
-                                    href="#">Profile</a></li>
+                                    href="#">{{ __('Profile') }}</a></li>
                             @if (Auth::user()->id == $user->id)
-                            <li id="notifications-personal-li"><a id="user-notifications" href="#">Notifications <span
-                                        class="no-count">0</span></a></li>
+                            <li id="notifications-personal-li"><a id="user-notifications"
+                                    href="#">{{ __('Notifications') }} <span class="no-count">0</span></a></li>
                             @endif
-                            <li id="friends-personal-li"><a id="user-friends" href="#">Following <span
+                            <li id="friends-personal-li"><a id="user-friends" href="#">{{ __('Following') }} <span
                                         class="no-count">0</span></a>
                             </li>
-                            <li id="groups-personal-li"><a id="user-groups" href="#">Follower
+                            <li id="groups-personal-li"><a id="user-groups" href="#">{{ __('Follower') }}
                                     <span class="no-count">0</span></a></li>
                         </ul>
                     </div>
@@ -147,13 +145,13 @@
                 <div id="item-body" role="main">
                     <div class="item-list-tabs no-ajax" id="subnav" aria-label="Member secondary navigation">
                         <ul class="tab">
-                            <li id="public-personal-li"><a href="#personal-information">View</a>
+                            <li id="public-personal-li"><a href="#personal-information">{{ __('View') }}</a>
                             </li>
                             @if (Auth::user()->id == $user->id)
-                            <li id="edit-personal-li"><a id="edit" href="#edit-information">Edit</a>
+                            <li id="edit-personal-li"><a id="edit" href="#edit-information">{{ __('Edit') }}</a>
                             </li>
-                            <li id="edit-personal-li"><a id="edit" href="{{ route('changePassword.form') }}">Change
-                                    Password</a>
+                            <li id="edit-personal-li"><a id="edit"
+                                    href="{{ route('changePassword.form') }}">{{ __('Change Password') }}</a>
                             </li>
                             @endif
                         </ul>
@@ -165,35 +163,35 @@
                                     <tbody>
                                         <tr
                                             class="field_1 field_name required-field visibility-public field_type_textbox">
-                                            <td class="label">Name</td>
+                                            <td class="label">{{ __('Name') }}</td>
                                             <td class="data">
                                                 <p>{{ $user->name }}</p>
                                             </td>
                                         </tr>
                                         <tr
                                             class="field_1 field_name required-field visibility-public field_type_textbox">
-                                            <td class="label">Email</td>
+                                            <td class="label">{{ __('Email') }}</td>
                                             <td class="data">
                                                 <p>{{ $user->email }}</p>
                                             </td>
                                         </tr>
                                         <tr
                                             class="field_1 field_name required-field visibility-public field_type_textbox">
-                                            <td class="label">Phone</td>
+                                            <td class="label">{{ __('Phone') }}</td>
                                             <td class="data">
                                                 <p>{{ $user->phone }}</p>
                                             </td>
                                         </tr>
                                         <tr
                                             class="field_1 field_name required-field visibility-public field_type_textbox">
-                                            <td class="label">Gender</td>
+                                            <td class="label">{{ __('Gender') }}</td>
                                             <td class="data">
                                                 <p>{{ $user->gender }}</p>
                                             </td>
                                         </tr>
                                         <tr
                                             class="field_1 field_name required-field visibility-public field_type_textbox">
-                                            <td class="label">Permission</td>
+                                            <td class="label">{{ __('Permission') }}</td>
                                             <td class="data">
                                                 @if ($user->permission == config('manual.permission.admin'))
                                                 <p>{{ __('Admin') }}</p>

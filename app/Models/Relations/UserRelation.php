@@ -7,7 +7,7 @@ use App\Models\Post;
 use App\Models\Follow;
 use App\Models\Wishlist;
 use App\Models\Rate;
-
+use App\Models\Comment;
 trait UserRelation
 {
     public function recipe()
@@ -39,4 +39,10 @@ trait UserRelation
     {
         return $this->hasMany(Rate::class, 'user_id');
     }
+
+    public function comment()
+    {
+        return $this->hasMany(Comment::class, 'user_id');
+    }
+
 }

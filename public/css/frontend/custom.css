@@ -42,3 +42,8 @@ form .last-selector {
 .delete-form {
     display: none;
 }
+.logo img {
+    width: 120px;
+    margin-top: -45px;
+    margin-left: 40px;
+}

@@ -202,5 +202,20 @@
     "Step": "Bước",
     "Back": "Trở về",
     "Next": "Bước tiếp theo",
-    "My Recipes": "Công thức của tôi"
+    "My Recipes": "Công thức của tôi",
+    "Update Avatar": "Cập nhật công thức",
+    "Upload Image": "Tải ảnh lên",
+    "Note : ": "Chú ý : ",
+    "Recommend picture size for image: height and width should be greater than 350px": "Kích thước ảnh khuyên dùng: chiều rộng và chiều cao nên lớn hơn 350px",
+    "Activity": "Hoạt động",
+    "Notifications": "Thông báo",
+    "Following": "Đang theo dõi",
+    "Follower": "Người theo dõi",
+    "View": "Xem",
+    "Change Password": "Đổi mật khẩu",
+    "Display Name": "Tên hiển thị",
+    "The display name are require": "Vui lòng điền tên hiển thị",
+    "Current Password": "Mật khẩu hiện tại",
+    "New Password": "Mật khẩu mới"
+
 }
