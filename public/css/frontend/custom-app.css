@@ -1,0 +1,10 @@
+.logo img {
+    width: 100px;
+    margin-top: -10px;
+    margin-left: 40px;
+}
+body {
+    background-image: url('../../images/intro.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}

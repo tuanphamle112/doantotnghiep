@@ -50,7 +50,7 @@ class Helper
         Storage::disk('public_uploads')->put($fileName, $fileContent);
     }
 
-    public static function putImageToUploadsBaseFolder($fileName, $file) 
+    public static function putImageToUploadsBaseFolder($fileName, $file)
     {
         $fileContent = self::getContentFile($file);
         
@@ -79,5 +79,10 @@ class Helper
         $itemForpage = $items->forPage($page, $perPage);
         
         return new LengthAwarePaginator($itemForpage, $items->count(), $perPage, $page, $options, true);
+    }
+
+    public static function formatDayMonthYearTime($date)
+    {
+        return $date->isoFormat('MMMM Do YYYY, h:mm:ss a');
     }
 }

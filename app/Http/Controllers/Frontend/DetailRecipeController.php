@@ -43,15 +43,16 @@ class DetailRecipeController extends Controller
         $cookingSteps = $recipe->cookingStep;
         $createdAtRecipe = $recipe->user->created_at->format('Y-m-d');
         $ingredientArray = explodeComma($recipe->ingredient->name);
-       
+        $comments = $recipe->comments;
         $categories = $this->getCategoriesForNav();
-
+        
         return view('frontend.recipes.detail-recipe', compact(
             'categories',
             'recipe',
             'createdAtRecipe',
             'ingredientArray',
-            'cookingSteps'
+            'cookingSteps',
+            'comments'
         ));
     }
 }

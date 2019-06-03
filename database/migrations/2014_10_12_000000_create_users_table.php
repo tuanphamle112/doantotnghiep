@@ -20,8 +20,8 @@ class CreateUsersTable extends Migration
             $table->string('phone')->nullable();
             $table->string('address')->nullable();
             $table->text('avatar')->nullable();
-            $table->integer('permission')->unsigned();
-            $table->string('gender');
+            $table->integer('permission')->unsigned()->default(2);
+            $table->string('gender')->default('male');
             $table->timestamp('email_verified_at')->nullable();
             $table->integer('total_point')->unsigned()->default(0);
             $table->string('password');

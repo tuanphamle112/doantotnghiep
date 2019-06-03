@@ -202,6 +202,19 @@
     "Step": "Step",
     "Back": "Back",
     "Next": "Next",
-    "My Recipes": "My Recipes"
-
+    "My Recipes": "My Recipes",
+    "Update Avatar": "Update Avatar",
+    "Upload Image": "Upload Image",
+    "Note : ": "Note : ",
+    "Recommend picture size for image: height and width should be greater than 350px": "Recommend picture size for image: height and width should be greater than 350px",
+    "Activity":"Activity",
+    "Notifications": "Notifications",
+    "Following": "Following",
+    "Follower": "Follower",
+    "View": "View",
+    "Change Password": "Change Password",
+    "Display Name": "Display Name",
+    "The display name are require": "The display name are require",
+    "Current Password": "Current Password",
+    "New Password": "New Password"
 }

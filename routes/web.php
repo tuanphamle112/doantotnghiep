@@ -66,6 +66,11 @@ Route::group(['middleware' => 'locale'], function () {
             Route::put('/profile/info-update/{id}', 'ProfileController@updateMyInfo')->name('profile.info');
             Route::get('/change-password', 'ProfileController@showChangePasswordForm')->name('changePassword.form');
             Route::post('/change-password', 'ProfileController@changePassword')->name('changePassword');
+
+            Route::post('/recipe/comment/{id}', 'CommentController@storeComment')->name('comment.store');
+
+            Route::delete('/delete-comment/{id}', 'CommentController@deleteComment')->name('comment.delete');
+            Route::patch('/edit-comment/{id}', 'CommentController@editComment')->name('comment.edit');
         });
         Route::get('/recipes', 'RecipeController@index')->name('list-recipe.index');
         Route::get('/{parent}', 'RecipeController@showParentCategories')->name('nav');
