@@ -55,4 +55,9 @@ class DetailRecipeController extends Controller
             'comments'
         ));
     }
+
+    public function addToWishlist()
+    {
+        
+    }
 }

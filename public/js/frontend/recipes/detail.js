@@ -62,6 +62,14 @@ $(document).ready(function() {
         e.preventDefault();
         $(this).closest('.comment-box').find('.edit-comment-form').submit();
     });
+
+
+    $('#wishlist_form').submit(function(e){
+        e.preventDefault();
+
+        console.log('xxxxx')
+
+    });
 });
 $('body').on('click', '.reply', function (e) {
     e.preventDefault();

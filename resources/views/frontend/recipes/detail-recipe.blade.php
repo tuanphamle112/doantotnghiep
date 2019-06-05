@@ -103,9 +103,18 @@
                                 @endforeach
                             </dl>
                             <div class="favorite">
-                                <a href="javascript:void(0);"><i class="fa fa-fw fa-heart" aria-hidden="true"></i>
+                                <a href="javascript:document.getElementById('wishlist_form').submit();"><i class="fa fa-fw fa-heart" aria-hidden="true"></i>
                                     <span>{{ __('Add to favorites') }}</span></a>
                             </div>
+                            @if (Auth::check())
+                            <form id="wishlist_form" style="display: none;" data-wishlist="{{ route('wishlist.store') }}">
+                                {{csrf_field()}}
+                                <input name="user_id" type="text" value="{{Auth::user()->id}}" />
+                                <input name="recipe_id" type="text" value="{{$recipe->id}}" />
+                                <input type="submit" style="display:none">
+                            </form>
+                            @endif
+                        
                             <div class="print">
                                 <a href="#"><i class="fa fa-fw fa-print" aria-hidden="true"></i>
                                     <span>{{ __('Print recipe') }}</span></a>

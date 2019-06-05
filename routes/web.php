@@ -71,6 +71,8 @@ Route::group(['middleware' => 'locale'], function () {
 
             Route::delete('/delete-comment/{id}', 'CommentController@deleteComment')->name('comment.delete');
             Route::patch('/edit-comment/{id}', 'CommentController@editComment')->name('comment.edit');
+
+            Route::resource('wishlist', 'WishlistController');
         });
         Route::get('/recipes', 'RecipeController@index')->name('list-recipe.index');
         Route::get('/{parent}', 'RecipeController@showParentCategories')->name('nav');
