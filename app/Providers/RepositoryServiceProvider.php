@@ -19,6 +19,7 @@ class RepositoryServiceProvider extends ServiceProvider
             'Level',
             'Category',
             'Comment',
+            'Wishlist',
         ];
 
         foreach ($models as $model) {

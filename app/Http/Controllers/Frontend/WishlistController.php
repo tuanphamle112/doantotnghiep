@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Constracts\Eloquent\WishlistRepository;
 
 class WishlistController extends Controller
 {
@@ -12,6 +13,13 @@ class WishlistController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    protected $wishlist;
+
+    public function __construct(WishlistRepository $wishlist) {
+        $this->wishlist = $wishlist;
+    }
+
     public function index()
     {
         //
@@ -35,7 +43,12 @@ class WishlistController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->all());
+        $this->wishlist->create($request->all());
+
+        return response()->json([
+            'success' => 'xxx'
+        ]);
     }
 
     /**

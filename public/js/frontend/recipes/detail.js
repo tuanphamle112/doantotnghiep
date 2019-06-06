@@ -63,11 +63,27 @@ $(document).ready(function() {
         $(this).closest('.comment-box').find('.edit-comment-form').submit();
     });
 
+    $('#heart-link').on('click', function (e) {
+        if (typeof $('input[name=user_id]').val() === 'undefined') {
+            window.location.href = "/login";
+        }
+        $('#submit_heart').click();
+       e.preventDefault()
+    });
 
-    $('#wishlist_form').submit(function(e){
+    $('#wishlist_form').on('submit', function(e){
+        var formdata = $(this).serializeArray();  
+        var wishlist_url = $(this).data('wishlist');
         e.preventDefault();
-
-        console.log('xxxxx')
+        console.log(wishlist_url)
+        $.ajax({
+            url: wishlist_url,
+            type: "POST",
+            data: formdata,
+            success: function(response) {
+                $('#heart-link .fa-heart').attr('style', 'color: red !important');
+            }
+        });  
 
     });
 });
