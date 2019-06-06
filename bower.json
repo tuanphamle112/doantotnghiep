@@ -16,6 +16,7 @@
     "admin-lte": "^2.4.10",
     "SocialChef": "socialchef-tpl#*",
     "bootstrap-fileinput": "^5.0.2",
-    "jquery-highlight": "^3.5.0"
+    "jquery-highlight": "^3.5.0",
+    "toastr": "^2.1.3"
   }
 }
