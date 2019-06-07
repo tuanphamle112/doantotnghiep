@@ -1,10 +1,9 @@
 @extends('frontend.layouts.master')
 
-@section('title', __('My recipe'))
+@section('title', __('My Wish List'))
 
 @section('custom_css')
 <link rel="stylesheet" href="{{ asset('css/frontend/create-recipe/general.css') }}">
-<!-- <link rel="stylesheet" href="{{ asset('css/frontend/create-recipe/categories.css') }}"> -->
 <link rel="stylesheet" href="{{ asset('bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
 @endsection
 
@@ -15,21 +14,17 @@
     <nav role="navigation" class="breadcrumbs">
         <ul>
             <li><a href="{{ route('home') }}">'{{ __('Home') }}</a></li>
-            <li>{{ $parentCategory->name }}</li>
-            <li>{{ $subCategory->name }}</li>
+            <li>{{ __('My Wish List') }}</li>
         </ul>
     </nav>
     <div class="row">
         <header class="s-title">
-            <h1>{{ __('Recipes') }}</h1>
+            <h1>{{ __('My Wish List') }}</h1>
         </header>
         <section class="content full-width">
             <div class="entries row">
                 <!--item-->
-                @foreach ($allRecipe as $recipe)
-                @if ($recipe->status != config('manual.recipe_status.Actived'))
-                    @continue
-                @endif
+                @foreach ($recipes as $recipe)
                 <div class="entry one-fourth recipe-item">
                     <figure>
                         @if ($recipe->image != null)
@@ -56,8 +51,6 @@
                 </div>
                 @endforeach
                 <!--item-->
-                {{ $allRecipe->links() }}
-
             </div>
         </section>
     </div>

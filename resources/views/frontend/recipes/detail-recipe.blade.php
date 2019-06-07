@@ -103,15 +103,23 @@
                                 @endforeach
                             </dl>
                             @if (Auth::check())
-                            <form id="wishlist_form" style="display: none;" data-wishlist="{{ route('wishlist.store') }}">
-                                {{csrf_field()}}
-                                <input name="user_id" type="text" value="{{Auth::user()->id}}" />
-                                <input name="recipe_id" type="text" value="{{$recipe->id}}" />
-                                <input type="submit" id="submit_heart">
-                            </form>
+                                @if ($wishlist == null)
+                                    <form id="wishlist_form" style="display: none;" data-wishlist="{{ route('wishlist.store') }}" data-method="POST">
+                                        {{csrf_field()}}
+                                        <input name="user_id" type="text" value="{{Auth::user()->id}}" />
+                                        <input name="recipe_id" type="text" value="{{$recipe->id}}" />
+                                        <input type="submit" id="submit_heart">
+                                    </form>
+                                @else
+                                    <form id="wishlist_form" style="display: none;" data-wishlist="{{ route('wishlist.destroy', $wishlist->id) }}" data-method="DELETE">
+                                        {{ csrf_field() }}
+                                        <input name="user_id" type="text" value="{{Auth::user()->id}}" />
+                                        <input type="submit" id="submit_heart">
+                                    </form>
+                                @endif
                             @endif
                             <div class="favorite">
-                                <a href="#" id="heart-link"><i class="fa fa-fw fa-heart" aria-hidden="true"></i>
+                                <a href="#" id="heart-link"><i class="fa fa-fw fa-heart" @if ($wishlist != null) style="color: red !important" @endif aria-hidden="true"></i>
                                     <span>{{ __('Add to favorites') }}</span></a>
                             </div>
                             

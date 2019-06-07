@@ -74,14 +74,19 @@ $(document).ready(function() {
     $('#wishlist_form').on('submit', function(e){
         var formdata = $(this).serializeArray();  
         var wishlist_url = $(this).data('wishlist');
+        var method = $(this).data('method');
         e.preventDefault();
-        console.log(wishlist_url)
         $.ajax({
             url: wishlist_url,
-            type: "POST",
+            type: method,
             data: formdata,
             success: function(response) {
-                $('#heart-link .fa-heart').attr('style', 'color: red !important');
+                if (method == "POST")
+                {
+                    $('#heart-link .fa-heart').attr('style', 'color: red !important');
+                } else {
+                    $('#heart-link .fa-heart').attr('style', 'color: #fff !important');
+                }
             }
         });  
 

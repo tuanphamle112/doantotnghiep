@@ -311,7 +311,7 @@
                             <div class="actions">
                                 <div>
                                     <div class="date"><i class="fa fa-calendar"
-                                            aria-hidden="true"></i>{{ __('December 13, 2014') }}</div>
+                                            aria-hidden="true"></i>{{ $activeRecipe->created_at->format('Y-m-d H:s') }}</div>
                                     <div class="comments"><i class="fa fa-comment" aria-hidden="true"></i><a
                                             href="#">0</a>
                                     </div>
