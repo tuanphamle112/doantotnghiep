@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 
-@section('title', __('Manage Recipes'))
+@section('title', __('Manage Comment'))
 
 @section('content')
 <!-- Content Wrapper. Contains page content -->
@@ -19,7 +19,6 @@
 
     <!-- Main content -->
     <section class="content container-fluid">
-
         <div class="row">
             <div class="col-lg-3 col-xs-6">
                 <!-- small box -->
@@ -88,10 +87,7 @@
             <div class="col-xs-12 col-sm-12">
                 <div class="box">
                     <div class="box-header">
-                        <h3 class="box-title">{{ __('Recipes list') }}</h3>
-                        <div class="insert-button">
-                            <a class="btn btn-success btn-insert" href="{{ route('recipes.create') }}">{{ __('Create new recipe') }}</a>
-                        </div>
+                        <h3 class="box-title">{{ __('Comments List') }}</h3>
                         <div class="box-tools">
                             <div class="input-group input-group-sm">
                                 <input type="text" name="table_search" class="form-control pull-right"
@@ -104,62 +100,40 @@
                         </div>
                     </div>
                     <!-- /.box-header -->
-                    <div class="box-body table-responsive">
-                        <table class="table table-bordered table-hover">
+                    <div class="box-body table-responsive no-padding">
+                        <table class="table table-hover">
                             <tr>
                                 <th>{{ __('ID') }}</th>
-                                <th>{{ __('Recipe Name') }}</th>
+                                <th>{{ __('Owner') }}</th>
                                 <th>{{ __('Recipe Number') }}</th>
-                                <th>{{ __('Estimated time') }}</th>
-                                <th>{{ __('Description') }}</th>
-                                <th>{{ __('Image link') }}</th>
-                                <th>{{ __('Video link') }}</th>
-                                <th>{{ __('Rating point') }}</th>
-                                <th>{{ __('Level') }}</th>
-                                <th>{{ __('Number of people') }}</th>
-                                <th>{{ __('Status') }}</th>
+                                <th>{{ __('Content') }}</th>
+                                <th>{{ __('Comment At') }}</th>
                             </tr>
 
-                            @foreach ($recipes as $recipe)
+                            @foreach ($comments as $comment)
                             <tr>
-                                <td>{{ $recipe->id }}</td>
-                                <td>{{ $recipe->name }}</td>
-                                <td>{{ $recipe->recipe_number }}</td>
-                                <td>{{ $recipe->estimate_time }} <span>{{ __('hours') }}</span></td>
-                                <td><p class="long-text">{{ $recipe->description }}</p></td>
-                                <td><p class="long-text">{{ $recipe->image }}</p></td>
-                                <td>{{ $recipe->video_link }}</td>
-                                <td>{{ $recipe->rating_point }}</td>
-                                <td>{{ $recipe->level->name }}</td>
-                                <td>{{ $recipe->people_number }}</td>
-
-                                @if ($recipe->status == config('manual.recipe_status.Pendding'))
-                                <td><span class="label label-warning">{{ __('Pendding') }}</span></td>
-                                @elseif ($recipe->status == config('manual.recipe_status.Actived'))
-                                <td><span class="label label-success">{{ __('Actived') }}</span></td>
-                                @else
-                                <td><span class="label label-danger">{{ __('Reject') }}</span></td>
-                                @endif
-
-                                <td><a href="{{ url('/recipe/' . changeLink($recipe->name) . '/' . $recipe->id) }}">{{ __('Detail') }}</a></td>
-                                <td><a href="{{ route('recipes.edit', ['id' => $recipe->id]) }}">{{ __('Edit') }}</a></td>
+                                <td>{{ $comment->id }}</td>
+                                <td>{{ $comment->user->name }}</td>
+                                <td><a href="{{ url('/recipe/' . changeLink($comment->commentable->name) . '/' . $comment->commentable->id) }}">{{ $comment->commentable->recipe_number }}</a></td>
+                                <td width="65%">{{ $comment->content }}</td>
+                                <td>{{ $comment->created_at }}</td>
                                 <td class="wrap-delete-form">
-                                    <a href="javascript:void(0)"
-                                        data-text="{{ __('Do you want to delete this recipe?') }}" class="delete">
+                                    <a href="javascript:void(0)" data-text="{{ __('Do you want to delete this comment?') }}" class="delete">
                                         <i class="fa fa-trash-o"></i>
                                     </a>
-                                    <form class="delete-form" action="{{ route('recipes.destroy', $recipe->id) }}" method="post">
+                                    <form class="delete-form" action="{{ route('admin.comment.delete', $comment->id) }}" method="post">
                                         {{ csrf_field() }}
                                         {{ method_field('DELETE') }}
                                         <div class="form-group">
-                                            <input type="submit" class="btn btn-danger">
+                                            <input type="submit" class="btn btn-danger" value="Delete comment">
                                         </div>
                                     </form>
                                 </td>
                             </tr>
                             @endforeach
+
                         </table>
-                        {{ $recipes->links() }}
+                        {{ $comments->links() }}
                     </div>
                     <!-- /.box-body -->
                 </div>
@@ -171,12 +145,12 @@
     </section>
     <!-- /.content -->
 </div>
-
+<div class="control-sidebar-bg"></div>
+<!-- ./wrapper -->
 @endsection
-
 
 @section('script')
 
 @parent
-<script src="{{ asset('js/admin/recipes/index.js') }}"></script>
+<script src="{{ asset('js/admin/users/index.js') }}"></script>
 @endsection

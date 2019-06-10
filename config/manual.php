@@ -11,6 +11,7 @@ return [
         'recipe' => 5,
         'category' => 2,
         'recipe_home' => 12,
+        'comment' => 10,
     ],
     'recipe_status' => [
         'Pending' => 0,

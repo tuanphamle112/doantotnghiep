@@ -24,6 +24,9 @@ Route::group(['middleware' => 'locale'], function () {
         Route::resource('recipes', 'RecipeController');
         Route::resource('categories', 'CategoryController');
         Route::get('category/{id}/create', 'CategoryController@subCreate')->name('category.subCreate');
+
+        Route::get('comments', 'CommentController@index')->name('admin.comment.index');
+        Route::delete('/delete-comment/{id}', 'CommentController@deleteComment')->name('admin.comment.delete');
     });
     //user route
     Route::group(['namespace' => 'Frontend'], function () {
