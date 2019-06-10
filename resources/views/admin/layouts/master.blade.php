@@ -140,6 +140,10 @@
                             <li><a href="{{ route('categories.index') }}">{{ __('Category list') }}</a></li>
                         </ul>
                     </li>
+                    <li class="active">
+                        <a href="{{ route('admin.comment.index') }}"><i class="fa fa-link"></i> <span>{{ __('Manage Comments') }}</span>
+                        </a>
+                    </li>
                 </ul>
                 <!-- /.sidebar-menu -->
             </section>
