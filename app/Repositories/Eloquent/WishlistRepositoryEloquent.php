@@ -16,4 +16,14 @@ class WishlistRepositoryEloquent extends BaseRepositoryEloquent implements Wishl
         $this->model = $wishlist;
     }
 
+    public function showWistList($userId, $recipeId)
+    {
+        return $this->model->where('user_id', $userId)->where('recipe_id', $recipeId)->first();
+    }
+
+    public function allRecipeInWishList($userId)
+    {
+        return $this->model->where('user_id', $userId)->get();
+    }
+
 }

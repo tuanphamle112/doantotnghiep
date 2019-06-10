@@ -4,7 +4,14 @@ namespace App\Http\Controllers\Frontend;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+
+
+use App\Constracts\Eloquent\CategoryRepository;
+use App\Constracts\Eloquent\RecipeRepository;
+use App\Constracts\Eloquent\UserRepository;
 use App\Constracts\Eloquent\WishlistRepository;
+
+use Auth;
 
 class WishlistController extends Controller
 {
@@ -13,16 +20,53 @@ class WishlistController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
+    protected $category;
+    protected $recipe;
+    protected $user;
     protected $wishlist;
 
-    public function __construct(WishlistRepository $wishlist) {
+    public function __construct(
+        WishlistRepository $wishlist,
+        CategoryRepository $category,
+        RecipeRepository $recipe,
+        UserRepository $user
+    ) {
+        $this->category = $category;
+        $this->recipe = $recipe;
+        $this->user = $user;
         $this->wishlist = $wishlist;
     }
+    public function getCategoriesForNav()
+    {
+        $categories = [];
+        $categoryParents = $this->category->getAllParentCategories();
 
+        foreach ($categoryParents as $categoryParent) {
+            $parentId = $categoryParent->id;
+            $categoryChildren = $this->category->getChildrenCategories($parentId);
+
+            $categoryParent->children = $categoryChildren;
+            $categories[] = $categoryParent;
+        }
+
+        return $categories;
+    }
     public function index()
     {
-        //
+        $categories = $this->getCategoriesForNav();
+        $paginate = config('manual.pagination.recipe_home');
+        $wishlist = $this->wishlist->allRecipeInWishList(Auth::user()->id);
+
+        $recipes = [];
+
+        foreach ($wishlist as $item) {
+            array_push($recipes, $item->recipe);
+        }
+
+        return view('frontend.wishlist.index', compact(
+            'categories',
+            'recipes'
+        ));
     }
 
     /**
@@ -43,11 +87,10 @@ class WishlistController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
         $this->wishlist->create($request->all());
 
         return response()->json([
-            'success' => 'xxx'
+            'success' => 'success'
         ]);
     }
 
@@ -93,6 +136,10 @@ class WishlistController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->wishlist->destroy($id);
+
+        return response()->json([
+            'success' => 'success'
+        ]);
     }
 }

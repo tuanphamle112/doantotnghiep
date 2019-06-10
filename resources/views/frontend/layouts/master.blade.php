@@ -71,7 +71,7 @@
                         @endif
                         <ul class="sub-menu">
                             <li><a href="{{ route('profile.index', Auth::user()->id) }}">{{ __('Profile') }}</a></li>
-                            <li><a href="">{{ __('Wish List') }}</a></li>
+                            <li><a href="{{ route('wishlist.index') }}">{{ __('Wish List') }}</a></li>
                             @if (Auth::user()->permission == config('manual.permission.admin'))
                             <li><a href="{{ route('users.index') }}"><span>{{ __('Go to Admin Page') }}</span></a></li>
                             @endif

@@ -44,19 +44,12 @@
                         </h2>
                         <div class="actions">
                             <div>
-                                <div class="difficulty">
-                                    <a href="{{ route('my-recipe.edit', $recipe->id) }}">{{ __('Update Recipe')}}</a>
-                                </div>
-                                @if ($recipe->status == config('manual.recipe_status.Pendding'))
-                                <td><span class="label label-warning">{{ __('Pendding') }}</span></td>
-                                @elseif ($recipe->status == config('manual.recipe_status.Actived'))
-                                <td><span class="label label-success">{{ __('Actived') }}</span></td>
-                                @else
-                                <td><span class="label label-danger">{{ __('Reject') }}</span></td>
-                                @endif
-                                <div class="comments"><i class="fa fa-comment" aria-hidden="true"></i><a href="#">0</a>
-                                </div>
+                                <div class="date"><i class="fa fa-calendar"
+                                        aria-hidden="true"></i>{{ $recipe->created_at->format('Y-m-d H:s') }}</div>
                             </div>
+                        </div>
+                        <div class="excerpt">
+                            <p>{{ $recipe->description }}</p>
                         </div>
                         {{ $recipes->links() }}
                     </div>
