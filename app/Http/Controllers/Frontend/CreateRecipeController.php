@@ -13,6 +13,8 @@ use App\Http\Requests\CreateRecipeFirstRequest;
 use App\Http\Requests\CookingStepRequest;
 
 use App\Helpers\Helper;
+use App\Models\Recipe;
+
 use Auth;
 
 class CreateRecipeController extends Controller

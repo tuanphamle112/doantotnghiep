@@ -18,6 +18,9 @@ Route::group(['middleware' => 'locale'], function () {
     Route::get('/', 'HomeController@index')->name('home');
     Route::get('/change-language/{language}', 'HomeController@changeLanguage')->name('change-language');
 
+    Route::get('search/index', 'SearchController@index')->name('search.index');
+    Route::post('search/ingredient', 'SearchController@searchByIngredient')->name('search.ingredient');
+    Route::post('search/recipe', 'SearchController@searchByRecipe')->name('search.recipe');
     // admin route
     Route::group(['middleware' => 'admin', 'prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::resource('users', 'UserController');
