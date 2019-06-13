@@ -31,7 +31,7 @@
                     </li>
                     <li><a href="javascript:void(0)"><strong>{{ __('4. Recipe Categories') }}</strong></a></li>
                 </ul>
-                
+
                 <form action="{{ route('recipe.step', [$id, $stepId]) }}" class="wrap-create-form" method="post">
                     {{ csrf_field() }}
 
@@ -46,17 +46,18 @@
                                     placeholder="{{ __('Your short description here...') }}" rows="6"></textarea>
                             </div>
                             @if ($errors->any())
-                                <div class="filling-error error-exist">
-                                    <ul>
-                                        @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
+                            <div class="filling-error error-exist">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
                             @endif
                             <div class="form-group step-name">
                                 <label for="name">{{ __('Name of step') }}</label>
-                                <input type="text" name="name" class="form-control" placeholder="{{ __('Name of step') }}">
+                                <input type="text" name="name" class="form-control"
+                                    placeholder="{{ __('Name of step') }}">
                             </div>
                             <div class="form-group step-time">
                                 <label for="time">{{ __('Time') }}</label>
@@ -64,9 +65,14 @@
                             </div>
                             <div class="form-group step-tips" class="tips-for-good">
                                 <label for="tips">{{ __('Tips for the good') }}</label>
-                                <textarea type="text" class="form-control" name="note" placeholder="{{ __('Tips for the good') }}" rows="4"></textarea>
+                                <textarea type="text" class="form-control" name="note"
+                                    placeholder="{{ __('Tips for the good') }}" rows="4"></textarea>
                             </div>
                         </div>
+                        <p>
+                            <b>{{ __('Note :') }}</b>
+                            {{ __('Remember to upload your images first before go to next step') }}
+                        </p>
                         <div class="wrap-file-input">
                             <div class="file-loading">
                                 <input id="input-701" name="step_file[]" type="file" multiple>
@@ -79,15 +85,19 @@
                         <input type="hidden" name="uploaded" class="upload-status" value="">
                         <div class="step-button">
                             @if ($stepId > 1)
-                            <a href="{{ route('form-update.step', [$recipe->id, $stepId-1]) }}" class="button back-step">{{ __('Back Step') }}</a>
+                            <a href="{{ route('form-update.step', [$recipe->id, $stepId-1]) }}"
+                                class="button back-step">{{ __('Back Step') }}</a>
                             @endif
-                            <button type="submit" name="submit_step" value="next_step" class="button next-step">{{ __('Next Step') }}</button>
+                            <button type="submit" name="submit_step" value="next_step"
+                                class="button next-step">{{ __('Next Step') }}</button>
                         </div>
                     </div>
-                    
+
                     <div class="f-row full">
-                        <a href="{{ route('form-update.ingredient', $id) }}" class="button back-form-1">{{ __('Back') }}</a>
-                        <button type="submit" name="submit_step" value="next_form" class="button next-form">{{ __('Next') }}</button>
+                        <a href="{{ route('form-update.ingredient', $id) }}"
+                            class="button back-form-1">{{ __('Back') }}</a>
+                        <button type="submit" name="submit_step" value="next_form"
+                            class="button next-form">{{ __('Next') }}</button>
                     </div>
                 </form>
             </div>

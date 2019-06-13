@@ -70,7 +70,7 @@ class CreateRecipeController extends Controller
         $imageStorageFolder = 'recipe' . $request->recipe_number;
         if (!is_null($request->main_image)) {
             $mainImageName = $imageStorageFolder . '/' . time() . $request->main_image->getClientOriginalName();
-            // Helper::putImageToUploadsFolder($mainImageName, $request->main_image);
+            Helper::putImageToUploadsFolder($mainImageName, $request->main_image);
         };
 
         $recipes = [
@@ -102,9 +102,9 @@ class CreateRecipeController extends Controller
     public function submitIngredient(Request $request, $id)
     {
         $recipe = $this->recipe->findOrFail($id);
-        if ( $request->ingredients == null) {
+        if ($request->ingredients == null) {
             return Redirect::back()->withErrors(['Please fill at least one ingredient']);
-        } 
+        }
 
         $ingredients= [
             'name' => $request->ingredients,
