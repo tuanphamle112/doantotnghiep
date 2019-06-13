@@ -70,6 +70,9 @@
     color: #c70808;
     display: none;
 }
+.filling-error li:before {
+    content:'' !important;
+}
 .ingredient-error {
     float: left;
 }

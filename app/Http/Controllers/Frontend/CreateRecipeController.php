@@ -14,7 +14,7 @@ use App\Http\Requests\CookingStepRequest;
 
 use App\Helpers\Helper;
 use App\Models\Recipe;
-
+use Redirect;
 use Auth;
 
 class CreateRecipeController extends Controller
@@ -102,6 +102,9 @@ class CreateRecipeController extends Controller
     public function submitIngredient(Request $request, $id)
     {
         $recipe = $this->recipe->findOrFail($id);
+        if ( $request->ingredients == null) {
+            return Redirect::back()->withErrors(['Please fill at least one ingredient']);
+        } 
 
         $ingredients= [
             'name' => $request->ingredients,
@@ -131,7 +134,10 @@ class CreateRecipeController extends Controller
     public function submitCookingStep(CookingStepRequest $request, $id, $stepId)
     {
         $recipe = $this->recipe->findOrFail($id);
+
         $thisStep = $this->recipe->findCookingStep($id, $stepId);
+        // dd($recipe);
+
         switch ($request->submit_step) {
             case 'next_step':
                 $nextStep = $stepId + 1;
@@ -210,7 +216,6 @@ class CreateRecipeController extends Controller
         $categories = $this->getCategoriesForNav();
         $allCategories = $this->category->all();
         $lastStepId = $this->recipe->getLastStepId($id);
-
         return view('frontend.recipes.create-recipe.categories', compact(
             'id',
             'categories',

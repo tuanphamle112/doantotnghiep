@@ -72,7 +72,6 @@
                                 <input id="input-701" name="step_file[]" type="file" multiple>
                             </div>
                             <div class="filling-error image-error">{{ __('Please upload your images first') }}</div>
-
                         </div>
                         <input type="hidden" name="recipe_number" value="{{ $recipe->recipe_number }}">
                         <input type="hidden" name="step_number" value="{{ $stepId }}">

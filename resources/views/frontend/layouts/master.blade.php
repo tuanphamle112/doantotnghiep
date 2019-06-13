@@ -89,7 +89,7 @@
             </nav>
             <nav class="user-nav" role="navigation">
                 <ul id="menu-primary">
-                    <li class="light"><a href="#" title="Search for recipes"><i
+                    <li class="light"><a href="{{ route('search.index') }}" title="Search for recipes"><i
                                 class="icon icon-themeenergy_search"></i> <span>{{ __('Look for recipes') }}</span></a>
                     </li>
                     <li class="medium my-account">

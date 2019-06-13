@@ -55,7 +55,7 @@
                         </div>
                     </div>
                     <div class="f-row full">
-                        <a href="{{ route('form-update.step', [$id, $lastStepId-1]) }}" class="button back-form-1">{{ __('Back Step') }}</a>
+                        <a href="{{ route('form-update.step', [$id, $lastStepId]) }}" class="button back-form-1">{{ __('Back Step') }}</a>
                         <input type="submit" value="{{ __('Finish') }}" class="button next-form">
                     </div>
                 </form>

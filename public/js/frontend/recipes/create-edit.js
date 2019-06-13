@@ -28,9 +28,18 @@ $(document).ready(function() {
     });
     //checkfile upload or not
     $('.next-step').on('click', function(e) {
-        if ($('#input-701').val() != '' && $('.upload-status').val() == '') {
-            e.preventDefault();
-            $('.wrap-file-input .image-error').attr('style', 'display:block !important');
+        console.log($('#input-701').length)
+        if ($('#input-701').length != 0) {
+            if ($('#input-701').val() != '' && $('.upload-status').val() == '') {
+                e.preventDefault();
+                $('.wrap-file-input .image-error').attr('style', 'display:block !important');
+            }
+        }
+        if ($('#input-702').length != 0) {
+            if ($('#input-702').val() != '' && $('.upload-status').val() == '') {
+                e.preventDefault();
+                $('.wrap-file-input  .image-error').attr('style', 'display:block !important');
+            }
         }
     });
     // file input
@@ -55,6 +64,11 @@ $(document).ready(function() {
         },
     });
     $('body').on('fileuploaded', '#input-701', function (event, key, XMLRequest, data) { 
+        $('.wrap-file-input image-error').attr('style', 'display:none !important');
+        $('.upload-status').val('uploaded');
+
+    });
+    $('body').on('fileuploaded', '#input-702', function (event, key, XMLRequest, data) { 
         $('.wrap-file-input image-error').attr('style', 'display:none !important');
         $('.upload-status').val('uploaded');
 
@@ -106,6 +120,13 @@ $(document).ready(function() {
         },
     }
 
+    //check ingredient
+    $('body').on('click', '.ingredient-next', function(e){
+        e.preventDefault();
+
+    });
+    // end check ingre
+
     //upload file input
     $('#input-702').fileinput(fileInputOption);
 
@@ -125,7 +146,7 @@ $(document).ready(function() {
             reader.readAsDataURL(input.files[0]);
         }
     }
-
+    
     function checkIngredient(quantity, unit, name) {
         var messages = [];
         var format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
@@ -137,16 +158,20 @@ $(document).ready(function() {
         }
 
         if (format.test(unit.trim()) || format.test(name.trim())) {
-            messages.push(Lang.get('validation.ingredient_character'));
+            // messages.push(Lang.get('validation.ingredient_character'));
+            messages.push('Ingredient field must not contain special character');
         }
         if(quantity.trim() == '') {
-            messages.push(Lang.get('validation.ingredient_quantity'));
+            messages.push('Please fill the quantity');
+            // messages.push(Lang.get('validation.ingredient_quantity'));
         }
         if(unit.trim() == '') {
-            messages.push(Lang.get('validation.ingredient_unit'));
+            messages.push('Please fill the ingredient\'s unit');
+            // messages.push(Lang.get('validation.ingredient_unit'));
         }
         if(name.trim() == '') {
-            messages.push(Lang.get('validation.ingredient_name'));
+            messages.push("Please fill the ingredient's name");
+            // messages.push(Lang.get('validation.ingredient_name'));
         }
 
         if (messages.length === 0) {

@@ -59,10 +59,11 @@ class RecipeRepositoryEloquent extends BaseRepositoryEloquent implements RecipeR
 
     public function findCookingStep($id, $stepId)
     {
-        return $this->findOrFail($id)
+        // dd($this->model->findOrFail($id)->cookingStep()->where('step_number', $stepId)->first());
+        return $this->model->findOrFail($id)
         ->cookingStep()
         ->where('step_number', $stepId)
-        ->firstOrFail();
+        ->first();
     }
 
     public function updateCookingStep($id, $stepId, $data = [])
@@ -122,7 +123,7 @@ class RecipeRepositoryEloquent extends BaseRepositoryEloquent implements RecipeR
         $recipe = $this->model->findOrFail($id);
         $step = $recipe->cookingStep()
         ->where('step_number', $stepNumber)
-        ->firstOrFail();
+        ->first();
 
         return $step->image;
     }
@@ -132,7 +133,7 @@ class RecipeRepositoryEloquent extends BaseRepositoryEloquent implements RecipeR
         $recipe = $this->model->findOrFail($id);
         $stepId = $recipe->cookingStep()
         ->orderBy('step_number', 'DESC')
-        ->firstOrFail();
+        ->first();
 
         return $stepId->step_number;
     }

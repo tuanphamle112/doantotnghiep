@@ -30,7 +30,7 @@
                     <li><a href="javascript:void(0)"><strong>{{ __('4. Recipe Categories') }}</strong></a></li>
                 </ul>
                 @if ($errors->any())
-                    <div class="filling-error error-exist">
+                    <div class="filling-error error-exist error-active">
                         <ul>
                             @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
@@ -65,7 +65,7 @@
                     <input type="hidden" class="ingredients" name="ingredients">
                     <div class="f-row full">
                         <a href="{{ route('my-recipe.edit', $id) }}" class="button back-form-1">{{ __('Back') }}</a>
-                        <input type="submit" value="{{ __('Next') }}" class="button next-form">
+                        <input type="submit" value="{{ __('Next') }}" class="button ingredient-next next-form">
                     </div>
                 </form>
             </div>

@@ -13,6 +13,7 @@ use App\Http\Requests\CreateRecipeFirstRequest;
 use App\Http\Requests\CookingStepRequest;
 
 use App\Helpers\Helper;
+use Redirect;
 use Auth;
 
 class MyRecipeController extends Controller
@@ -156,7 +157,7 @@ class MyRecipeController extends Controller
     public function updateRecipeInfo(CreateRecipeFirstRequest $request, $id)
     {
         // upload file
-        $avatarOld = $request->avatar_old;
+        $mainImageName = $request->main_image_old;
         $imageStorageFolder = 'recipe' . $request->recipe_number;
         if (!is_null($request->main_image)) {
             $mainImageName = $imageStorageFolder . '/' . time() . $request->main_image->getClientOriginalName();
@@ -202,6 +203,9 @@ class MyRecipeController extends Controller
     public function submitIngredient(Request $request, $id)
     {
         $recipe = $this->recipe->findOrFail($id);
+        if ( $request->ingredients == null) {
+            return Redirect::back()->withErrors(['Please fill at least one ingredient']);
+        } 
 
         $ingredients= [
             'name' => $request->ingredients,
@@ -220,7 +224,7 @@ class MyRecipeController extends Controller
         $categories = $this->getCategoriesForNav();
         $recipe = $this->recipe->findOrFail($id);
         $stepInfo = $this->recipe->getRecipeStepInfo($id, $stepNumber);
-        
+        // dd($stepInfo);
         return view('frontend.recipes.update-recipe.cooking-step', compact(
             'id',
             'stepNumber',
