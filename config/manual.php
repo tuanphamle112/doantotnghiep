@@ -18,6 +18,11 @@ return [
         'Actived' => 1,
         'Rejected' => 2,
     ],
+    'post_status' => [
+        'Pending' => 0,
+        'Actived' => 1,
+        'Rejected' => 2,
+    ],
     'home_page' => [
         'take' => [
             'feature_recipe' => 6,
