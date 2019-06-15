@@ -79,6 +79,7 @@ Route::group(['middleware' => 'locale'], function () {
             Route::patch('/edit-comment/{id}', 'CommentController@editComment')->name('comment.edit');
 
             Route::resource('wishlist', 'WishlistController');
+            Route::resource('posts', 'PostController');
         });
         Route::get('/recipes', 'RecipeController@index')->name('list-recipe.index');
         Route::get('/{parent}', 'RecipeController@showParentCategories')->name('nav');

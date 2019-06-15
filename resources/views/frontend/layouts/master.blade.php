@@ -54,7 +54,7 @@
                     </li>
                     <li><a href="#"><span>{{ __('Community') }}</span></a>
                     </li>
-                    <li><a href="#"><span>{{ __('Blog') }}</span></a>
+                    <li><a href="{{ route('posts.index') }}"><span>{{ __('Posts') }}</span></a>
                     </li>
                     <li><a href="#"><span>{{ __('Videos') }}</span></a>
                     </li>
@@ -72,6 +72,7 @@
                         <ul class="sub-menu">
                             <li><a href="{{ route('profile.index', Auth::user()->id) }}">{{ __('Profile') }}</a></li>
                             <li><a href="{{ route('wishlist.index') }}">{{ __('Wish List') }}</a></li>
+                            <li><a href="{{ route('posts.create') }}">{{ __('Create A Post') }}</a></li>
                             @if (Auth::user()->permission == config('manual.permission.admin'))
                             <li><a href="{{ route('users.index') }}"><span>{{ __('Go to Admin Page') }}</span></a></li>
                             @endif
@@ -94,7 +95,7 @@
                     </li>
                     <li class="medium my-account">
                         @if (Auth::check())
-                        <a href="{{ route('my-recipe.index') }}" title="My account"><i
+                        <a href="{{ route('my-recipe.index') }}" title="My Recipe"><i
                                 class="icon icon-themeenergy_chef-hat"></i>
                             <span>{{ __('Manage my recipes') }}</span>
                         </a>

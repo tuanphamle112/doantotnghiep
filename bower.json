@@ -17,6 +17,8 @@
     "SocialChef": "socialchef-tpl#*",
     "bootstrap-fileinput": "^5.0.2",
     "jquery-highlight": "^3.5.0",
-    "toastr": "^2.1.3"
+    "toastr": "^2.1.3",
+    "ckeditor": "^4.11.4",
+    "kcfinder": "^3.20.4"
   }
 }

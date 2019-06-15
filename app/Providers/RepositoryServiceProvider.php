@@ -20,6 +20,7 @@ class RepositoryServiceProvider extends ServiceProvider
             'Category',
             'Comment',
             'Wishlist',
+            'Post',
         ];
 
         foreach ($models as $model) {
