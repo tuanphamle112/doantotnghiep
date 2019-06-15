@@ -8,6 +8,7 @@ use App;
 use App\Constracts\Eloquent\CategoryRepository;
 use App\Constracts\Eloquent\RecipeRepository;
 use App\Constracts\Eloquent\UserRepository;
+use App\Constracts\Eloquent\PostRepository;
 
 use App\Helpers\Helper;
 
@@ -21,15 +22,18 @@ class HomeController extends Controller
     protected $category;
     protected $recipe;
     protected $user;
+    protected $post;
 
     public function __construct(
         CategoryRepository $category,
         RecipeRepository $recipe,
-        UserRepository $user
+        UserRepository $user,
+        PostRepository $post
     ) {
         $this->category = $category;
         $this->recipe = $recipe;
         $this->user = $user;
+        $this->post = $post;
     }
 
     /**
@@ -41,10 +45,16 @@ class HomeController extends Controller
     {
         $categories = [];
         $categoryParents = $this->category->getAllParentCategories();
-        $allActiveRecipes = $this->recipe->getAllActiveRecipe(['level']);
+
+        $allActiveRecipes = $this->recipe->getAllActiveRecipe(['level', 'comments']);
         $featureRecipe = $this->recipe->getOneFeatureRecipe(['level']);
+
         $featureMember = $this->user->getFeatureMember();
-        
+        $latestPost = $this->post->getNewestPostForHomepage();
+
+        $porpularPost = $this->post->getPopularPostForHomepage();
+
+        $popularRecipes = $this->recipe->getPopularRecipesForHomepage();
         foreach ($categoryParents as $categoryParent) {
             $parentId = $categoryParent->id;
             $categoryChildren = $this->category->getChildrenCategories($parentId);
@@ -56,7 +66,10 @@ class HomeController extends Controller
             'categories',
             'allActiveRecipes',
             'featureRecipe',
-            'featureMember'
+            'featureMember',
+            'latestPost',
+            'porpularPost',
+            'popularRecipes'
         ));
     }
 

@@ -33,10 +33,11 @@ return [
     'default_media' => [
         'logo' => 'images/logo.png',
         'avatar' => [
-            'man' => 'images/default1.jpeg',
-            'women' => 'images/default2.png',
+            'man' => '/images/default1.jpeg',
+            'women' => '/images/default2.png',
         ],
-        'recipe' => 'images/37.jpg',
+        'recipe' => '/images/37.jpg',
     ],
     'recipe_url' => 'uploads/recipes/',
+    'posts_url' => 'uploads/posts/',
 ];

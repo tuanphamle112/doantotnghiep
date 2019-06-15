@@ -31,4 +31,6 @@ interface RecipeRepository extends BaseRepository
     public function getLastStepId($id);
 
     public function getRecipeByCategory($paginate, $categoryId);
+
+    public function getPopularRecipesForHomepage();
 }

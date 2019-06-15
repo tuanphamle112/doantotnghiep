@@ -175,7 +175,7 @@
                                     <div>
                                         <a href="{{ url('/recipe/' . changeLink($featureRecipe->name) . '/' . $featureRecipe->id) }}"
                                             class="button">{{ __('See the full recipe') }}</a>
-                                        <div class="more"><a href="#">{{ __('See past featured recipes') }}</a></div>
+                                        <div class="more"><a href="{{ route('list-recipe.index') }}">{{ __('See past featured recipes') }}</a></div>
                                     </div>
                                 </div>
                             </div>
@@ -192,9 +192,22 @@
                         </header>
                         <article class="entry">
                             <figure>
-                                <a href="#"><img src="{{ config('manual.default_media.avatar.man') }}"
-                                        class="avatar user-1-avatar avatar-270 photo" width="270" height="270"
-                                        alt="{{ __('Profile Photo') }}"></a>
+                                <a href="route('profile.index', $featureMember->id)">
+                                    @if ($featureMember->avatar !== null)
+                                    <img src="{{ asset('uploads/avatars/' . $featureMember->avatar) }}"
+                                        class="avatar user-1-avatar avatar-270 photo"
+                                        width="270"
+                                        height="270"
+                                        alt="{{ __('Profile Photo') }}">
+                                    @else
+                                    <img src="{{ config('manual.default_media.avatar.man') }}"
+                                        class="avatar user-1-avatar avatar-270 photo"
+                                        width="270"
+                                        height="270"
+                                        alt="{{ __('Profile Photo') }}">
+                                    @endif
+                                </a>
+
                                 <figcaption><a href="#"><i class="icon icon-themeenergy_eye2"></i>
                                         <span>{{ __('View member') }}</span></a>
                                 </figcaption>
@@ -210,7 +223,6 @@
                                 <div class="actions">
                                     <div>
                                         <a href="#" class="button">{{ __('Recipes by this user') }}</a>
-                                        <div class="more"><a href="#">{{ __('See past featured members') }}</a></div>
                                     </div>
                                 </div>
                             </div>
@@ -267,7 +279,7 @@
                                     </div>
                                     @endif
                                     <div class="comments"><i class="fa fa-comment" aria-hidden="true"></i><a
-                                            href="">0</a>
+                                            href="">{{ count($activeRecipe->comments) }}</a>
                                     </div>
                                 </div>
                             </div>
@@ -275,8 +287,8 @@
                     </div>
                     @endforeach
                     <div class="quicklinks">
-                        <a href="#" class="button show-more-recipes">{{ __('More recipes') }}</a>
-                        <a href="javascript:void(0)" class="button scroll-to-top">{{ __('Back to top') }}</a>
+                        <a href="{{ route('list-recipe.index') }}" class="button show-more-recipes">{{ __('More recipes') }}</a>
+                        <a href="#menu-primary" class="button scroll-to-top">{{ __('Back to top') }}</a>
                     </div>
                 </div>
             </div>
@@ -293,40 +305,40 @@
                 <!--entries-->
                 <div class="entries row">
                     <!--item-->
-                    @foreach ($allActiveRecipes as $activeRecipe)
+                    @foreach ($latestPost as $post)
                     <div class="entry one-third post-item">
                         <figure>
-                            <img src="{{ asset(config('manual.recipe_url') . $activeRecipe->image) }}"
-                                alt="{{ $activeRecipe->name }}">
+                            <img src="{{ asset(config('manual.posts_url') . $post->image) }}"
+                                alt="{{ $post->title }}">
                             <figcaption><a
-                                    href="{{ url('/recipe/' . changeLink($activeRecipe->name) . '/' . $activeRecipe->id) }}"><i
+                                    href="{{ url('/posts/' . $post->id) }}"><i
                                         class="icon icon-themeenergy_eye2"></i>
                                     <span>{{ __('View post') }}</span></a>
                             </figcaption>
                         </figure>
                         <div class="container">
                             <h2><a
-                                    href="{{ url('/recipe/' . changeLink($activeRecipe->name) . '/' . $activeRecipe->id) }}">{{ $activeRecipe->name }}</a>
+                                    href="{{ url('/posts/' . $post->id) }}">{{ $post->title }}</a>
                             </h2>
                             <div class="actions">
                                 <div>
                                     <div class="date"><i class="fa fa-calendar"
-                                            aria-hidden="true"></i>{{ $activeRecipe->created_at->format('Y-m-d H:s') }}</div>
+                                            aria-hidden="true"></i>{{ $post->created_at->format('Y-m-d H:s') }}</div>
                                     <div class="comments"><i class="fa fa-comment" aria-hidden="true"></i><a
                                             href="#">0</a>
                                     </div>
                                 </div>
                             </div>
                             <div class="excerpt">
-                                <p>{{ $activeRecipe->description }}</p>
+                                <p>{{ $post->description }}</p>
                             </div>
                         </div>
                     </div>
                     <!--item-->
                     @endforeach
                     <div class="quicklinks">
-                        <a href="#" class="button">{{ __('More posts') }}</a>
-                        <a href="javascript:void(0)" class="button scroll-to-top">{{ __('Back to top') }}</a>
+                        <a href="{{ route('posts.index') }}" class="button">{{ __('More posts') }}</a>
+                        <a href="#menu-primary" class="button scroll-to-top">{{ __('Back to top') }}</a>
                     </div>
                 </div>
             </div>
@@ -338,14 +350,43 @@
                 <li class="widget widget-sidebar">
                     <!--cwrap-->
                     <div class="cwrap">
-                        <h5>Latest posts</h5>
+                        <h5>{{ __('Popular Posts') }}</h5>
                         <ul class="articles_latest">
+                            @foreach ($porpularPost as $rightPost)
                             <li>
-                                <a href="#">
-                                    <img src="#" alt="#">
-                                    <h6>Indulge yourself in chocolate</h6>
+                                <a href="{{ route('posts.show', $rightPost->id) }}">
+                                    <img src="{{ asset(config('manual.posts_url') . $rightPost->image) }}" alt="{{ $rightPost->title }}">
+                                    <h6>{{ $rightPost->title }}</h6>
                                 </a>
                             </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    <!--//cwrap-->
+                </li>
+                <li class="widget widget-sidebar">
+                    <div class="textwidget"><a href="#" style="margin:0 -20px;float:left;"><img src=""></a>
+                    </div>
+                </li>
+            </ul>
+        </aside>
+        <!-- End right side -->
+        <!-- right side -->
+        <aside id="secondary-right" class="right-sidebar sidebar widget-area one-fourth" role="complementary">
+            <ul>
+                <li class="widget widget-sidebar">
+                    <!--cwrap-->
+                    <div class="cwrap">
+                        <h5>{{ __('Popular Recipes') }}</h5>
+                        <ul class="articles_latest">
+                            @foreach ($popularRecipes as $rightRecipe)
+                            <li>
+                                <a href="{{ url('/recipe/' . changeLink($rightRecipe->name) . '/' . $rightRecipe->id) }}">
+                                    <img src="{{ asset(config('manual.recipe_url') . $rightRecipe->image) }}" alt="#">
+                                    <h6>{{ $rightRecipe->name }}</h6>
+                                </a>
+                            </li>
+                            @endforeach
                         </ul>
                     </div>
                     <!--//cwrap-->
@@ -375,5 +416,19 @@
 @section('script')
 
 @parent
+<script>
 
+    $('.scroll-to-top').on('click', function(e) {
+        e.preventDefault()
+
+        $('html, body').animate(
+            {
+            scrollTop: $($(this).attr('href')).offset().top,
+            },
+            800,
+            'linear'
+        )
+    })
+
+</script>
 @endsection

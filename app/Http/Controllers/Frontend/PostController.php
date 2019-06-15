@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Constracts\Eloquent\CategoryRepository;
 use App\Constracts\Eloquent\UserRepository;
 use App\Constracts\Eloquent\PostRepository;
+use App\Http\Requests\CreatePostRequest;
 
 use App\Helpers\Helper;
 use Auth;
@@ -19,7 +20,7 @@ class PostController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
-     * 
+     *
      */
 
 
@@ -56,13 +57,11 @@ class PostController extends Controller
 
     public function index()
     {
-
         $categories = $this->getCategoriesForNav();
 
         return view('frontend.posts.index', compact(
             'categories'
         ));
-
     }
 
     /**
@@ -77,7 +76,6 @@ class PostController extends Controller
         return view('frontend.posts.create', compact(
             'categories'
         ));
-
     }
 
     /**
@@ -86,9 +84,10 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreatePostRequest $request)
     {
-        $postName = '';
+        $postImageName = null;
+        
         if (!is_null($request->main_image)) {
             $postImageName = time() . $request->main_image->getClientOriginalName();
             $postImage = 'posts/' . $postImageName;
@@ -100,7 +99,7 @@ class PostController extends Controller
             Helper::putImageToUploadsBaseFolder($postImage, $request->main_image);
         }
         $data = [
-            'image' => $postName,
+            'image' => $postImageName,
             'title' => $request->title,
             'description' => $request->description,
             'content' => $request->content,
@@ -126,7 +125,17 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        return 'xxx';
+        $post = $this->post->findOrFail($id);
+        $createdAtPost = $post->created_at->format('Y-m-d');
+        $categories = $this->getCategoriesForNav();
+        $convertedContent =  html_entity_decode($post->content, ENT_COMPAT, 'UTF-8');
+
+        return view('frontend.posts.detail', compact(
+            'post',
+            'categories',
+            'createdAtPost',
+            'convertedContent'
+        ));
     }
 
     /**

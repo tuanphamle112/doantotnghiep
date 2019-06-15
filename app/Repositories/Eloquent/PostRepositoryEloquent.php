@@ -16,4 +16,13 @@ class PostRepositoryEloquent extends BaseRepositoryEloquent implements PostRepos
         $this->model = $post;
     }
 
+    public function getNewestPostForHomepage()
+    {
+        return $this->model->take(6)->orderBy('id', 'DESC')->get();
+    }
+
+    public function getPopularPostForHomepage() 
+    {
+        return $this->model->take(4)->orderBy('id', 'ASC')->get();
+    }
 }

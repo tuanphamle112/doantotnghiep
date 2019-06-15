@@ -68,3 +68,10 @@
 .save-comment {
     right: 100px !important;
 }
+.wrap-post-content {
+    background-color: #fff;
+    padding: 20px;
+}
+.wrap-post-content em {
+    color: inherit !important;
+}

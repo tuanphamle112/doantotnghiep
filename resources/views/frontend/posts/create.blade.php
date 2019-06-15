@@ -20,7 +20,8 @@
     <div class="row">
         <section class="content full-width">
             <div class="container">
-                <form action="{{ route('posts.store') }}" enctype="multipart/form-data" class="wrap-create-form" method="post">
+                <form action="{{ route('posts.store') }}" enctype="multipart/form-data" class="wrap-create-form"
+                    method="post">
                     {{ csrf_field() }}
                     <div class="wrap-main-image">
                         <div class="input-group">
@@ -28,26 +29,29 @@
                                 <i class="fa fa-camera"></i>
                                 <span>{{ __('Click to add a main picture') }}</span>
                                 <img id="img-upload" alt="">
-                                <input type="file" id="imgInp" class="pro-image" name="main_image"
-                                    class="form-control">
+                                <input type="file" id="imgInp" class="pro-image" name="main_image" class="form-control">
                             </label>
                         </div>
-                        
+
                         <div class="form-group title">
                             <label for="name">{{ __('Post\'s title') }}</label>
                             <input type="text" class="form-control input-error" placeholder="{{ __('Post\'s title') }}"
                                 name="title">
+                            <span class="text-danger">{{ $errors->first('title') }}</span>
                         </div>
                         <div class="form-group description">
                             <label for="description">{{ __('Short description') }}</label>
                             <textarea type="text" class="form-control input-error" name="description"
                                 placeholder="{{ __('Your short description here...') }}" rows="6"></textarea>
+                            <span class="text-danger">{{ $errors->first('description') }}</span>
                         </div>
                         <textarea id="editor1" name="content" rows="10" cols="80">
                         </textarea>
+                        <span class="text-danger">{{ $errors->first('content') }}</span>
                     </div>
                     <div class="f-row full center-input">
-                        <input type="submit" value="{{ __('Submit') }}" name="submitPost" id="submit_post" class="button">
+                        <input type="submit" value="{{ __('Submit') }}" name="submitPost" id="submit_post"
+                            class="button">
                     </div>
                 </form>
             </div>
@@ -64,6 +68,7 @@
 <script src="{{ asset('/bower_components/ckeditor/ckeditor.js') }}"></script>
 <script src="{{ asset('/js/frontend/posts/create-post.js') }}"></script>
 <script>
-    CKEDITOR.replace( 'content' );
+    CKEDITOR.replace('content');
+
 </script>
 @endsection

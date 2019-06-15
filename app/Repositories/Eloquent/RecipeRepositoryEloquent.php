@@ -144,4 +144,9 @@ class RecipeRepositoryEloquent extends BaseRepositoryEloquent implements RecipeR
         ->where('category_id', $categoryId)
         ->paginate($paginate);
     }
+
+    public function getPopularRecipesForHomepage()
+    {
+        return $this->model->take(4)->orderBy('id', 'ASC')->get();
+    }
 }
