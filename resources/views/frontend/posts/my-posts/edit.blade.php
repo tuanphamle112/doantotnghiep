@@ -14,7 +14,7 @@
     <nav role="navigation" class="breadcrumbs">
         <ul>
             <li><a href="{{ route('home') }}" title="Home">'{{ __('Home') }}</a></li>
-            <li>{{ __('Create Post') }}</li>
+            <li>{{ __('Edit Post') }}</li>
         </ul>
     </nav>
     <div class="row">

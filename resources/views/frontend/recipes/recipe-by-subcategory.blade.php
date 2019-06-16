@@ -28,7 +28,7 @@
                 <!--item-->
                 @foreach ($allRecipe as $recipe)
                 @if ($recipe->status != config('manual.recipe_status.Actived'))
-                    @continue
+                @continue
                 @endif
                 <div class="entry one-fourth recipe-item">
                     <figure>
@@ -37,16 +37,22 @@
                         @else
                         <img src="{{ config('manual.default_media.recipe') }}" alt="{{ $recipe->name }}">
                         @endif
-                        <figcaption><a href="{{ url('/recipe/' . changeLink($recipe->name) . '/' . $recipe->id) }}"><i class="icon icon-themeenergy_eye2"></i><span>{{ __('View recipe') }}</span></a></figcaption>
+                        <figcaption><a href="{{ url('/recipe/' . changeLink($recipe->name) . '/' . $recipe->id) }}"><i
+                                    class="icon icon-themeenergy_eye2"></i><span>{{ __('View recipe') }}</span></a>
+                        </figcaption>
                     </figure>
                     <div class="container">
                         <h2>
-                            <a href="{{ url('/recipe/' . changeLink($recipe->name) . '/' . $recipe->id) }}">{{ $recipe->name }}</a>
+                            <a
+                                href="{{ url('/recipe/' . changeLink($recipe->name) . '/' . $recipe->id) }}">{{ $recipe->name }}</a>
                         </h2>
                         <div class="actions">
                             <div>
                                 <div class="date"><i class="fa fa-calendar"
                                         aria-hidden="true"></i>{{ $recipe->created_at->format('Y-m-d H:s') }}</div>
+                                <div class="comments"><i class="fa fa-comment" aria-hidden="true"></i><a
+                                        href="">{{ count($recipe->comments) }}</a>
+                                </div>
                             </div>
                         </div>
                         <div class="excerpt">

@@ -66,6 +66,12 @@ Route::group(['middleware' => 'locale'], function () {
                 Route::get('categories/{id}', 'MyRecipeController@updateCategories')->name('form-update.categories');
                 Route::post('categories/{id}', 'MyRecipeController@submitUpdateCategories')->name('update-recipe.categories');
             });
+            // my posts
+            Route::get('my-post', 'PostController@myPostIndex')->name('my-posts.index');
+            Route::get('my-post/{id}', 'PostController@myPostEdit')->name('my-posts.edit');
+            Route::put('my-post/{id}', 'PostController@myPostUpdate')->name('my-posts.update');
+            Route::delete('my-post/{id}', 'PostController@myPostDelete')->name('my-posts.destroy');
+            // end my posts
             Route::get('/profile/{id}', 'ProfileController@index')->name('profile.index');
             Route::put('/profile/avatar/update/{id}', 'ProfileController@updateMyAvatar')->name('profile.avatar');
 

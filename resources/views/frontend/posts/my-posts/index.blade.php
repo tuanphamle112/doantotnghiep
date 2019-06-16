@@ -14,17 +14,17 @@
     <nav role="navigation" class="breadcrumbs">
         <ul>
             <li><a href="{{ route('home') }}">'{{ __('Home') }}</a></li>
-            <li>{{ __('Posts') }}</li>
+            <li>{{ __('My Posts') }}</li>
         </ul>
     </nav>
     <div class="row">
         <header class="s-title">
-            <h1>{{ __('Posts') }}</h1>
+            <h1>{{ __('My Posts') }}</h1>
         </header>
         <section class="content full-width">
             <div class="entries row">
                 <!--item-->
-                @foreach ($allPostActive as $post)
+                @foreach ($myPosts as $post)
                 <div class="entry one-fourth recipe-item">
                     <figure>
                         @if ($post->image != null)
@@ -40,19 +40,40 @@
                         <h2>
                             <a href="{{ route('posts.show', $post->id) }}">{{ $post->title }}</a>
                         </h2>
-                        <div class=" actions">
+                        <div class="actions">
                             <div>
-                                <div class="date"><i class="fa fa-calendar"
-                                        aria-hidden="true"></i>{{ $post->created_at->format('Y-m-d H:s') }}</div>
-                                <div class="comments"><i class="fa fa-comment" aria-hidden="true"></i><a
-                                        href="">{{ count($post->comments) }}</a>
+                                <div class="difficulty">
+                                    <a href="{{ route('my-posts.edit', $post->id) }}">{{ __('Update Post')}}</a>
+                                </div>
+                                @if ($post->status == config('manual.post_status.Pendding'))
+                                <td><span class="label label-warning">{{ __('Pendding') }}</span></td>
+                                @elseif ($post->status == config('manual.post_status.Actived'))
+                                <td><span class="label label-success">{{ __('Actived') }}</span></td>
+                                @else
+                                <td><span class="label label-danger">{{ __('Reject') }}</span></td>
+                                @endif
+                                <div class="wrap-delete-form">
+                                    <div class="comments">
+                                        <a href="javascript:void(0)"
+                                            data-text="{{ __('Do you want to delete this post?') }}" class="delete">
+                                            <i class="fa fa-trash-o"></i>
+                                        </a>
+                                    </div>
+                                    <form class="delete-form" action="{{ route('my-posts.destroy', $post->id) }}" method="post">
+                                        {{ csrf_field() }}
+                                        {{ method_field('DELETE') }}
+                                        <input type="hidden" name="post_image" value="{{ $post->image }}">
+                                        <div class="form-group">
+                                            <input type="submit" class="btn btn-danger">
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                         <div class="excerpt">
                             <p>{{ $post->description }}</p>
                         </div>
-                        {{ $allPostActive->links() }}
+                        {{ $myPosts->links() }}
                     </div>
                 </div>
                 @endforeach
@@ -69,6 +90,6 @@
 @section('script')
 @parent
 <script src="{{ asset('messages.js') }}"></script>
-<script src="{{ asset('js/frontend/recipes/categories.js') }}"></script>
+<!-- <script src="{{ asset('js/frontend/recipes/categories.js') }}"></script> -->
 <script src="{{ asset('bower_components/jquery-highlight/jquery.highlight.js') }}"></script>
 @endsection

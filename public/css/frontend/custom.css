@@ -47,3 +47,6 @@ form .last-selector {
     margin-top: -45px;
     margin-left: 40px;
 }
+.widget ul li {
+    margin:2px;
+}

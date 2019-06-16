@@ -58,9 +58,11 @@ class PostController extends Controller
     public function index()
     {
         $categories = $this->getCategoriesForNav();
+        $allPostActive = $this->post->getAllPostActive(['comments'], config('manual.pagination.post'));
 
         return view('frontend.posts.index', compact(
-            'categories'
+            'categories',
+            'allPostActive'
         ));
     }
 
@@ -72,9 +74,11 @@ class PostController extends Controller
     public function create()
     {
         $categories = $this->getCategoriesForNav();
+        $allCategories = $this->category->all();
 
         return view('frontend.posts.create', compact(
-            'categories'
+            'categories',
+            'allCategories'
         ));
     }
 
@@ -87,7 +91,10 @@ class PostController extends Controller
     public function store(CreatePostRequest $request)
     {
         $postImageName = null;
-        
+        if ($request->categories == null) {
+            return redirect()->back()->withErrors(['categories' => __('Please take at least one category')]);
+        }
+
         if (!is_null($request->main_image)) {
             $postImageName = time() . $request->main_image->getClientOriginalName();
             $postImage = 'posts/' . $postImageName;
@@ -109,6 +116,8 @@ class PostController extends Controller
 
         $post = $this->post->create($data);
 
+        $post->category()->sync($request->categories);
+
         $notification = [
             'message' => __('Create Post successfully!'),
             'alert-type' => 'success',
@@ -129,12 +138,14 @@ class PostController extends Controller
         $createdAtPost = $post->created_at->format('Y-m-d');
         $categories = $this->getCategoriesForNav();
         $convertedContent =  html_entity_decode($post->content, ENT_COMPAT, 'UTF-8');
+        $porpularPost = $this->post->getPopularPostForHomepage();
 
         return view('frontend.posts.detail', compact(
             'post',
             'categories',
             'createdAtPost',
-            'convertedContent'
+            'convertedContent',
+            'porpularPost'
         ));
     }
 
@@ -170,5 +181,50 @@ class PostController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function myPostIndex()
+    {
+        $categories = $this->getCategoriesForNav();
+        $myPosts = $this->post->getAllPostsOfOneUser(config('manual.pagination.post'), Auth::user()->id, ['comments']);
+
+        return view('frontend.posts.my-posts.index', compact(
+            'categories',
+            'myPosts'
+        ));
+    }
+
+    public function myPostEdit($id)
+    {
+        $post = $this->post->findOrFail($id);
+
+        $categories = $this->getCategoriesForNav();
+        $allCategories = $this->category->all();
+
+        return view('frontend.posts.edit', compact(
+            'categories',
+            'allCategories',
+            'post'
+        ));
+    }
+
+    public function myPostUpdate()
+    {
+    }
+
+    public function myPostDelete($id, Request $request)
+    {
+        $post = $this->post->findOrFail($id);
+        Helper::deleteOldImageBase('posts/' . $request->post_image);
+        $post->category()->detach();
+        
+        $this->post->destroy($id);
+
+        $notification = [
+            'message' => __('Delete post successfully!'),
+            'alert-type' => 'warning',
+        ];
+
+        return redirect()->route('my-posts.index')->with($notification);
     }
 }

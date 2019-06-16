@@ -9,4 +9,8 @@ interface PostRepository extends BaseRepository
     public function getNewestPostForHomepage();
 
     public function getPopularPostForHomepage();
+
+    public function getAllPostActive($with = [], $paginate);
+
+    public function getAllPostsOfOneUser($paginate, $userId, $with = []);
 }

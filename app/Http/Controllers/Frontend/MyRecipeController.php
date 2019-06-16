@@ -203,9 +203,9 @@ class MyRecipeController extends Controller
     public function submitIngredient(Request $request, $id)
     {
         $recipe = $this->recipe->findOrFail($id);
-        if ( $request->ingredients == null) {
+        if ($request->ingredients == null) {
             return Redirect::back()->withErrors(['Please fill at least one ingredient']);
-        } 
+        }
 
         $ingredients= [
             'name' => $request->ingredients,

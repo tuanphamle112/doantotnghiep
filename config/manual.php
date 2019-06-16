@@ -8,10 +8,11 @@ return [
     'pagination' => [
         'default' => 2,
         'user' => 3,
-        'recipe' => 5,
+        'recipe' => 10,
         'category' => 2,
         'recipe_home' => 12,
         'comment' => 10,
+        'post' => 10,
     ],
     'recipe_status' => [
         'Pending' => 0,

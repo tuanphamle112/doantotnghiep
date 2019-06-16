@@ -21,8 +21,29 @@ class PostRepositoryEloquent extends BaseRepositoryEloquent implements PostRepos
         return $this->model->take(6)->orderBy('id', 'DESC')->get();
     }
 
-    public function getPopularPostForHomepage() 
+    public function getPopularPostForHomepage()
     {
         return $this->model->take(4)->orderBy('id', 'ASC')->get();
+    }
+    public function getAllPostActive($with = [], $paginate)
+    {
+        $posts = $this->model
+        ->with($with)
+        ->where('status', config('manual.post_status.Actived'))
+        ->orderBy('id', 'DESC')
+        ->paginate($paginate);
+
+        return $posts;
+    }
+
+    public function getAllPostsOfOneUser($paginate, $userId, $with = [])
+    {
+        $posts = $this->model
+        ->with($with)
+        ->where('user_id', $userId)
+        ->orderBy('id', 'DESC')
+        ->paginate($paginate);
+
+        return $posts;
     }
 }
