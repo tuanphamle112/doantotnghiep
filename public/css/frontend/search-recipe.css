@@ -41,6 +41,7 @@
     background-color: #fff;
     width: 100%;
     height: 265px;
+    margin-bottom: 10px;
 }
 #ingredient_name, #recipe_name {
     width: 60% !important;
@@ -52,3 +53,16 @@
 .recipe-item {
     margin-top: 10px;
 }
+.filling-error {
+    background: #FBEFEF;
+    padding: 5px;
+    margin: 3px 0;
+    font-size: 11px;
+    border: 1px dashed #F3D0D0;
+    color: #c70808;
+    width: 50%;
+    margin: auto;
+    margin-top: 10px;
+    height: 30px;
+}
+

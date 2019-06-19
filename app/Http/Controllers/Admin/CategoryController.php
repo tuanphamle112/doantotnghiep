@@ -58,6 +58,7 @@ class CategoryController extends Controller
      */
     public function store(CreateCategoryRequest $request)
     {
+        $categoryImageName = null;
         $link = changeLink($request->link);
         if (!is_null($request->icon)) {
             $categoryImageName = time() . $request->icon->getClientOriginalName();
@@ -120,6 +121,7 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $categoryImageName = $request->old_icon;
         $link = changeLink($request->link);
         if (!is_null($request->icon)) {
             $categoryImageName = time() . $request->icon->getClientOriginalName();

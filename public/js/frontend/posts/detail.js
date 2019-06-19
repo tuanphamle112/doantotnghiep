@@ -13,16 +13,16 @@ $(document).ready(function() {
         }
 
         var formdata = $(this).serializeArray();  
-        var recipe_url = $(this).data('recipe');
+        var post_url = $(this).data('post');
         var userLink = $(this).data('user-link');
-        var commentType = 'recipe';
+        var commentType = 'post';
         formdata.push(
             { name: "userLink", value: userLink },
             { name: "commentType", value: commentType }
         );
         e.preventDefault();
         $.ajax({
-            url: recipe_url,
+            url: post_url,
             type: "POST",
             data: formdata,
             success: function(response) {
@@ -65,35 +65,6 @@ $(document).ready(function() {
     $('body').on('click', '.save-comment', function (e) {
         e.preventDefault();
         $(this).closest('.comment-box').find('.edit-comment-form').submit();
-    });
-
-    $('#heart-link').on('click', function (e) {
-        if (typeof $('input[name=user_id]').val() === 'undefined') {
-            window.location.href = "/login";
-        }
-        $('#submit_heart').click();
-       e.preventDefault()
-    });
-
-    $('#wishlist_form').on('submit', function(e){
-        var formdata = $(this).serializeArray();  
-        var wishlist_url = $(this).data('wishlist');
-        var method = $(this).data('method');
-        e.preventDefault();
-        $.ajax({
-            url: wishlist_url,
-            type: method,
-            data: formdata,
-            success: function(response) {
-                if (method == "POST")
-                {
-                    $('#heart-link .fa-heart').attr('style', 'color: red !important');
-                } else {
-                    $('#heart-link .fa-heart').attr('style', 'color: #fff !important');
-                }
-            }
-        });  
-
     });
 });
 $('body').on('click', '.reply', function (e) {

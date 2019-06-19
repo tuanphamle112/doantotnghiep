@@ -35,7 +35,8 @@
                         {{ csrf_field() }}
                         <div class="f-row">
                             <input id="ingredient_name" name="ingredient_name" type="text"
-                                placeholder="{{ __('Ingredient name here') }}">
+                                placeholder="{{ __('Ingredient name here') }}"><br>
+                                <span class="text-danger">{{ $errors->first('ingredient_name') }}</span>
                             <ul class="suggest-results"></ul>
                         </div>
                         <div class="f-row">
@@ -53,7 +54,8 @@
                         {{ csrf_field() }}
                         <div class="f-row">
                             <input id="recipe_name" name="recipe_name" type="text"
-                                placeholder="{{ __('Recipe information here') }}">
+                                placeholder="{{ __('Recipe information here') }}"><br>
+                                <span class="text-danger">{{ $errors->first('recipe_name') }}</span>
                             <ul class="suggest-results"></ul>
                         </div>
                         <div class="f-row">
@@ -63,10 +65,8 @@
                 </div>
             </div>
             @if (isset($recipes))
+            <h1>{{ __('There is ') . count($recipes) . __(' results with "') .  $keyword. '"' }}</h1>
             @foreach ($recipes as $recipe)
-            @if ($recipe->status != config('manual.recipe_status.Actived'))
-            @continue
-            @endif
             <div class="entry one-fourth recipe-item">
                 <figure>
                     @if ($recipe->image != null)

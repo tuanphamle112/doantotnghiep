@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 
 use App\Constracts\Eloquent\CommentRepository;
 use App\Constracts\Eloquent\RecipeRepository;
+use App\Constracts\Eloquent\PostRepository;
 use App\Constracts\Eloquent\UserRepository;
 use App\Helpers\Helper;
 use Auth;
@@ -15,28 +16,39 @@ class CommentController extends Controller
 {
     protected $comment;
     protected $recipe;
+    protected $post;
 
     public function __construct(
         CommentRepository $comment,
-        RecipeRepository $recipe
+        RecipeRepository $recipe,
+        PostRepository $post
         ) {
         $this->comment = $comment;
         $this->recipe = $recipe;
+        $this->post = $post;
     }
 
     public function storeComment(Request $request, $id)
     {
-        $recipe = $this->recipe->findOrfail($id);
         $userName = Auth::user()->name;
         $userImage = Auth::user()->avatar;
         $avatar = asset('uploads/avatars/' . $userImage);
         $userCommentId = Auth::user()->id;
-
-        $comment = $recipe->comments()->create([
-            'content' => $request->comment,
-            'commentable_id' => $id,
-            'user_id' => $userCommentId,
-        ]);
+        if ($request->commentType == 'recipe') {
+            $recipe = $this->recipe->findOrfail($id);
+            $comment = $recipe->comments()->create([
+                'content' => $request->comment,
+                'commentable_id' => $id,
+                'user_id' => $userCommentId,
+            ]);
+        } else {
+            $post = $this->post->findOrfail($id);
+            $comment = $post->comments()->create([
+                'content' => $request->comment,
+                'commentable_id' => $id,
+                'user_id' => $userCommentId,
+            ]);
+        }
         $createAt = Helper::formatDayMonthYearTime($comment->created_at);
         $deleteUrl = route('comment.delete', $comment->id);
 
@@ -63,7 +75,6 @@ class CommentController extends Controller
         ];
 
         return redirect()->back()->with($notification);
-
     }
     
     public function deleteComment($id)

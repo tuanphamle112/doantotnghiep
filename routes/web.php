@@ -79,7 +79,7 @@ Route::group(['middleware' => 'locale'], function () {
             Route::get('/change-password', 'ProfileController@showChangePasswordForm')->name('changePassword.form');
             Route::post('/change-password', 'ProfileController@changePassword')->name('changePassword');
 
-            Route::post('/recipe/comment/{id}', 'CommentController@storeComment')->name('comment.store');
+            Route::post('/comment/{id}', 'CommentController@storeComment')->name('comment.store');
 
             Route::delete('/delete-comment/{id}', 'CommentController@deleteComment')->name('comment.delete');
             Route::patch('/edit-comment/{id}', 'CommentController@editComment')->name('comment.edit');

@@ -159,7 +159,7 @@
                                         @endforeach
                                     </select>
 
-                                    <input type="text" class="form-control" name="estimate_time" value="0">
+                                    <input type="number" class="form-control" name="estimate_time" value="0">
                                     <span>{{ __('hour') }}</span>
                                     <input type="text" class="form-control" name="people_number" value="1">
                                     <span>{{ __('people') }}</span>

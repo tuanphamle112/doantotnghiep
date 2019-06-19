@@ -36,7 +36,7 @@ class RecipeController extends Controller
 
     public function index()
     {
-        $recipes = $this->recipe->paginate(config('manual.pagination.recipe'), ['level']);
+        $recipes = $this->recipe->getAllRecipeDesc(config('manual.pagination.recipe'), ['level']);
         
         return view('admin.recipes.index', compact('recipes'));
     }
@@ -222,7 +222,9 @@ class RecipeController extends Controller
                 }
             }
             $stepArray['image'] = ltrim($stepArrayImageName, ',');
-            if ($stepArray['clear'] == 'cleared') {
+            var_dump($stepArray);
+           
+            if (isset($stepArray['clear']) && $stepArray['clear'] == 'cleared') {
                 Helper::deleteDirectory($imageStorageFolder . '/' . $stepFileName);
                 $this->recipe->updateStepImage($id, $i);
             }
@@ -233,7 +235,6 @@ class RecipeController extends Controller
         $recipes = [
             'name' => $request->name,
             'recipe_number' => $request->recipe_number,
-            'user_id' => Auth::id(),
             'estimate_time' => $request->estimate_time,
             'description' => $request->description,
             'video_link' => $request->video,

@@ -169,7 +169,7 @@
                     </div>
 
                     <div class="f-row full">
-                        <a href="#" class="button back-form-1">{{ __('Back') }}</a>
+                        <a href="{{ route('form-update.ingredient', $id) }}" class="button back-form-1">{{ __('Back') }}</a>
                         <button type="submit" name="submit_step" value="next_form"
                             class="button next-form">{{ __('Next') }}</button>
                     </div>

@@ -8,7 +8,7 @@ return [
     'pagination' => [
         'default' => 2,
         'user' => 3,
-        'recipe' => 10,
+        'recipe' => 5,
         'category' => 2,
         'recipe_home' => 12,
         'comment' => 10,

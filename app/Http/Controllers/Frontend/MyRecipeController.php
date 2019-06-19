@@ -167,7 +167,6 @@ class MyRecipeController extends Controller
 
         $recipes = [
             'name' => $request->name,
-            'user_id' => Auth::id(),
             'estimate_time' => $request->estimate_time,
             'description' => $request->description,
             'video_link' => $request->video,

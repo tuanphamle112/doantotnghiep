@@ -6,6 +6,8 @@ use App\Constracts\Eloquent\BaseRepository;
 
 interface RecipeRepository extends BaseRepository
 {
+    public function getAllRecipeDesc($paginate, $with = [], $select = ['*']);
+    
     public function insertIngredient($data = []);
 
     public function insertCookingStep($data = []);

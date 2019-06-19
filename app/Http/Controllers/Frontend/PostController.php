@@ -99,10 +99,6 @@ class PostController extends Controller
             $postImageName = time() . $request->main_image->getClientOriginalName();
             $postImage = 'posts/' . $postImageName;
 
-            if (!is_null($request->post_image_old)) {
-                Helper::deleteOldImageBase('posts/' . $request->post_image_old);
-            }
-
             Helper::putImageToUploadsBaseFolder($postImage, $request->main_image);
         }
         $data = [
@@ -139,13 +135,14 @@ class PostController extends Controller
         $categories = $this->getCategoriesForNav();
         $convertedContent =  html_entity_decode($post->content, ENT_COMPAT, 'UTF-8');
         $porpularPost = $this->post->getPopularPostForHomepage();
-
+        $comments = $post->comments;
         return view('frontend.posts.detail', compact(
             'post',
             'categories',
             'createdAtPost',
             'convertedContent',
-            'porpularPost'
+            'porpularPost',
+            'comments'
         ));
     }
 
@@ -200,16 +197,52 @@ class PostController extends Controller
 
         $categories = $this->getCategoriesForNav();
         $allCategories = $this->category->all();
+        $postCategories = $post->category;
 
-        return view('frontend.posts.edit', compact(
+        return view('frontend.posts.my-posts.edit', compact(
             'categories',
             'allCategories',
-            'post'
+            'post',
+            'postCategories'
         ));
     }
 
-    public function myPostUpdate()
+    public function myPostUpdate(CreatePostRequest $request, $id)
     {
+        $post =$this->post->findOrFail($id);
+
+        $postImageName = null;
+        if ($request->categories == null) {
+            return redirect()->back()->withErrors(['categories' => __('Please take at least one category')]);
+        }
+
+        if (!is_null($request->main_image)) {
+            $postImageName = time() . $request->main_image->getClientOriginalName();
+            $postImage = 'posts/' . $postImageName;
+
+            if (!is_null($request->post_image_old)) {
+                Helper::deleteOldImageBase('posts/' . $request->post_image_old);
+            }
+
+            Helper::putImageToUploadsBaseFolder($postImage, $request->main_image);
+        }
+        $data = [
+            'image' => $postImageName,
+            'title' => $request->title,
+            'description' => $request->description,
+            'content' => $request->content,
+            'status' => config('manual.post_status.Pending'),
+        ];
+
+        $this->post->update($id, $data);
+        $post->category()->sync($request->categories);
+
+        $notification = [
+            'message' => __('Update Post successfully!'),
+            'alert-type' => 'success',
+        ];
+
+        return redirect()->route('posts.show', [$post->id])->with($notification);
     }
 
     public function myPostDelete($id, Request $request)

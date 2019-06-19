@@ -20,29 +20,35 @@
     <div class="row">
         <section class="content full-width">
             <div class="container">
-                <form action="{{ route('posts.store') }}" enctype="multipart/form-data" class="wrap-create-form"
+                <form action="{{ route('my-posts.update', $post->id) }}" enctype="multipart/form-data" class="wrap-create-form"
                     method="post">
+                    {{ method_field('PUT') }}
                     {{ csrf_field() }}
                     <div class="wrap-main-image">
                         <div class="input-group">
                             <label class="mainFileContainer">
                                 <i class="fa fa-camera"></i>
                                 <span>{{ __('Click to add a main picture') }}</span>
-                                <img id="img-upload" alt="">
+                                @if ($post->image != null)
+                                <img id="img-upload" src="{{ asset(config('manual.posts_url') . $post->image) }}" alt="{{ $post->title }}" style="width:100%; height:300px !important;">
+                                @else
+                                <img id="img-upload" src="{{ asset(config('manual.default_media.recipe')) }}" alt="{{ $post->title }}">
+                                @endif
                                 <input type="file" id="imgInp" class="pro-image" name="main_image" class="form-control">
+                                <input type="hidden" name="post_image_old" value="{{ $post->image }}">
                             </label>
                         </div>
 
                         <div class="form-group title">
                             <label for="name">{{ __('Post\'s title') }}</label>
                             <input type="text" class="form-control input-error" placeholder="{{ __('Post\'s title') }}"
-                                name="title">
+                                name="title" value="{{ $post->title }}">
                             <span class="text-danger">{{ $errors->first('title') }}</span>
                         </div>
                         <div class="form-group description">
                             <label for="description">{{ __('Short description') }}</label>
                             <textarea type="text" class="form-control input-error" name="description"
-                                placeholder="{{ __('Your short description here...') }}" rows="6"></textarea>
+                                placeholder="{{ __('Your short description here...') }}" rows="6">{{ $post->description }}</textarea>
                             <span class="text-danger">{{ $errors->first('description') }}</span>
                         </div>
                         <div class="form-group wrap-categories">
@@ -50,7 +56,11 @@
                             <div class="categories-list">
                                 @foreach ($allCategories as $category)
                                 <label class="checkbox-item">
-                                    <input type="checkbox" name="categories[]" value="{{ $category->id }}" />
+                                    <input type="checkbox" name="categories[]" value="{{ $category->id }}"
+                                    @foreach ($postCategories as $cate)
+                                        @if ($cate->id == $category->id) checked @endif
+                                    @endforeach
+                                    />
                                     <span class="label-text">{{ $category->name }}</span>
                                 </label>
                                 @endforeach
@@ -58,6 +68,7 @@
                         </div>
                         <span class="text-danger">{{ $errors->first('categories') }}</span>
                         <textarea id="editor1" name="content" rows="10" cols="80">
+                        {{ $post->content }}
                         </textarea>
                         <span class="text-danger">{{ $errors->first('content') }}</span>
                     </div>

@@ -8,12 +8,14 @@ use App\Models\Ingredient;
 use App\Constracts\Eloquent\CategoryRepository;
 use App\Constracts\Eloquent\RecipeRepository;
 use App\Constracts\Eloquent\LevelRepository;
+use App\Http\Requests\SearchByInfoRequest;
+use App\Http\Requests\SearchByIngredientRequest;
 
 use App\Helpers\Helper;
 use Auth;
+
 class SearchController extends Controller
 {
-
     protected $category;
     protected $recipe;
     protected $level;
@@ -54,29 +56,45 @@ class SearchController extends Controller
         ));
     }
 
-    public function searchByRecipe(Request $request)
+    public function searchByRecipe(SearchByInfoRequest $request)
     {
+        $recipes = [];
         $categories = $this->getCategoriesForNav();
-        $recipes = Recipe::search($request->recipe_name)->paginate(2);
+        $allRecipes = Recipe::search($request->recipe_name)->get();
+        $keyword = $request->recipe_name;
+
+        foreach ($allRecipes as $recipe) {
+            if ($recipe->status != config('manual.recipe_status.Actived')) {
+                continue;
+            }
+            array_push($recipes, $recipe);
+        }
 
         return view('frontend.recipes.search-recipe.index', compact(
             'categories',
-            'recipes'
+            'recipes',
+            'keyword'
         ));
     }
 
-    public function searchByIngredient(Request $request)
+    public function searchByIngredient(SearchByIngredientRequest $request)
     {
         $recipes = [];
         $categories = $this->getCategoriesForNav();
         $ingredients = Ingredient::search($request->ingredient_name)->get();
-        
+        $keyword = $request->ingredient_name;
+
         foreach ($ingredients as $ingredient) {
+            if ($ingredient->recipe->status != config('manual.recipe_status.Actived')) {
+                continue;
+            }
             array_push($recipes, $ingredient->recipe);
         }
+        
         return view('frontend.recipes.search-recipe.index', compact(
             'categories',
-            'recipes'
+            'recipes',
+            'keyword'
         ));
     }
 }

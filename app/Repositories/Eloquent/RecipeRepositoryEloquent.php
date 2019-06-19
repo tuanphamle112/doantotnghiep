@@ -16,6 +16,16 @@ class RecipeRepositoryEloquent extends BaseRepositoryEloquent implements RecipeR
         $this->model = $recipe;
     }
 
+    public function getAllRecipeDesc($paginate, $with = [], $select = ['*'])
+    {
+        $recipes = $this->model
+        ->with($with)
+        ->orderBy('id', 'DESC')
+        ->paginate($paginate);
+
+        return $recipes;
+    }
+
     public function insertIngredient($data = [])
     {
         return $this->model->ingredient()->create($data);
