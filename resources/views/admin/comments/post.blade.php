@@ -1,10 +1,6 @@
 @extends('admin.layouts.master')
 
-@section('title', __('Manage Categories'))
-
-@section('custom_css')
-<link rel="stylesheet" href="{{ asset('css/admin/categories/index-category.css') }}">
-@endsection
+@section('title', __('Manage Comment'))
 
 @section('content')
 <!-- Content Wrapper. Contains page content -->
@@ -19,7 +15,6 @@
 
     <!-- Main content -->
     <section class="content container-fluid">
-
         <div class="row">
             <div class="col-lg-3 col-xs-6">
                 <!-- small box -->
@@ -88,61 +83,70 @@
             <div class="col-xs-12 col-sm-12">
                 <div class="box">
                     <div class="box-header">
-                        <div class="col-md-10">
-                            <h3 class="box-title">{{ __('Add New Sub Category') }}</h3>
-                        </div>
-                    </div><!-- /.box-header -->
-                    <div class="box-body row">
-                        <div class="col-sm-1"></div>
-                        <form method="POST" action="{{ route('categories.store') }}" id="add-new-category" class="col-sm-10 col-sx-12">
-                            {{ csrf_field() }}    
-                            <div class="form-group">
-                                <label for="name">{{ __('Name') }}</label>
-                                <input type="text" name="name" class="form-control" placeholder="{{ __('Name') }}">
-                                <span class="text-danger">{{ $errors->first('name') }}</span>
-                            </div>
-                            <div class="form-group">
-                                <label for="link">{{ __('Link') }}</label>
-                                <input type="text" name="link" class="form-control" placeholder="{{ __('Link') }}">
-                                <span class="text-danger">{{ $errors->first('link') }}</span>
-                            </div>
-                            <div class="form-group">
-                                <label for="link">{{ __('Parent Categories') }}</label>
-                                <select class="form-control" name="parent_id" id="parent_id">
-                                    @foreach ($optionParentCategory as $key => $value)
-                                    <option value='{{ $key }}' @if ($parentCategory->id == $key) selected @endif>{{ $value }}</option>
-                                    @endforeach
-                                </select>
-                                <span class="text-danger">{{ $errors->first('parent_id') }}</span>
-                            </div>
-                            <div class="form-group ">
-                                <div class="margin-top-10px">
-                                    <label for="description">{{ __('Short description') }}</label>
-                                    <textarea type="text" class="form-control" name="description"
-                                        placeholder="{{ __('Your short description here...') }}" rows="6"></textarea>
+                        <h3 class="box-title">{{ __('Post\'s Comment') }}</h3>
+                        <div class="box-tools">
+                            <div class="input-group input-group-sm">
+                                <input type="text" name="table_search" class="form-control pull-right"
+                                    placeholder="{{ __('Search') }}">
+
+                                <div class="input-group-btn">
+                                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
                                 </div>
                             </div>
-                            <div class="wrap-insert-button">
-                                <button type="submit" class="btn btn-success btn-category-insert">{{ __('Create Category') }}</button>
-                            </div>
-                        </form>
-                        <div class="col-sm-1"></div>
-                    </div><!-- /.box-body -->
-                </div><!-- /.box -->
+                        </div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body table-responsive no-padding">
+                        <table class="table table-hover">
+                            <tr>
+                                <th>{{ __('ID') }}</th>
+                                <th>{{ __('Owner') }}</th>
+                                <th>{{ __("Post's Link") }}</th>
+                                <th>{{ __('Content') }}</th>
+                                <th>{{ __('Comment At') }}</th>
+                            </tr>
+
+                            @foreach ($comments as $comment)
+                            <tr>
+                                <td>{{ $comment->id }}</td>
+                                <td>{{ $comment->user->name }}</td>
+                                <td><a href="{{ route('posts.show', $comment->commentable->id) }}">{{ __('Link To Post') }}</a></td>
+                                <td width="65%">{{ $comment->content }}</td>
+                                <td>{{ $comment->created_at }}</td>
+                                <td class="wrap-delete-form">
+                                    <a href="javascript:void(0)" data-text="{{ __('Do you want to delete this comment?') }}" class="delete">
+                                        <i class="fa fa-trash-o"></i>
+                                    </a>
+                                    <form class="delete-form" action="{{ route('admin.comment.delete', $comment->id) }}" method="post">
+                                        {{ csrf_field() }}
+                                        {{ method_field('DELETE') }}
+                                        <div class="form-group">
+                                            <input type="submit" class="btn btn-danger" value="Delete comment">
+                                        </div>
+                                    </form>
+                                </td>
+                            </tr>
+                            @endforeach
+
+                        </table>
+                        {{ $comments->links() }}
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
             </div>
-        </div><!-- /.col -->
             <!-- end content -->
         </div>
 
     </section>
     <!-- /.content -->
 </div>
-
+<div class="control-sidebar-bg"></div>
+<!-- ./wrapper -->
 @endsection
-
 
 @section('script')
 
 @parent
-<script src="{{ asset('js/admin/categories/index-category.js') }}"></script>
+<script src="{{ asset('js/admin/users/index.js') }}"></script>
 @endsection

@@ -25,11 +25,18 @@ class CommentController extends Controller
         $this->recipe = $recipe;
     }
 
-    public function index() {
+    public function recipeComment() {
 
-        $comments = $this->comment->paginate(config('manual.pagination.comment'));
+        $comments = $this->comment->getAllRecipeComment(config('manual.pagination.comment'));
 
         return view('admin.comments.index', compact('comments'));
+    }
+
+    public function postComment()
+    {
+        $comments = $this->comment->getAllPostComment(config('manual.pagination.comment'));
+
+        return view('admin.comments.post', compact('comments'));
     }
 
     public function deleteComment($id)

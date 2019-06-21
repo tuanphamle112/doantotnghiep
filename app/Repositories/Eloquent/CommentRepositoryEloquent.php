@@ -15,4 +15,20 @@ class CommentRepositoryEloquent extends BaseRepositoryEloquent implements Commen
     {
         $this->model = $comment;
     }
+
+    public function getAllRecipeComment($paginate, $with = [])
+    {
+        return $this->model
+        ->with($with)
+        ->where('commentable_type', 'App\Models\Recipe')
+        ->paginate($paginate);
+    }
+
+    public function getAllPostComment($paginate, $with = [])
+    {
+        return $this->model
+        ->with($with)
+        ->where('commentable_type', 'App\Models\Post')
+        ->paginate($paginate);
+    }
 }

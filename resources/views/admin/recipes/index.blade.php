@@ -8,31 +8,24 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            {{ __('Page Header') }}
-            <small>{{ __('Optional description') }}</small>
+            {{ __('Admin') }}
+            <small>{{ __('Total Report') }}</small>
         </h1>
-        <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i>{{ __('Level') }}</a></li>
-            <li class="active">{{ __('Here') }}</li>
-        </ol>
     </section>
-
     <!-- Main content -->
     <section class="content container-fluid">
-
         <div class="row">
             <div class="col-lg-3 col-xs-6">
                 <!-- small box -->
                 <div class="small-box bg-aqua">
                     <div class="inner">
-                        <h3>{{ __('1500') }}</h3>
-
-                        <p>{{ __('User') }}</p>
+                        <h3>{{ count($recipes) }}</h3>
+                        <p>{{ __('Recipes') }}</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-bag"></i>
                     </div>
-                    <a href="#" class="small-box-footer">{{ __('More info') }} <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="{{ route('recipes.index') }}" class="small-box-footer">{{ __('More info') }} <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->

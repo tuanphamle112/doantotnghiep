@@ -308,8 +308,11 @@
                     @foreach ($latestPost as $post)
                     <div class="entry one-third post-item">
                         <figure>
-                            <img src="{{ asset(config('manual.posts_url') . $post->image) }}"
-                                alt="{{ $post->title }}">
+                            @if ($post->image != null)
+                            <img src="{{ asset(config('manual.posts_url') . $post->image) }}">
+                            @else
+                            <img src="{{ config('manual.default_media.recipe') }}" alt="{{ $post->title }}">
+                            @endif
                             <figcaption><a
                                     href="{{ url('/posts/' . $post->id) }}"><i
                                         class="icon icon-themeenergy_eye2"></i>
