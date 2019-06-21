@@ -126,10 +126,6 @@
                             <li><a href="{{ route('recipes.index') }}">{{ __('Recipes list') }}</a></li>
                         </ul>
                     </li>
-                    <li class="active">
-                        <a href="{{ route('users.index') }}"><i class="fa fa-link"></i> <span>{{ __('Manage Users') }}</span>
-                        </a>
-                    </li>
                     <li class="treeview">
                         <a href="#"><i class="fa fa-link"></i> <span>{{ __('Manage Categories') }}</span>
                             <span class="pull-right-container">
@@ -151,6 +147,15 @@
                             <li><a href="{{ route('admin.comment.post') }}">{{ __('Posts Comments') }}</a></li>
                         </ul>
                     </li>
+                    <li class="active">
+                        <a href="{{ route('manage-post.index') }}"><i class="fa fa-link"></i> <span>{{ __('Manage Posts') }}</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="{{ route('users.index') }}"><i class="fa fa-link"></i> <span>{{ __('Manage Users') }}</span>
+                        </a>
+                    </li>
+                    
                 </ul>
                 <!-- /.sidebar-menu -->
             </section>

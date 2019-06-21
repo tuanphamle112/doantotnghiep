@@ -25,7 +25,9 @@ Route::group(['middleware' => 'locale'], function () {
     Route::group(['middleware' => 'admin', 'prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::resource('users', 'UserController');
         Route::resource('recipes', 'RecipeController');
-        Route::put('update-status/{id}', 'RecipeController@updateStatus')->name('recipes.update-status');
+        Route::resource('manage-post', 'PostAdminController');
+        Route::put('update-status/recipe/{id}', 'RecipeController@updateStatus')->name('recipes.update-status');
+        Route::put('update-status/post/{id}', 'PostAdminController@updateStatus')->name('posts.update-status');
         Route::resource('categories', 'CategoryController');
         Route::get('category/{id}/create', 'CategoryController@subCreate')->name('category.subCreate');
 

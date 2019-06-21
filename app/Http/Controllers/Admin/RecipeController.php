@@ -289,8 +289,13 @@ class RecipeController extends Controller
     {
         $recipe = $this->recipe->findOrFail($id);
 
-        $recipe->status = 1;
+        $currentPoint = $recipe->user->star_num;
+        $newPoint = $currentPoint + config('manual.star_num.be_commented');
+
+        $recipe->status = config('manual.recipe_status.Actived');
+
         $recipe->save();
+        $this->user->getNewestStarPoint($recipe->user->id, $newPoint);
 
         $notification = [
             'message' => __('Accept recipe successfully!'),

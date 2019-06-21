@@ -13,4 +13,6 @@ interface PostRepository extends BaseRepository
     public function getAllPostActive($with = [], $paginate);
 
     public function getAllPostsOfOneUser($paginate, $userId, $with = []);
+
+    public function getAllPostsDesc($paginate, $with = []);
 }

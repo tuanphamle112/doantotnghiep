@@ -17,15 +17,18 @@ class CommentController extends Controller
     protected $comment;
     protected $recipe;
     protected $post;
+    protected $user;
 
     public function __construct(
         CommentRepository $comment,
         RecipeRepository $recipe,
-        PostRepository $post
+        PostRepository $post,
+        UserRepository $user
         ) {
         $this->comment = $comment;
         $this->recipe = $recipe;
         $this->post = $post;
+        $this->user = $user;
     }
 
     public function storeComment(Request $request, $id)
@@ -34,20 +37,26 @@ class CommentController extends Controller
         $userImage = Auth::user()->avatar;
         $avatar = asset('uploads/avatars/' . $userImage);
         $userCommentId = Auth::user()->id;
+        $recipe = $this->recipe->findOrfail($id);
+        $post = $this->post->findOrfail($id);
         if ($request->commentType == 'recipe') {
-            $recipe = $this->recipe->findOrfail($id);
+            $currentPoint = $recipe->user->star_num;
+            $newPoint = $currentPoint + config('manual.star_num.be_commented');
             $comment = $recipe->comments()->create([
                 'content' => $request->comment,
                 'commentable_id' => $id,
                 'user_id' => $userCommentId,
             ]);
+            $this->user->getNewestStarPoint($recipe->user->id, $newPoint);
         } else {
-            $post = $this->post->findOrfail($id);
+            $currentPoint = $post->user->star_num;
+            $newPoint = $currentPoint + config('manual.star_num.be_commented');
             $comment = $post->comments()->create([
                 'content' => $request->comment,
                 'commentable_id' => $id,
                 'user_id' => $userCommentId,
             ]);
+            $this->user->getNewestStarPoint($post->user->id, $newPoint);
         }
         $createAt = Helper::formatDayMonthYearTime($comment->created_at);
         $deleteUrl = route('comment.delete', $comment->id);
