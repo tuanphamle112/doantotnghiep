@@ -192,7 +192,7 @@
                         </header>
                         <article class="entry">
                             <figure>
-                                <a href="route('profile.index', $featureMember->id)">
+                                <a href="{{ route('profile.index', $featureMember->id) }}">
                                     @if ($featureMember->avatar !== null)
                                     <img src="{{ asset('uploads/avatars/' . $featureMember->avatar) }}"
                                         class="avatar user-1-avatar avatar-270 photo"
@@ -208,13 +208,13 @@
                                     @endif
                                 </a>
 
-                                <figcaption><a href="#"><i class="icon icon-themeenergy_eye2"></i>
+                                <figcaption><a href="{{ route('profile.index', $featureMember->id) }}"><i class="icon icon-themeenergy_eye2"></i>
                                         <span>{{ __('View member') }}</span></a>
                                 </figcaption>
                             </figure>
                             <div class="container">
                                 <h2>
-                                    <a href="#">{{ $featureMember->name }}</a>
+                                    <a href="{{ route('profile.index', $featureMember->id) }}">{{ $featureMember->name }}</a>
                                 </h2>
                                 <blockquote>
                                     <i class="fa fa-quote-left" aria-hidden="true"></i>

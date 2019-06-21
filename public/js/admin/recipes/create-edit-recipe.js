@@ -202,8 +202,6 @@ $(document).ready(function() {
         $(".all-ingredients").val(ingredientCurrently);
     }
 
-    
-
     $('.ingredient-field').on('keypress', function (e) {
         
         if (e.which === 13) {
@@ -258,6 +256,8 @@ $(document).ready(function() {
         $(e.target).closest('.wrap-preview').find('.image-num').val("");
         $(e.target).closest('.wrap-upload-image').find(".picture-overlay").attr('style', 'display:none')
     });
+
+
 
 });
 // Image js

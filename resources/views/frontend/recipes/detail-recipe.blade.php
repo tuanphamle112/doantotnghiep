@@ -137,7 +137,7 @@
                                 <img src="{{ asset(config('manual.recipe_url') . $recipe->image) }}" class="main-img"
                                     alt="{{ $recipe->name }}">
                                 @else
-                                <img src="{{ config('manual.default_media.avatar.man') }}" class="main-img"
+                                <img src="{{ config('manual.default_media.recipe') }}" class="main-img"
                                     alt="{{ $recipe->name }}">
                                 @endif
                             </div>

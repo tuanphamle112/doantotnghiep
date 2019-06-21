@@ -284,4 +284,19 @@ class RecipeController extends Controller
 
         return redirect()->route('recipes.index')->with($notification);
     }
+
+    public function updateStatus($id)
+    {
+        $recipe = $this->recipe->findOrFail($id);
+
+        $recipe->status = 1;
+        $recipe->save();
+
+        $notification = [
+            'message' => __('Accept recipe successfully!'),
+            'alert-type' => 'success',
+        ];
+
+        return redirect()->route('recipes.index')->with($notification);
+    }
 }

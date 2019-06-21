@@ -128,6 +128,19 @@
 
                                 @if ($recipe->status == config('manual.recipe_status.Pendding'))
                                 <td><span class="label label-warning">{{ __('Pendding') }}</span></td>
+                                <td class="wrap-status-form">
+                                    <a href="javascript:void(0)" class="change-status"
+                                    data-text="{{ __('Do you want to accept this recipe?') }}">
+                                        {{ __('Accept') }}
+                                    </a>
+                                    <form class="change-status-form" action="{{ route('recipes.update-status', $recipe->id) }}" method="post">
+                                        {{ csrf_field() }}
+                                        {{ method_field('PUT') }}
+                                        <div class="form-group">
+                                            <input type="submit" style="display:none;" class="btn btn-success">
+                                        </div>
+                                    </form>
+                                </td>
                                 @elseif ($recipe->status == config('manual.recipe_status.Actived'))
                                 <td><span class="label label-success">{{ __('Actived') }}</span></td>
                                 @else
