@@ -28,7 +28,8 @@ Route::group(['middleware' => 'locale'], function () {
         Route::resource('categories', 'CategoryController');
         Route::get('category/{id}/create', 'CategoryController@subCreate')->name('category.subCreate');
 
-        Route::get('comments', 'CommentController@index')->name('admin.comment.index');
+        Route::get('comments', 'CommentController@recipeComment')->name('admin.comment.index');
+        Route::get('comments/posts', 'CommentController@postComment')->name('admin.comment.post');
         Route::delete('/delete-comment/{id}', 'CommentController@deleteComment')->name('admin.comment.delete');
     });
     //user route
@@ -85,8 +86,8 @@ Route::group(['middleware' => 'locale'], function () {
             Route::patch('/edit-comment/{id}', 'CommentController@editComment')->name('comment.edit');
 
             Route::resource('wishlist', 'WishlistController');
-            Route::resource('posts', 'PostController');
         });
+        Route::resource('posts', 'PostController');
         Route::get('/recipes', 'RecipeController@index')->name('list-recipe.index');
         Route::get('/{parent}', 'RecipeController@showParentCategories')->name('nav');
         Route::get('/{parentLink}/{subLink}', 'RecipeController@showSubCategory')->name('sub_Nav');

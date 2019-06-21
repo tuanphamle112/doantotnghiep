@@ -8,13 +8,9 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            {{ __('Page Header') }}
-            <small>{{ __('Optional description') }}</small>
+            {{ __('Admin') }}
+            <small>{{ __('Total Report') }}</small>
         </h1>
-        <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i>{{ __('Level') }}</a></li>
-            <li class="active">{{ __('Here') }}</li>
-        </ol>
     </section>
 
     <!-- Main content -->
@@ -87,7 +83,7 @@
             <div class="col-xs-12 col-sm-12">
                 <div class="box">
                     <div class="box-header">
-                        <h3 class="box-title">{{ __('Comments List') }}</h3>
+                        <h3 class="box-title">{{ __('Recipe\'s Comment') }}</h3>
                         <div class="box-tools">
                             <div class="input-group input-group-sm">
                                 <input type="text" name="table_search" class="form-control pull-right"
