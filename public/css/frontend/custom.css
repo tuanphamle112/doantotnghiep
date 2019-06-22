@@ -50,3 +50,11 @@ form .last-selector {
 .widget ul li {
     margin:2px;
 }
+li.star-num {
+    width: 100%;
+    height: 35px;
+    padding-top: 10px;
+}
+li.star-num i {
+    color: #e68609;
+}

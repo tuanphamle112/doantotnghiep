@@ -83,8 +83,7 @@
                                             <img src="{{ asset(config('manual.default_media.avatar.man')) }}">
                                             @endif
 
-                                            &nbsp;{{ $recipe->user->name }}
-
+                                            &nbsp;{{ $recipe->user->name }}&nbsp;{{ "(" . $recipe->user->star_num . ")" }}
                                         </a>
                                     </span>
                                 </dd>
@@ -222,6 +221,7 @@
                                                 {{ csrf_field() }}
                                                 {{ method_field('DELETE') }}
                                                 <div class="form-group">
+                                                    <input type="hidden" name="comment_type" value="recipe">
                                                     <input type="submit" class="btn btn-danger">
                                                 </div>
                                             </form>
@@ -274,7 +274,6 @@
                                 <div class="filling-error">{{ __('Comment field are require') }}</div>
                                 <p class="form-submit"><input name="submit" type="submit" class="submit"
                                         value="Post Comment">
-                                    <input type="hidden" name="comment_type" id="comment-type" value="0">
                                 </p>
                                 @else
                                 <p>{{ __('You have to') }} <a href="{{ route('login') }}">{{ __('login') }}</a>

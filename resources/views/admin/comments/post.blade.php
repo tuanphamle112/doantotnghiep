@@ -121,6 +121,7 @@
                                         {{ csrf_field() }}
                                         {{ method_field('DELETE') }}
                                         <div class="form-group">
+                                            <input type="hidden" name="comment_type" value="post">    
                                             <input type="submit" class="btn btn-danger" value="Delete comment">
                                         </div>
                                     </form>

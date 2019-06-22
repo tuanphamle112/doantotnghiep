@@ -51,7 +51,9 @@
                                         </a>
                                     </div>
                                     @endif
-                                    <h2 class="user-nicename">{{ $user->name }}</h2>
+                                    <div class="star-num">
+                                        <h2 class="user-nicename">{{ $user->name . ' (' . $user->star_num }} <i class="fa fa-star"></i>)</h2>
+                                    </div>
                                 </div>
 
                             </div><!-- #item-header-content -->

@@ -147,11 +147,11 @@
                             <li><a href="{{ route('admin.comment.post') }}">{{ __('Posts Comments') }}</a></li>
                         </ul>
                     </li>
-                    <li class="active">
+                    <li>
                         <a href="{{ route('manage-post.index') }}"><i class="fa fa-link"></i> <span>{{ __('Manage Posts') }}</span>
                         </a>
                     </li>
-                    <li class="active">
+                    <li>
                         <a href="{{ route('users.index') }}"><i class="fa fa-link"></i> <span>{{ __('Manage Users') }}</span>
                         </a>
                     </li>

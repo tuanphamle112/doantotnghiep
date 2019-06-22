@@ -136,3 +136,12 @@ input[type="file"] {
 .active {
     display: block !important;
 }
+
+.star-num {
+    width: 100%;
+    height: 35px;
+    padding-top: 10px;
+}
+.star-num i {
+    color: #e68609;
+}

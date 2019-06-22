@@ -87,7 +87,14 @@ class WishlistController extends Controller
      */
     public function store(Request $request)
     {
+        $recipe = $this->recipe->findOrFail($request->recipe_id);
         $this->wishlist->create($request->all());
+        
+        if ($recipe->user->id !== Auth::user()->id) {
+            $currentPoint = $recipe->user->star_num;
+            $newPoint = $currentPoint + config('manual.star_num.recipe_be_loved');
+            $this->user->getNewestStarPoint($recipe->user->id, $newPoint);
+        }
 
         return response()->json([
             'success' => 'success'
@@ -136,7 +143,12 @@ class WishlistController extends Controller
      */
     public function destroy($id)
     {
+        $recipe = $this->recipe->findOrFail($id);
         $this->wishlist->destroy($id);
+
+        $currentPoint = $recipe->user->star_num;
+        $newPoint = $currentPoint - config('manual.star_num.recipe_be_loved');
+        $this->user->getNewestStarPoint($recipe->user->id, $newPoint);
 
         return response()->json([
             'success' => 'success'
