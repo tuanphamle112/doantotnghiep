@@ -233,7 +233,7 @@ class CreateRecipeController extends Controller
         }
 
         $recipe->categories()->sync($request->categories);
-
+            
         $notification = [
             'message' => __('Create recipe successfully! Your Recipe Are Being Check By Admin'),
             'alert-type' => 'success',

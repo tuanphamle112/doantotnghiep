@@ -284,4 +284,24 @@ class RecipeController extends Controller
 
         return redirect()->route('recipes.index')->with($notification);
     }
+
+    public function updateStatus($id)
+    {
+        $recipe = $this->recipe->findOrFail($id);
+
+        $currentPoint = $recipe->user->star_num;
+        $newPoint = $currentPoint + config('manual.star_num.be_commented');
+
+        $recipe->status = config('manual.recipe_status.Actived');
+
+        $recipe->save();
+        $this->user->getNewestStarPoint($recipe->user->id, $newPoint);
+
+        $notification = [
+            'message' => __('Accept recipe successfully!'),
+            'alert-type' => 'success',
+        ];
+
+        return redirect()->route('recipes.index')->with($notification);
+    }
 }

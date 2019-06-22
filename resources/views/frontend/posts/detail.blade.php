@@ -45,8 +45,26 @@
                     </div>
                     <!--//two-third-->
                     <!-- right side -->
+                    
                     <aside id="secondary-right" class="right-sidebar sidebar widget-area one-fourth"
                         role="complementary">
+                        <dl class="basic user-data">
+                            <dd class="vcard author post-author user-avt-post" style="width:100% !important">
+                                <span class="fn">
+                                    <a href="{{ route('profile.index', $post->user->id) }}">
+                                        @if ($post->user->avatar != null)
+                                        <img src="{{ asset('uploads/avatars/' . $post->user->avatar) }}">
+                                        @else
+                                        <img src="{{ asset(config('manual.default_media.avatar.man')) }}">
+                                        @endif
+
+                                        &nbsp;{{ $post->user->name }}&nbsp;{{ "(" . $post->user->star_num . ")" }}
+                                    </a>
+                                </span>
+                            </dd>
+                            <dd class="post-date updated" style="width:100% !important">{{ $createdAtPost }}
+                            </dd>
+                    </dl>
                         <ul>
                             <li class="widget widget-sidebar">
                                 <!--cwrap-->
@@ -108,6 +126,7 @@
                                             {{ csrf_field() }}
                                             {{ method_field('DELETE') }}
                                             <div class="form-group">
+                                                <input type="hidden" name="comment_type" id="comment-type" value="post">
                                                 <input type="submit" class="btn btn-danger">
                                             </div>
                                         </form>
@@ -162,7 +181,7 @@
                             <div class="filling-error">{{ __('Comment field are require') }}</div>
                             <p class="form-submit"><input name="submit" type="submit" class="submit"
                                     value="Post Comment">
-                                <input type="hidden" name="comment_type" id="comment-type" value="0">
+                                
                             </p>
                             @else
                             <p>{{ __('You have to') }} <a href="{{ route('login') }}">{{ __('login') }}</a>

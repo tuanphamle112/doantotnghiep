@@ -50,4 +50,14 @@ class PostRepositoryEloquent extends BaseRepositoryEloquent implements PostRepos
 
         return $posts;
     }
+
+    public function getAllPostsDesc($paginate, $with = [])
+    {
+        $posts = $this->model
+        ->with($with)
+        ->orderBy('id', 'DESC')
+        ->paginate($paginate);
+
+        return $posts;
+    }
 }

@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 
-@section('title', __('Manage Comment'))
+@section('title', __('Manage Posts'))
 
 @section('content')
 <!-- Content Wrapper. Contains page content -->
@@ -12,7 +12,6 @@
             <small>{{ __('Total Report') }}</small>
         </h1>
     </section>
-
     <!-- Main content -->
     <section class="content container-fluid">
         <div class="row">
@@ -20,14 +19,13 @@
                 <!-- small box -->
                 <div class="small-box bg-aqua">
                     <div class="inner">
-                        <h3>{{ __('1500') }}</h3>
-
-                        <p>{{ __('User') }}</p>
+                        <h3>{{ count($recipes) }}</h3>
+                        <p>{{ __('Recipes') }}</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-bag"></i>
                     </div>
-                    <a href="#" class="small-box-footer">{{ __('More info') }} <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="{{ route('recipes.index') }}" class="small-box-footer">{{ __('More info') }} <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
@@ -83,7 +81,10 @@
             <div class="col-xs-12 col-sm-12">
                 <div class="box">
                     <div class="box-header">
-                        <h3 class="box-title">{{ __('Post\'s Comment') }}</h3>
+                        <h3 class="box-title">{{ __('Posts list') }}</h3>
+                        <div class="insert-button">
+                            <a class="btn btn-success btn-insert" href="{{ route('posts.create') }}">{{ __('Create new post') }}</a>
+                        </div>
                         <div class="box-tools">
                             <div class="input-group input-group-sm">
                                 <input type="text" name="table_search" class="form-control pull-right"
@@ -96,41 +97,65 @@
                         </div>
                     </div>
                     <!-- /.box-header -->
-                    <div class="box-body table-responsive no-padding">
-                        <table class="table table-hover">
+                    <div class="box-body table-responsive">
+                        <table class="table table-bordered table-hover">
                             <tr>
                                 <th>{{ __('ID') }}</th>
-                                <th>{{ __('Owner') }}</th>
-                                <th>{{ __("Post's Link") }}</th>
-                                <th>{{ __('Content') }}</th>
-                                <th>{{ __('Comment At') }}</th>
+                                <th>{{ __('Title') }}</th>
+                                <th>{{ __('Description') }}</th>
+                                <th>{{ __('Image link') }}</th>
+                                <th>{{ __('Posts by') }}</th>
+                                <th>{{ __('Status') }}</th>
                             </tr>
 
-                            @foreach ($comments as $comment)
+                            @foreach ($posts as $post)
                             <tr>
-                                <td>{{ $comment->id }}</td>
-                                <td>{{ $comment->user->name }}</td>
-                                <td><a href="{{ route('posts.show', $comment->commentable->id) }}">{{ __('Link To Post') }}</a></td>
-                                <td width="65%">{{ $comment->content }}</td>
-                                <td>{{ $comment->created_at }}</td>
+                                <td>{{ $post->id }}</td>
+                                <td>{{ $post->title }}</td>
+                                <td><p class="long-text">{{ $post->description }}</p></td>
+                                <td><p class="long-text">{{ $post->image }}</p></td>
+                                <td>{{ $post->user->name }}</td>
+
+                                @if ($post->status == config('manual.post_status.Pendding'))
+                                <td><span class="label label-warning">{{ __('Pendding') }}</span></td>
+                                <td class="wrap-status-form">
+                                    <a href="javascript:void(0)" class="change-status"
+                                    data-text="{{ __('Do you want to accept this post?') }}">
+                                        {{ __('Accept') }}
+                                    </a>
+                                    <form class="change-status-form" action="{{ route('posts.update-status', $post->id) }}" method="post">
+                                        {{ csrf_field() }}
+                                        {{ method_field('PUT') }}
+                                        <div class="form-group">
+                                            <input type="submit" style="display:none;" class="btn btn-success">
+                                        </div>
+                                    </form>
+                                </td>
+                                @elseif ($post->status == config('manual.post_status.Actived'))
+                                <td><span class="label label-success">{{ __('Actived') }}</span></td>
+                                @else
+                                <td><span class="label label-danger">{{ __('Reject') }}</span></td>
+                                @endif
+
+                                <td><a href="{{ route('posts.show', $post->id) }}">{{ __('Detail') }}</a></td>
+                                <td><a href="{{ route('posts.edit', $post->id) }}">{{ __('Edit') }}</a></td>
                                 <td class="wrap-delete-form">
-                                    <a href="javascript:void(0)" data-text="{{ __('Do you want to delete this comment?') }}" class="delete">
+                                    <a href="javascript:void(0)"
+                                        data-text="{{ __('Do you want to delete this post?') }}" class="delete">
                                         <i class="fa fa-trash-o"></i>
                                     </a>
-                                    <form class="delete-form" action="{{ route('admin.comment.delete', $comment->id) }}" method="post">
+                                    <form class="delete-form" action="{{ route('posts.destroy', $post->id) }}" method="post">
                                         {{ csrf_field() }}
                                         {{ method_field('DELETE') }}
                                         <div class="form-group">
-                                            <input type="hidden" name="comment_type" value="post">    
-                                            <input type="submit" class="btn btn-danger" value="Delete comment">
+                                            <input type="submit" class="btn btn-danger">
                                         </div>
                                     </form>
                                 </td>
                             </tr>
                             @endforeach
-
                         </table>
-                        {{ $comments->links() }}
+                        {{ $posts->links() }}
                     </div>
                     <!-- /.box-body -->
                 </div>
@@ -142,12 +167,12 @@
     </section>
     <!-- /.content -->
 </div>
-<div class="control-sidebar-bg"></div>
-<!-- ./wrapper -->
+
 @endsection
+
 
 @section('script')
 
 @parent
-<script src="{{ asset('js/admin/users/index.js') }}"></script>
+<script src="{{ asset('js/admin/recipes/index.js') }}"></script>
 @endsection

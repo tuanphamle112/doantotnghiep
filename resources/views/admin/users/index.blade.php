@@ -174,6 +174,7 @@
                                 <th>{{ __('Phone') }}</th>
                                 <th>{{ __('Address') }}</th>
                                 <th>{{ __('Permission') }}</th>
+                                <th>{{ __('Total star (') }} <i class="fa fa-star"></i>)</th>
                                 <th>{{ __('Gender') }}</th>
                             </tr>
 
@@ -189,11 +190,12 @@
                                 @else
                                 <td>{{ __('User') }}</td>
                                 @endif
+                                <td>{{ $user->star_num }}</td>
                                 <td>{{ $user->gender }}</td>
                                 <td><a href="{{ route('users.edit', ['id'=> $user->id]) }}">{{ __('Edit') }}</a></td>
                                 <td class="wrap-delete-form">
                                     <!-- <a href="#" class="delete-user">Delete</a> -->
-                                    @if ($user->id != Auth::user()->id)
+                                    @if ($user->id !== Auth::user()->id)
                                     <a href="javascript:void(0)" data-text="{{ __('Do you want to delete this user?') }}" class="delete">
                                         <i class="fa fa-trash-o"></i>
                                     </a>

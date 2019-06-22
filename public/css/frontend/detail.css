@@ -75,3 +75,6 @@
 .wrap-post-content em {
     color: inherit !important;
 }
+.recipe dt, .basic dt {
+    margin:0px !important;
+}

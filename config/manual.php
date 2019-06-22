@@ -14,6 +14,12 @@ return [
         'comment' => 10,
         'post' => 10,
     ],
+    'star_num' => [
+        'be_commented' => 2,
+        'recipe_be_loved' => 3,
+        'post_actived' => 5,
+        'recipe_actived' => 5,
+    ],
     'recipe_status' => [
         'Pending' => 0,
         'Actived' => 1,

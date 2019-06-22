@@ -69,6 +69,11 @@
                                 height="60px"></a>
                         @endif
                         <ul class="sub-menu">
+                        <i class="fa fa-medal"></i>
+                            <li class="star-num">
+                                <span>Your total star :</span> &nbsp; &nbsp;
+                                  {{ Auth::user()->star_num }} <i class="fa fa-star"></i>
+                            </li>
                             <li><a href="{{ route('profile.index', Auth::user()->id) }}">{{ __('Profile') }}</a></li>
                             <li><a href="{{ route('wishlist.index') }}">{{ __('Wish List') }}</a></li>
                             <li><a href="{{ route('posts.create') }}">{{ __('Create A Post') }}</a></li>

@@ -26,4 +26,11 @@ class UserRepositoryEloquent extends BaseRepositoryEloquent implements UserRepos
         
         return $user;
     }
+
+    public function getNewestStarPoint($id, $point = 0)
+    {
+        $user = $this->model->findOrFail($id);
+
+        return $user->update(['star_num' => $point]);
+    }
 }

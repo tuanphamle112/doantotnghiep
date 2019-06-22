@@ -26,6 +26,7 @@ class User extends Authenticatable
         'permission',
         'gender',
         'total_point',
+        'star_num',
     ];
 
     /**
