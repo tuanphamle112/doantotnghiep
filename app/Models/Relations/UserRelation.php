@@ -8,6 +8,8 @@ use App\Models\Follow;
 use App\Models\Wishlist;
 use App\Models\Rate;
 use App\Models\Comment;
+use App\Models\Gift;
+
 trait UserRelation
 {
     public function recipe()
@@ -43,6 +45,11 @@ trait UserRelation
     public function comment()
     {
         return $this->hasMany(Comment::class, 'user_id');
+    }
+
+    public function gifts()
+    {
+        return $this->belongsToMany(Gift::class, 'gift_id');
     }
 
 }
