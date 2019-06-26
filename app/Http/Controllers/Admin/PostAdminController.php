@@ -7,6 +7,9 @@ use App\Http\Controllers\Controller;
 use App\Constracts\Eloquent\UserRepository;
 use App\Constracts\Eloquent\PostRepository;
 use App\Constracts\Eloquent\RecipeRepository;
+use App\Constracts\Eloquent\LevelRepository;
+use App\Constracts\Eloquent\CategoryRepository;
+use App\Constracts\Eloquent\WishlistRepository;
 
 class PostAdminController extends Controller
 {
@@ -19,15 +22,24 @@ class PostAdminController extends Controller
     protected $post;
     protected $user;
     protected $recipe;
+    protected $level;
+    protected $category;
+    protected $wishlist;
 
     public function __construct(
         PostRepository $post,
         UserRepository $user,
-        RecipeRepository $recipe
+        RecipeRepository $recipe,
+        LevelRepository $level,
+        WishlistRepository $wishlist,
+        CategoryRepository $category
     ) {
         $this->post = $post;
         $this->user = $user;
         $this->recipe = $recipe;
+        $this->level = $level;
+        $this->category = $category;
+        $this->wishlist = $wishlist;
     }
     
     public function index()
@@ -35,9 +47,14 @@ class PostAdminController extends Controller
         $posts = $this->post->getAllPostsDesc(config('manual.pagination.post'), ['user']);
         $recipes = $this->recipe->getAllRecipeDesc(config('manual.pagination.recipe'), ['level']);
 
+        $wishlist = $this->wishlist->all();
+        $users = $this->user->all();
+
         return view('admin.posts.index', compact(
             'posts',
-            'recipes'
+            'recipes',
+            'wishlist',
+            'users'
         ));
     }
 

@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 
-@section('title', __('Manage Users'))
+@section('title', __('Manage Gifts'))
 
 @section('content')
 <!-- Content Wrapper. Contains page content -->
@@ -9,7 +9,7 @@
     <section class="content-header">
         <h1>
             {{ __('Admin') }}
-            <small>{{ __('Total Report') }}</small>
+            <small>{{ __('Gifts List') }}</small>
         </h1>
     </section>
 
@@ -86,10 +86,10 @@
             <div class="col-xs-12 col-sm-12">
                 <div class="box">
                     <div class="box-header">
-                        <h3 class="box-title">{{ __('User list') }}</h3>
+                        <h3 class="box-title">{{ __('Gifts list') }}</h3>
                         <div class="insert-button">
                             <button type="button" class="btn btn-success btn-insert" data-toggle="modal"
-                                data-target="#createUser">{{ __('Create New User') }}</button>
+                                data-target="#createGift">{{ __('Create New Gift') }}</button>
                         </div>
                         <!-- Modal insert user -->
                         <div class="modal fade" id="createUser" role="dialog">

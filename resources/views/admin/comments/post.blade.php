@@ -20,14 +20,14 @@
                 <!-- small box -->
                 <div class="small-box bg-aqua">
                     <div class="inner">
-                        <h3>{{ __('1500') }}</h3>
-
-                        <p>{{ __('User') }}</p>
+                        <h3>{{ count($recipes) }}</h3>
+                        <p>{{ __('Recipes') }}</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-bag"></i>
                     </div>
-                    <a href="#" class="small-box-footer">{{ __('More info') }} <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="{{ route('recipes.index') }}" class="small-box-footer">{{ __('More info') }} <i
+                            class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
@@ -35,14 +35,15 @@
                 <!-- small box -->
                 <div class="small-box bg-green">
                     <div class="inner">
-                        <h3>{{ __('53') }}</h3>
+                        <h3>{{ count($wishlist) }}</h3>
 
-                        <p>{{ __('Likes') }}</p>
+                        <p>{{ __('Loves') }}</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-stats-bars"></i>
                     </div>
-                    <a href="#" class="small-box-footer">{{ __('More info') }} <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="#" class="small-box-footer">{{ __('More info') }} <i
+                            class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
@@ -50,14 +51,15 @@
                 <!-- small box -->
                 <div class="small-box bg-yellow">
                     <div class="inner">
-                        <h3>{{ __('44') }}</h3>
+                        <h3>{{ count($users) }}</h3>
 
                         <p>{{ __('Register') }}</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-person-add"></i>
                     </div>
-                    <a href="#" class="small-box-footer">{{ __('More info') }} <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="{{ route('users.index') }}" class="small-box-footer">{{ __('More info') }} <i
+                            class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
@@ -65,14 +67,15 @@
                 <!-- small box -->
                 <div class="small-box bg-red">
                     <div class="inner">
-                        <h3>{{ __('65') }}</h3>
+                        <h3>{{ count($posts) }}</h3>
 
-                        <p>{{ __('Users') }}</p>
+                        <p>{{ __('Posts') }}</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-pie-graph"></i>
                     </div>
-                    <a href="#" class="small-box-footer">{{ __('More info') }} <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="{{ route('manage-post.index') }}" class="small-box-footer">{{ __('More info') }} <i
+                            class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
@@ -110,18 +113,22 @@
                             <tr>
                                 <td>{{ $comment->id }}</td>
                                 <td>{{ $comment->user->name }}</td>
-                                <td><a href="{{ route('posts.show', $comment->commentable->id) }}">{{ __('Link To Post') }}</a></td>
+                                <td><a
+                                        href="{{ route('posts.show', $comment->commentable->id) }}">{{ __('Link To Post') }}</a>
+                                </td>
                                 <td width="65%">{{ $comment->content }}</td>
                                 <td>{{ $comment->created_at }}</td>
                                 <td class="wrap-delete-form">
-                                    <a href="javascript:void(0)" data-text="{{ __('Do you want to delete this comment?') }}" class="delete">
+                                    <a href="javascript:void(0)"
+                                        data-text="{{ __('Do you want to delete this comment?') }}" class="delete">
                                         <i class="fa fa-trash-o"></i>
                                     </a>
-                                    <form class="delete-form" action="{{ route('admin.comment.delete', $comment->id) }}" method="post">
+                                    <form class="delete-form" action="{{ route('admin.comment.delete', $comment->id) }}"
+                                        method="post">
                                         {{ csrf_field() }}
                                         {{ method_field('DELETE') }}
                                         <div class="form-group">
-                                            <input type="hidden" name="comment_type" value="post">    
+                                            <input type="hidden" name="comment_type" value="post">
                                             <input type="submit" class="btn btn-danger" value="Delete comment">
                                         </div>
                                     </form>

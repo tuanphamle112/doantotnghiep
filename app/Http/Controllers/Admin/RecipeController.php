@@ -8,6 +8,9 @@ use App\Http\Controllers\Controller;
 use App\Constracts\Eloquent\RecipeRepository;
 use App\Constracts\Eloquent\LevelRepository;
 use App\Constracts\Eloquent\CategoryRepository;
+use App\Constracts\Eloquent\WishlistRepository;
+use App\Constracts\Eloquent\UserRepository;
+use App\Constracts\Eloquent\PostRepository;
 use App\Helpers\Helper;
 
 use Auth;
@@ -23,22 +26,39 @@ class RecipeController extends Controller
     protected $recipe;
     protected $level;
     protected $category;
+    protected $wishlist;
+    protected $user;
+    protected $post;
 
     public function __construct(
         RecipeRepository $recipe,
         LevelRepository $level,
-        CategoryRepository $category
+        WishlistRepository $wishlist,
+        CategoryRepository $category,
+        UserRepository $user,
+        PostRepository $post
     ) {
         $this->recipe = $recipe;
         $this->level = $level;
         $this->category = $category;
+        $this->wishlist = $wishlist;
+        $this->user = $user;
+        $this->post = $post;
     }
 
     public function index()
     {
         $recipes = $this->recipe->getAllRecipeDesc(config('manual.pagination.recipe'), ['level']);
-        
-        return view('admin.recipes.index', compact('recipes'));
+        $wishlist = $this->wishlist->all();
+        $users = $this->user->all();
+        $posts = $this->post->all();
+
+        return view('admin.recipes.index', compact(
+            'recipes',
+            'wishlist',
+            'users',
+            'posts'
+        ));
     }
 
     /**
