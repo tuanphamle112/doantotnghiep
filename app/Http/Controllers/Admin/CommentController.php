@@ -9,6 +9,10 @@ use App\Http\Controllers\Controller;
 use App\Constracts\Eloquent\CommentRepository;
 use App\Constracts\Eloquent\RecipeRepository;
 use App\Constracts\Eloquent\UserRepository;
+use App\Constracts\Eloquent\LevelRepository;
+use App\Constracts\Eloquent\CategoryRepository;
+use App\Constracts\Eloquent\WishlistRepository;
+use App\Constracts\Eloquent\PostRepository;
 use App\Helpers\Helper;
 use Auth;
 
@@ -17,29 +21,61 @@ class CommentController extends Controller
     protected $comment;
     protected $recipe;
     protected $user;
+    protected $level;
+    protected $category;
+    protected $wishlist;
+    protected $post;
 
     public function __construct(
         CommentRepository $comment,
         RecipeRepository $recipe,
-        UserRepository $user
+        UserRepository $user,
+        LevelRepository $level,
+        WishlistRepository $wishlist,
+        CategoryRepository $category,
+        PostRepository $post
         ) {
         $this->comment = $comment;
         $this->recipe = $recipe;
         $this->user = $user;
+        $this->level = $level;
+        $this->category = $category;
+        $this->wishlist = $wishlist;
+        $this->post = $post;
     }
 
     public function recipeComment()
     {
         $comments = $this->comment->getAllRecipeComment(config('manual.pagination.comment'));
+        $recipes = $this->recipe->getAllRecipeDesc(config('manual.pagination.recipe'), ['level']);
+        $wishlist = $this->wishlist->all();
+        $users = $this->user->all();
+        $posts = $this->post->all();
 
-        return view('admin.comments.index', compact('comments'));
+        return view('admin.comments.index', compact(
+            'comments',
+            'recipes',
+            'wishlist',
+            'users',
+            'posts'
+        ));
     }
 
     public function postComment()
     {
         $comments = $this->comment->getAllPostComment(config('manual.pagination.comment'));
+        $recipes = $this->recipe->getAllRecipeDesc(config('manual.pagination.recipe'), ['level']);
+        $wishlist = $this->wishlist->all();
+        $users = $this->user->all();
+        $posts = $this->post->all();
 
-        return view('admin.comments.post', compact('comments'));
+        return view('admin.comments.post', compact(
+            'comments',
+            'recipes',
+            'wishlist',
+            'users',
+            'posts'
+        ));
     }
 
     public function deleteComment(Request $request, $id)

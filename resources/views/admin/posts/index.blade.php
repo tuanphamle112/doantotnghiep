@@ -25,7 +25,8 @@
                     <div class="icon">
                         <i class="ion ion-bag"></i>
                     </div>
-                    <a href="{{ route('recipes.index') }}" class="small-box-footer">{{ __('More info') }} <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="{{ route('recipes.index') }}" class="small-box-footer">{{ __('More info') }} <i
+                            class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
@@ -33,14 +34,15 @@
                 <!-- small box -->
                 <div class="small-box bg-green">
                     <div class="inner">
-                        <h3>{{ __('53') }}</h3>
+                        <h3>{{ count($wishlist) }}</h3>
 
-                        <p>{{ __('Likes') }}</p>
+                        <p>{{ __('Loves') }}</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-stats-bars"></i>
                     </div>
-                    <a href="#" class="small-box-footer">{{ __('More info') }} <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="#" class="small-box-footer">{{ __('More info') }} <i
+                            class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
@@ -48,14 +50,15 @@
                 <!-- small box -->
                 <div class="small-box bg-yellow">
                     <div class="inner">
-                        <h3>{{ __('44') }}</h3>
+                        <h3>{{ count($users) }}</h3>
 
                         <p>{{ __('Register') }}</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-person-add"></i>
                     </div>
-                    <a href="#" class="small-box-footer">{{ __('More info') }} <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="{{ route('users.index') }}" class="small-box-footer">{{ __('More info') }} <i
+                            class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
@@ -63,14 +66,15 @@
                 <!-- small box -->
                 <div class="small-box bg-red">
                     <div class="inner">
-                        <h3>{{ __('65') }}</h3>
+                        <h3>{{ count($posts) }}</h3>
 
-                        <p>{{ __('Users') }}</p>
+                        <p>{{ __('Posts') }}</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-pie-graph"></i>
                     </div>
-                    <a href="#" class="small-box-footer">{{ __('More info') }} <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="{{ route('manage-post.index') }}" class="small-box-footer">{{ __('More info') }} <i
+                            class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
@@ -83,7 +87,8 @@
                     <div class="box-header">
                         <h3 class="box-title">{{ __('Posts list') }}</h3>
                         <div class="insert-button">
-                            <a class="btn btn-success btn-insert" href="{{ route('posts.create') }}">{{ __('Create new post') }}</a>
+                            <a class="btn btn-success btn-insert"
+                                href="{{ route('posts.create') }}">{{ __('Create new post') }}</a>
                         </div>
                         <div class="box-tools">
                             <div class="input-group input-group-sm">
@@ -112,18 +117,23 @@
                             <tr>
                                 <td>{{ $post->id }}</td>
                                 <td>{{ $post->title }}</td>
-                                <td><p class="long-text">{{ $post->description }}</p></td>
-                                <td><p class="long-text">{{ $post->image }}</p></td>
+                                <td>
+                                    <p class="long-text">{{ $post->description }}</p>
+                                </td>
+                                <td>
+                                    <p class="long-text">{{ $post->image }}</p>
+                                </td>
                                 <td>{{ $post->user->name }}</td>
 
                                 @if ($post->status == config('manual.post_status.Pendding'))
                                 <td><span class="label label-warning">{{ __('Pendding') }}</span></td>
                                 <td class="wrap-status-form">
                                     <a href="javascript:void(0)" class="change-status"
-                                    data-text="{{ __('Do you want to accept this post?') }}">
+                                        data-text="{{ __('Do you want to accept this post?') }}">
                                         {{ __('Accept') }}
                                     </a>
-                                    <form class="change-status-form" action="{{ route('posts.update-status', $post->id) }}" method="post">
+                                    <form class="change-status-form"
+                                        action="{{ route('posts.update-status', $post->id) }}" method="post">
                                         {{ csrf_field() }}
                                         {{ method_field('PUT') }}
                                         <div class="form-group">
@@ -144,7 +154,8 @@
                                         data-text="{{ __('Do you want to delete this post?') }}" class="delete">
                                         <i class="fa fa-trash-o"></i>
                                     </a>
-                                    <form class="delete-form" action="{{ route('posts.destroy', $post->id) }}" method="post">
+                                    <form class="delete-form" action="{{ route('posts.destroy', $post->id) }}"
+                                        method="post">
                                         {{ csrf_field() }}
                                         {{ method_field('DELETE') }}
                                         <div class="form-group">

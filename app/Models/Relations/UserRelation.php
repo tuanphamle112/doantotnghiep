@@ -49,7 +49,6 @@ trait UserRelation
 
     public function gifts()
     {
-        return $this->belongsToMany(Gift::class, 'gift_id');
+        return $this->belongsToMany(Gift::class);
     }
-
 }

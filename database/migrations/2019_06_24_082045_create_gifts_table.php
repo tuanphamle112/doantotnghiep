@@ -18,6 +18,7 @@ class CreateGiftsTable extends Migration
             $table->string('name');
             $table->text('description');
             $table->text('image');
+            $table->integer('star_point');
             $table->integer('quantity');
             $table->timestamps();
         });

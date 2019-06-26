@@ -8,6 +8,6 @@ trait GiftRelation
 {
     public function user()
     {
-        return $this->belongsToMany(User::class, 'user_id');
+        return $this->belongsToMany(User::class);
     }
 }

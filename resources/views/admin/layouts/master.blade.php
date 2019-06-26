@@ -62,12 +62,14 @@
                                     <img src="{{ asset('images/default2.png') }}" class="img-circle">
                                     @endif
                                     <p>
-                                    {{ __('Admin- Tpl@') }}
+                                        {{ __('Admin- Tpl@') }}
                                     </p>
                                 </li>
                                 <li class="user-footer">
                                     <div class="pull-right">
-                                        <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="btn btn-default btn-flat">{{ __('Sign out') }}</a>
+                                        <a href="{{ route('logout') }}"
+                                            onclick="event.preventDefault();document.getElementById('logout-form').submit();"
+                                            class="btn btn-default btn-flat">{{ __('Sign out') }}</a>
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST">
                                             @csrf
                                         </form>
@@ -75,7 +77,7 @@
                                 </li>
                             </ul>
                         </li>
-                        
+
                         <!-- /.messages-menu -->
                         <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
                     </ul>
@@ -147,15 +149,28 @@
                             <li><a href="{{ route('admin.comment.post') }}">{{ __('Posts Comments') }}</a></li>
                         </ul>
                     </li>
+                    <li class="treeview">
+                        <a href="#"><i class="fa fa-link"></i> <span>{{ __('Manage Gift List') }}</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="{{ route('gifts.index') }}">{{ __('Gift List') }}</a></li>
+                            <li><a href="{{ route('admin.comment.post') }}">{{ __('Receive List') }}</a></li>
+                        </ul>
+                    </li>
                     <li>
-                        <a href="{{ route('manage-post.index') }}"><i class="fa fa-link"></i> <span>{{ __('Manage Posts') }}</span>
+                        <a href="{{ route('manage-post.index') }}"><i class="fa fa-link"></i>
+                            <span>{{ __('Manage Posts') }}</span>
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('users.index') }}"><i class="fa fa-link"></i> <span>{{ __('Manage Users') }}</span>
+                        <a href="{{ route('users.index') }}"><i class="fa fa-link"></i>
+                            <span>{{ __('Manage Users') }}</span>
                         </a>
                     </li>
-                    
+
                 </ul>
                 <!-- /.sidebar-menu -->
             </section>
@@ -169,9 +184,10 @@
         <!-- Main Footer -->
         <footer class="main-footer">
             <!-- Default to the left -->
-            <strong>{{ __('Copyright ') }}&copy; {{ __('2016') }} <a href="#">{{ __('Sun') }}</a>.</strong> {{ __('All rights reserved.') }}
+            <strong>{{ __('Copyright ') }}&copy; {{ __('2016') }} <a href="#">{{ __('Sun') }}</a>.</strong>
+            {{ __('All rights reserved.') }}
             <input type="hidden" class="toastr-session"
-            data-session="{{ Session::has('message') . ',' . Session::get('alert-type', 'info') . ',' . Session::get('message') }}">
+                data-session="{{ Session::has('message') . ',' . Session::get('alert-type', 'info') . ',' . Session::get('message') }}">
         </footer>
         @show
     </div>

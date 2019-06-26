@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Constracts\Eloquent\CategoryRepository;
 use App\Http\Requests\CreateCategoryRequest;
+use App\Constracts\Eloquent\RecipeRepository;
+use App\Constracts\Eloquent\WishlistRepository;
+use App\Constracts\Eloquent\UserRepository;
+use App\Constracts\Eloquent\PostRepository;
 use App\Helpers\Helper;
 
 class CategoryController extends Controller
@@ -15,18 +19,35 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    protected $recipe;
     protected $category;
+    protected $wishlist;
+    protected $user;
+    protected $post;
 
-    public function __construct(CategoryRepository $category)
-    {
+    public function __construct(
+        RecipeRepository $recipe,
+        WishlistRepository $wishlist,
+        CategoryRepository $category,
+        UserRepository $user,
+        PostRepository $post
+    ) {
+        $this->recipe = $recipe;
         $this->category = $category;
+        $this->wishlist = $wishlist;
+        $this->user = $user;
+        $this->post = $post;
     }
 
     public function index()
     {
         $categories = [];
         $categoryParents = $this->category->getParentCategoriesPaginate(config('manual.pagination.category'));
-        
+        $wishlist = $this->wishlist->all();
+        $users = $this->user->all();
+        $posts = $this->post->all();
+        $recipes = $this->recipe->getAllRecipeDesc(config('manual.pagination.recipe'), ['level']);
+
         foreach ($categoryParents as $categoryParent) {
             $parentId = $categoryParent->id;
             $categoryChildren = $this->category->getChildrenCategories($parentId);
@@ -37,7 +58,13 @@ class CategoryController extends Controller
         $data['categories'] = $categories;
         $data['categoryParents'] = $categoryParents; //Paginate
 
-        return view('admin.categories.index', compact('data'));
+        return view('admin.categories.index', compact(
+            'data',
+            'recipes',
+            'wishlist',
+            'users',
+            'posts'
+        ));
     }
 
     /**

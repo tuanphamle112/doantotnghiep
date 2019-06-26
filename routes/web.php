@@ -30,7 +30,7 @@ Route::group(['middleware' => 'locale'], function () {
         Route::put('update-status/post/{id}', 'PostAdminController@updateStatus')->name('posts.update-status');
         Route::resource('categories', 'CategoryController');
         Route::get('category/{id}/create', 'CategoryController@subCreate')->name('category.subCreate');
-
+        Route::resource('gifts', 'GiftController');
         Route::get('comments', 'CommentController@recipeComment')->name('admin.comment.index');
         Route::get('comments/posts', 'CommentController@postComment')->name('admin.comment.post');
         Route::delete('/delete-comment/{id}', 'CommentController@deleteComment')->name('admin.comment.delete');
