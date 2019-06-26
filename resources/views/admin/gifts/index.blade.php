@@ -179,43 +179,31 @@
                             <tr>
                                 <th>{{ __('ID') }}</th>
                                 <th>{{ __('Name') }}</th>
-                                <th>{{ __('Email') }}</th>
-                                <th>{{ __('Phone') }}</th>
-                                <th>{{ __('Address') }}</th>
-                                <th>{{ __('Permission') }}</th>
-                                <th>{{ __('Total star (') }} <i class="fa fa-star"></i>)</th>
-                                <th>{{ __('Gender') }}</th>
+                                <th>{{ __('Description') }}</th>
+                                <th>{{ __('Star point (') }} <i class="fa fa-star"></i>)</th>
+                                <th>{{ __('Quantity Left') }}</th>
                             </tr>
 
-                            @foreach ($users as $user)
+                            @foreach ($gifts as $gift)
                             <tr>
-                                <td>{{ $user->id }}</td>
-                                <td>{{ $user->name }}</td>
-                                <td>{{ $user->email }}</td>
-                                <td>{{ $user->phone }}</td>
-                                <td>{{ $user->address }}</td>
-                                @if ($user->permission == config('manual.permission.admin'))
-                                <td>{{ __('Admin') }}</td>
-                                @else
-                                <td>{{ __('User') }}</td>
-                                @endif
-                                <td>{{ $user->star_num }}</td>
-                                <td>{{ $user->gender }}</td>
-                                <td><a href="{{ route('users.edit', ['id'=> $user->id]) }}">{{ __('Edit') }}</a></td>
+                                <td>{{ $gift->id }}</td>
+                                <td>{{ $gift->name }}</td>
+                                <td>{{ $gift->description }}</td>
+                                <td>{{ $gift->star_point }}</td>
+                                <td>{{ $gift->quantity }}</td>
+
+                                <td><a href="{{ route('gifts.edit', ['id'=> $gift->id]) }}">{{ __('Edit') }}</a></td>
                                 <td class="wrap-delete-form">
-                                    <!-- <a href="#" class="delete-user">Delete</a> -->
-                                    @if ($user->id !== Auth::user()->id)
                                     <a href="javascript:void(0)"
-                                        data-text="{{ __('Do you want to delete this user?') }}" class="delete">
+                                        data-text="{{ __('Do you want to delete this gift?') }}" class="delete">
                                         <i class="fa fa-trash-o"></i>
                                     </a>
-                                    @endif
-                                    <form class="delete-form" action="{{ route('users.destroy', $user->id) }}"
+                                    <form class="delete-form" action="{{ route('gifts.destroy', $gift->id) }}"
                                         method="post">
                                         {{ csrf_field() }}
                                         {{ method_field('DELETE') }}
                                         <div class="form-group">
-                                            <input type="submit" class="btn btn-danger" value="Delete user">
+                                            <input type="submit" class="btn btn-danger" value="Delete gift">
                                         </div>
                                     </form>
                                 </td>
@@ -223,7 +211,7 @@
                             @endforeach
 
                         </table>
-                        {{ $users->links() }}
+                        {{ $gifts->links() }}
                     </div>
                     <!-- /.box-body -->
                 </div>

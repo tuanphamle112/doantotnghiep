@@ -12,6 +12,7 @@ use App\Constracts\Eloquent\WishlistRepository;
 use App\Constracts\Eloquent\UserRepository;
 use App\Constracts\Eloquent\PostRepository;
 use App\Helpers\Helper;
+use App\Models\Gift;
 
 use Auth;
 use Storage;
@@ -49,7 +50,19 @@ class GiftController extends Controller
     
     public function index()
     {
-        //
+        $gifts = Gift::paginate(4);
+        $recipes = $this->recipe->getAllRecipeDesc(config('manual.pagination.recipe'), ['level']);
+        $wishlist = $this->wishlist->all();
+        $users = $this->user->all();
+        $posts = $this->post->all();
+
+        return view('admin.gifts.index', compact(
+            'gifts',
+            'recipes',
+            'wishlist',
+            'users',
+            'posts'
+        ));
     }
 
     /**
