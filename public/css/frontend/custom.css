@@ -58,3 +58,6 @@ li.star-num {
 li.star-num i {
     color: #e68609;
 }
+.pagination .page-item:before {
+    content: '';
+}

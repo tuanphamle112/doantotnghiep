@@ -1,0 +1,19 @@
+.gift-choose a {
+    width: 100%;
+    padding: 10px 65px;
+    color: #fff !important;
+    background-color: #f78474;
+    text-transform: uppercase;
+    font-weight: bold;
+    text-decoration: none !important;
+}
+.gift-choose a:hover  {
+    opacity: 0.8;
+}
+div.actions {
+    margin-bottom: 10px;
+}
+
+.excerpt p {
+    max-width: 100% !important;
+}
