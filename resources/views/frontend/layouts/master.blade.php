@@ -55,7 +55,7 @@
                     </li>
                     <li><a href="{{ route('posts.index') }}"><span>{{ __('Posts') }}</span></a>
                     </li>
-                    <li><a href="#"><span>{{ __('Videos') }}</span></a>
+                    <li><a href="{{ route('gift.list') }}"><span>{{ __('Gifts') }}</span></a>
                     </li>
                     @if (Auth::check())
                     <li class="user-info">

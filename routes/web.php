@@ -71,6 +71,8 @@ Route::group(['middleware' => 'locale'], function () {
                 Route::post('categories/{id}', 'MyRecipeController@submitUpdateCategories')->name('update-recipe.categories');
             });
             // my posts
+            Route::get('gift-confirm/{id}', 'GiftController@confirm')->name('gift.confirm');
+
             Route::get('my-post', 'PostController@myPostIndex')->name('my-posts.index');
             Route::get('my-post/{id}', 'PostController@myPostEdit')->name('my-posts.edit');
             Route::put('my-post/{id}', 'PostController@myPostUpdate')->name('my-posts.update');
@@ -91,6 +93,7 @@ Route::group(['middleware' => 'locale'], function () {
             Route::resource('wishlist', 'WishlistController');
         });
         Route::resource('posts', 'PostController');
+        Route::get('gift-list', 'GiftController@index')->name('gift.list');
         Route::get('/recipes', 'RecipeController@index')->name('list-recipe.index');
         Route::get('/{parent}', 'RecipeController@showParentCategories')->name('nav');
         Route::get('/{parentLink}/{subLink}', 'RecipeController@showSubCategory')->name('sub_Nav');

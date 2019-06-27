@@ -11,8 +11,9 @@ class Gift extends Model
     
     protected $fillable = [
         'name',
-        'image',
         'description',
-        'quantity'
+        'star_point',
+        'quantity',
+        'image',
     ];
 }

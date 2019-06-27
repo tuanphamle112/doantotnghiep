@@ -2,6 +2,10 @@
 
 @section('title', __('Manage Gifts'))
 
+@section('custom_css')
+<link rel="stylesheet" href="{{ asset('css/admin/gifts/index-gift.css') }}">
+@endsection
+
 @section('content')
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -92,7 +96,7 @@
                                 data-target="#createGift">{{ __('Create New Gift') }}</button>
                         </div>
                         <!-- Modal insert user -->
-                        <div class="modal fade" id="createUser" role="dialog">
+                        <div class="modal fade" id="createGift" role="dialog">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -108,7 +112,8 @@
                                             </ul>
                                         </div>
                                         @endif
-                                        <form id="create-form" action="{{ route('users.store') }}" method="post">
+                                        <form id="create-form" action="{{ route('gifts.store') }}" method="post"
+                                            enctype="multipart/form-data">
                                             {{ csrf_field() }}
                                             <div class="form-group">
                                                 <label for="name">{{ __('Name') }} <span
@@ -116,46 +121,35 @@
                                                 <input type="text" class="form-control" name="name">
                                             </div>
                                             <div class="form-group">
-                                                <label for="email">{{ __('Email address') }} <span
+                                                <label for="description">{{ __('Description') }} <span
                                                         class="require-star">*</span></label>
-                                                <input type="email" class="form-control" name="email">
+                                                <textarea type="text" class="form-control" name="description"
+                                                    placeholder="{{ __('Your short description here...') }}"
+                                                    rows="6"></textarea>
                                             </div>
                                             <div class="form-group">
-                                                <label for="phone">{{ __('Phone') }}</label>
-                                                <input type="text" class="form-control" name="phone">
+                                                <label for="star_point">{{ __('Star Point') }}</label>
+                                                <input type="number" class="form-control" name="star_point">
                                             </div>
                                             <div class="form-group">
-                                                <label for="gender">{{ __('Gender') }}</label>
-                                                <select class="form-control" name="gender">
-                                                    <option value="male">{{ __('Male') }}</option>
-                                                    <option value="female">{{ __('Female') }}</option>
-                                                    <option value="other">{{ __('Other') }}</option>
-                                                </select>
+                                                <label for="address">{{ __('Quantity:') }}</label>
+                                                <input type="number" class="form-control" name="quantity">
                                             </div>
-                                            <div class="form-group">
-                                                <label for="address">{{ __('Address:') }}</label>
-                                                <input type="text" class="form-control" name="address">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="phone">{{ __('Permission') }}</label>
-                                                <select class="form-control" name="permission">
-                                                    <option value="1">{{ __('Admin') }}</option>
-                                                    <option value="2">{{ __('User') }}</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="pwd">{{ __('Password') }} <span
-                                                        class="require-star">{{ __('') }}*</span></label>
-                                                <input type="password" class="form-control" name="password">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="repwd">{{ __('Confirm password') }} <span
-                                                        class="require-star">*</span></label>
-                                                <input type="password" class="form-control"
-                                                    name="password_confirmation">
+                                            <div class="wrap-upload-image">
+                                                <fieldset class="form-group">
+                                                    <label class="fileContainer">
+                                                        {{ __('Add pictures') }}
+                                                        <input type="file" onchange="readImage(this)" class="pro-image"
+                                                            name="image" class="form-control">
+                                                    </label>
+                                                </fieldset>
+                                                <div class="wrap-preview">
+                                                    <div class="preview-images-zone">
+                                                    </div>
+                                                </div>
                                             </div>
                                             <button type="submit"
-                                                class="btn btn-success">{{ __('Create User') }}</button>
+                                                class="btn btn-success">{{ __('Create Gift') }}</button>
                                         </form>
                                     </div>
                                 </div>
@@ -175,9 +169,10 @@
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body table-responsive no-padding">
-                        <table class="table table-hover">
+                        <table class="table table-hover table-gift">
                             <tr>
                                 <th>{{ __('ID') }}</th>
+                                <th style="width:400px">{{ __('Image') }}</th>
                                 <th>{{ __('Name') }}</th>
                                 <th>{{ __('Description') }}</th>
                                 <th>{{ __('Star point (') }} <i class="fa fa-star"></i>)</th>
@@ -187,8 +182,14 @@
                             @foreach ($gifts as $gift)
                             <tr>
                                 <td>{{ $gift->id }}</td>
+                                <td>
+                                    <img width="20%" data-enlargable width="100" style="cursor: zoom-in"
+                                        class="image-gift" src="{{ asset('uploads/gifts/' . $gift->image) }}">
+                                </td>
                                 <td>{{ $gift->name }}</td>
-                                <td>{{ $gift->description }}</td>
+                                <td>
+                                    <p class="long-text-gift">{{ $gift->description }}</p>
+                                </td>
                                 <td>{{ $gift->star_point }}</td>
                                 <td>{{ $gift->quantity }}</td>
 
@@ -230,5 +231,5 @@
 @section('script')
 
 @parent
-<script src="{{ asset('js/admin/users/index.js') }}"></script>
+<script src="{{ asset('js/admin/gifts/index-gift.js') }}"></script>
 @endsection

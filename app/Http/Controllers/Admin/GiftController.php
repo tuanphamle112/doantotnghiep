@@ -50,7 +50,7 @@ class GiftController extends Controller
     
     public function index()
     {
-        $gifts = Gift::paginate(4);
+        $gifts = Gift::paginate(5);
         $recipes = $this->recipe->getAllRecipeDesc(config('manual.pagination.recipe'), ['level']);
         $wishlist = $this->wishlist->all();
         $users = $this->user->all();
@@ -83,7 +83,36 @@ class GiftController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|max:100',
+            'description' => 'required|max:500',
+            'star_point' => 'required',
+            'quantity' => 'required',
+            'image' => 'required'
+        ]);
+
+        $giftImageName = null;
+        if (!is_null($request->image)) {
+            $giftImageName = time() . $request->image->getClientOriginalName();
+            $giftImage = 'gifts/' . $giftImageName;
+            Helper::putImageToUploadsBaseFolder($giftImage, $request->image);
+        };
+        $data = [
+            'name' => $request->name,
+            'description' => $request->description,
+            'star_point' => $request->star_point,
+            'quantity' => $request->quantity,
+            'image' => $giftImageName,
+        ];
+        
+        Gift::create($data);
+
+        $notification = [
+            'message' => __('Create a gift successfully!'),
+            'alert-type' => 'success',
+        ];
+            
+        return redirect()->route('gifts.index')->with($notification);
     }
 
     /**
@@ -105,7 +134,19 @@ class GiftController extends Controller
      */
     public function edit($id)
     {
-        //
+        $gift = Gift::findOrFail($id);
+        $recipes = $this->recipe->getAllRecipeDesc(config('manual.pagination.recipe'), ['level']);
+        $wishlist = $this->wishlist->all();
+        $users = $this->user->all();
+        $posts = $this->post->all();
+
+        return view('admin.gifts.update', compact(
+            'gift',
+            'recipes',
+            'wishlist',
+            'users',
+            'posts'
+        ));
     }
 
     /**
@@ -117,7 +158,37 @@ class GiftController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|max:100',
+            'description' => 'required|max:500',
+            'star_point' => 'required',
+            'quantity' => 'required',
+        ]);
+        $gift = Gift::findOrFail($id);
+
+        $giftImageName = $gift->image;
+        if (!is_null($request->image)) {
+            $giftImageName = time() . $request->image->getClientOriginalName();
+            $giftImage = 'gifts/' . $giftImageName;
+            Helper::deleteOldImageBase('gifts/' . $gift->image);
+            Helper::putImageToUploadsBaseFolder($giftImage, $request->image);
+        };
+        $data = [
+            'name' => $request->name,
+            'description' => $request->description,
+            'star_point' => $request->star_point,
+            'quantity' => $request->quantity,
+            'image' => $giftImageName,
+        ];
+        
+        $gift->update($data);
+
+        $notification = [
+            'message' => __('Update a gift successfully!'),
+            'alert-type' => 'success',
+        ];
+            
+        return redirect()->route('gifts.index')->with($notification);
     }
 
     /**
@@ -128,6 +199,16 @@ class GiftController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $gift = Gift::findOrFail($id);
+
+        Gift::destroy($id);
+        Helper::deleteOldImageBase('gifts/' . $gift->image);
+
+        $notification = [
+            'message' => __('Delete Gift Successfully!'),
+            'alert-type' => 'warning',
+        ];
+
+        return redirect()->route('gifts.index')->with($notification);
     }
 }
