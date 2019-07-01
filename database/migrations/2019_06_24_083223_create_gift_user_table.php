@@ -19,6 +19,7 @@ class CreateGiftUserTable extends Migration
             $table->bigInteger('gift_id')->unsigned();
             $table->string('phone')->nullable();
             $table->text('address');
+            $table->integer('status')->default(0);
             $table->timestamps();
         });
     }

@@ -71,7 +71,7 @@
                         <ul class="sub-menu">
                         <i class="fa fa-medal"></i>
                             <li class="star-num">
-                                <span>Your total star :</span> &nbsp; &nbsp;
+                                <span>Your stars :</span> &nbsp;
                                   {{ Auth::user()->star_num }} <i class="fa fa-star"></i>
                             </li>
                             <li><a href="{{ route('profile.index', Auth::user()->id) }}">{{ __('Profile') }}</a></li>

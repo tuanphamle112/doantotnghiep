@@ -157,7 +157,7 @@
                         </a>
                         <ul class="treeview-menu">
                             <li><a href="{{ route('gifts.index') }}">{{ __('Gift List') }}</a></li>
-                            <li><a href="{{ route('admin.comment.post') }}">{{ __('Receive List') }}</a></li>
+                            <li><a href="{{ route('gift-take.list') }}">{{ __('Receive List') }}</a></li>
                         </ul>
                     </li>
                     <li>
