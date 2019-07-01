@@ -31,6 +31,10 @@ Route::group(['middleware' => 'locale'], function () {
         Route::resource('categories', 'CategoryController');
         Route::get('category/{id}/create', 'CategoryController@subCreate')->name('category.subCreate');
         Route::resource('gifts', 'GiftController');
+
+        Route::get('gift-take-list', 'GiftController@giftTakeList')->name('gift-take.list');
+        Route::put('gift-change-status/{id}', 'GiftController@giftChangeStatus')->name('gift.update-status');
+
         Route::get('comments', 'CommentController@recipeComment')->name('admin.comment.index');
         Route::get('comments/posts', 'CommentController@postComment')->name('admin.comment.post');
         Route::delete('/delete-comment/{id}', 'CommentController@deleteComment')->name('admin.comment.delete');
@@ -71,7 +75,8 @@ Route::group(['middleware' => 'locale'], function () {
                 Route::post('categories/{id}', 'MyRecipeController@submitUpdateCategories')->name('update-recipe.categories');
             });
             // my posts
-            Route::get('gift-confirm/{id}', 'GiftController@confirm')->name('gift.confirm');
+            Route::get('take-gift/{id}', 'GiftController@confirmForm')->name('gift.confirm');
+            Route::post('take-gift/{id}', 'GiftController@takeGift')->name('gift.post-confirm');
 
             Route::get('my-post', 'PostController@myPostIndex')->name('my-posts.index');
             Route::get('my-post/{id}', 'PostController@myPostEdit')->name('my-posts.edit');

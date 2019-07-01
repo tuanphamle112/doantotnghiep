@@ -10,8 +10,11 @@ use App\Constracts\Eloquent\UserRepository;
 use App\Constracts\Eloquent\LevelRepository;
 use App\Models\Gift;
 use App\Helpers\Helper;
+use Carbon\Carbon;
+
 use Redirect;
 use Auth;
+use DB;
 
 class GiftController extends Controller
 {
@@ -58,7 +61,7 @@ class GiftController extends Controller
         ));
     }
 
-    public function confirm($id)
+    public function confirmForm($id)
     {
         $categories = $this->getCategoriesForNav();
         $user = Auth::user();
@@ -69,5 +72,48 @@ class GiftController extends Controller
             'user',
             'gift'
         ));
+    }
+
+    public function takeGift(Request $request, $id)
+    {
+        $validatedData = $request->validate([
+            'phone' => 'required|max:12',
+            'address' => 'required',
+        ]);
+
+        $user = Auth::user();
+        $gift = Gift::findOrFail($id);
+
+        if ($user->star_num >= $gift->star_point) {
+            $data = [
+                'user_id' => $user->id,
+                'gift_id' => $id,
+                'phone' => $request->phone,
+                'address' => $request->address,
+                'created_at' => Carbon::now()->toDateTimeString()
+            ];
+            $quantity = $gift->quantity;
+    
+            DB::table('gift_user')->insert($data);
+
+            $gift->quantity = $quantity - 1;
+            $gift->save();
+            
+            $user->star_num = $user->star_num - $gift->star_point;
+            $user->save();
+
+            $notification = [
+                'message' => __('Your exchange are on process. We will tell you when we ship the good'),
+                'alert-type' => 'success',
+            ];
+        } else {
+            $notification = [
+                'message' => __('You do not have enough star for changing this gift. Please take anothers'),
+                'alert-type' => 'warning',
+            ];
+        }
+        
+
+        return redirect()->route('gift.list')->with($notification);
     }
 }

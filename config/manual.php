@@ -20,6 +20,10 @@ return [
         'post_actived' => 5,
         'recipe_actived' => 5,
     ],
+    'gift_status' => [
+        'Pending' => 0,
+        'Shipped' => 1,
+    ],
     'recipe_status' => [
         'Pending' => 0,
         'Actived' => 1,

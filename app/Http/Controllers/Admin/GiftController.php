@@ -14,6 +14,7 @@ use App\Constracts\Eloquent\PostRepository;
 use App\Helpers\Helper;
 use App\Models\Gift;
 
+use DB;
 use Auth;
 use Storage;
 
@@ -210,5 +211,40 @@ class GiftController extends Controller
         ];
 
         return redirect()->route('gifts.index')->with($notification);
+    }
+
+    public function giftTakeList()
+    {
+        $takeList = DB::table('gift_user')->orderBy('id', 'DESC')->paginate(5);
+        $recipes = $this->recipe->getAllRecipeDesc(config('manual.pagination.recipe'), ['level']);
+        $wishlist = $this->wishlist->all();
+        $users = $this->user->all();
+        $posts = $this->post->all();
+        foreach ($takeList as $item) {
+            $item->user = $this->user->findOrFail($item->user_id);
+            $item->gift = Gift::findOrFail($item->gift_id);
+        }
+
+        return view('admin.gifts.take-list', compact(
+            'recipes',
+            'wishlist',
+            'users',
+            'posts',
+            'takeList'
+        ));
+    }
+
+    public function giftChangeStatus($id)
+    {
+        $data = ['status' => config('manual.gift_status.Shipped')];
+
+        DB::table('gift_user')->where('id', $id)->update($data);
+
+        $notification = [
+            'message' => __('Exchange are confirmed!'),
+            'alert-type' => 'success',
+        ];
+
+        return redirect()->route('gift-take.list')->with($notification);
     }
 }

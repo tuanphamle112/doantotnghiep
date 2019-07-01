@@ -33,11 +33,14 @@
                         @else
                         <img src="{{ config('manual.default_media.recipe') }}" alt="{{ $recipe->name }}">
                         @endif
-                        <figcaption><a href="{{ url('/recipe/' . changeLink($recipe->name) . '/' . $recipe->id) }}"><i class="icon icon-themeenergy_eye2"></i><span>{{ __('View recipe') }}</span></a></figcaption>
+                        <figcaption><a href="{{ url('/recipe/' . changeLink($recipe->name) . '/' . $recipe->id) }}"><i
+                                    class="icon icon-themeenergy_eye2"></i><span>{{ __('View recipe') }}</span></a>
+                        </figcaption>
                     </figure>
                     <div class="container">
                         <h2>
-                            <a href="{{ url('/recipe/' . changeLink($recipe->name) . '/' . $recipe->id) }}">{{ $recipe->name }}</a>
+                            <a
+                                href="{{ url('/recipe/' . changeLink($recipe->name) . '/' . $recipe->id) }}">{{ $recipe->name }}</a>
                         </h2>
                         <div class="actions">
                             <div>
@@ -58,7 +61,8 @@
                                             <i class="fa fa-trash-o"></i>
                                         </a>
                                     </div>
-                                    <form class="delete-form" action="{{ route('my-recipe.destroy', $recipe->id) }}" method="post">
+                                    <form class="delete-form" action="{{ route('my-recipe.destroy', $recipe->id) }}"
+                                        method="post">
                                         {{ csrf_field() }}
                                         {{ method_field('DELETE') }}
                                         <div class="form-group">
@@ -68,11 +72,11 @@
                                 </div>
                             </div>
                         </div>
-                        {{ $recipes->links() }}
                     </div>
                 </div>
                 @endforeach
                 <!--item-->
+                {{ $recipes->links() }}
             </div>
         </section>
     </div>
