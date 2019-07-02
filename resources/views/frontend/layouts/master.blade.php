@@ -51,11 +51,36 @@
                             @endforeach
                         </ul>
                     </li>
-                    <li><a href="#"><span>{{ __('Community') }}</span></a>
-                    </li>
                     <li><a href="{{ route('posts.index') }}"><span>{{ __('Posts') }}</span></a>
                     </li>
                     <li><a href="{{ route('gift.list') }}"><span>{{ __('Gifts') }}</span></a>
+                    </li>
+                    <li class="wrap-noti">
+                        <a href="javascript:void(0)" class="notification">
+                            <span>Notifications</span>
+                            <span class="badge">{{ $dataNoti['unreadNum'] }}</span>
+                        </a>
+                        <ul class="sub-menu notification-ul">
+                            @if (count($dataNoti['notifications']) == 0) 
+                                <li>You have no notifications</li>
+                            @else
+                                @foreach ($dataNoti['notifications'] as $noti)
+                                <li>
+                                    <span><b>Your recipes status has been changed to
+                                        @if ($notification->data['status'] == config('manual.recipe_status.Pending'))
+                                            <span class="label label-warning">{{ __('Pending') }}</span>
+                                        @elseif ($notification->data['status'] == config('manual.recipe_status.Actived'))
+                                            <td><span class="label label-success">{{ __('Actived') }}</span></td>
+                                        @else
+                                            <td><span class="label label-danger">{{ __('Reject') }}</span></td>
+                                        @endif
+                                    </b></span>
+                                    <span class="time-taken">Action taken at: <b>{{ $notification->updated_at }}</b></span>
+                                </li>
+                                @endforeach
+                            @endif
+                            
+                        </ul>
                     </li>
                     @if (Auth::check())
                     <li class="user-info">

@@ -52,7 +52,8 @@
                                     </div>
                                     @endif
                                     <div class="star-num">
-                                        <h2 class="user-nicename">{{ $user->name . ' (' . $user->star_num }} <i class="fa fa-star"></i>)</h2>
+                                        <h2 class="user-nicename">{{ $user->name . ' (' . $user->star_num }} <i
+                                                class="fa fa-star"></i>)</h2>
                                     </div>
                                 </div>
 
@@ -126,14 +127,12 @@
                 <div id="item-nav">
                     <div class="item-list-tabs no-ajax" id="object-nav" role="navigation">
                         <ul>
-                            @if (Auth::user()->id == $user->id)
-                            <li id="activity-personal-li"><a id="user-activity" href="#">{{ __('Activity') }}</a></li>
-                            @endif
                             <li id="xprofile-personal-li" class="current selected"><a id="user-xprofile"
-                                    href="#">{{ __('Profile') }}</a></li>
+                                    href="{{ route('profile.index', $user->id) }}">{{ __('Profile') }}</a></li>
                             @if (Auth::user()->id == $user->id)
                             <li id="notifications-personal-li"><a id="user-notifications"
-                                    href="#">{{ __('Notifications') }} <span class="no-count">0</span></a></li>
+                                    href="{{ route('notification.index') }}">{{ __('Notifications') }} <span
+                                        class="no-count">{{ $notificationsNum }}</span></a></li>
                             @endif
                             <li id="friends-personal-li"><a id="user-friends" href="#">{{ __('Following') }} <span
                                         class="no-count">0</span></a>

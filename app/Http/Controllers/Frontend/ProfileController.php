@@ -43,10 +43,13 @@ class ProfileController extends Controller
     {
         $categories = $this->getCategoriesForNav();
         $user = $this->user->findOrFail($id);
+        $notificationsNum = count($user->unreadNotifications);
+
 
         return view('frontend.profiles.index', compact(
             'categories',
-            'user'
+            'user',
+            'notificationsNum'
         ));
     }
 

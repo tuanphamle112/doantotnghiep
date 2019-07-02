@@ -11,6 +11,7 @@ use App\Constracts\Eloquent\CategoryRepository;
 use App\Constracts\Eloquent\WishlistRepository;
 use App\Constracts\Eloquent\UserRepository;
 use App\Constracts\Eloquent\PostRepository;
+use App\Notifications\RecipeNotification;
 use App\Helpers\Helper;
 
 use Auth;
@@ -268,13 +269,18 @@ class RecipeController extends Controller
             'name' => $request->ingredients,
         ];
 
-        $recipe = $this->recipe->findOrFail($id);
         $this->recipe->update($id, $recipes);
         $this->recipe->updateIngredient($id, $ingredient);
+        $recipe = $this->recipe->findOrFail($id);
         $recipe->categories()->sync($request->categories);
         $this->recipe->deleteCookingStep($id);
         $this->recipe->createCookingStep($id, $stepInsert);
+        $owner = $recipe->user;
         
+        if ($request->status !== $recipe->status) {
+            $owner->notify(new RecipeNotification($recipe));
+        }
+
         $notification = [
             'message' => __('Update recipe successfully!'),
             'alert-type' => 'success',
@@ -308,7 +314,7 @@ class RecipeController extends Controller
     public function updateStatus($id)
     {
         $recipe = $this->recipe->findOrFail($id);
-
+        $owner = $recipe->user;
         $currentPoint = $recipe->user->star_num;
         $newPoint = $currentPoint + config('manual.star_num.be_commented');
 
@@ -317,6 +323,7 @@ class RecipeController extends Controller
         $recipe->save();
         $this->user->getNewestStarPoint($recipe->user->id, $newPoint);
 
+        $owner->notify(new RecipeNotification($recipe));
         $notification = [
             'message' => __('Accept recipe successfully!'),
             'alert-type' => 'success',

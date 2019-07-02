@@ -57,6 +57,7 @@ Route::group(['middleware' => 'locale'], function () {
                 Route::get('categories/{id}', 'CreateRecipeController@createCategories')->name('form.categories');
                 Route::post('categories/{id}', 'CreateRecipeController@submitCategories')->name('recipe.categories');
             });
+            Route::get('notifications', 'NotificationController@index')->name('notification.index');
             Route::resource('my-recipe', 'MyRecipeController');
             Route::group(['prefix' => 'update-recipe'], function () {
                 Route::post('submit-recipe-info/{id}', 'MyRecipeController@updateRecipeInfo')->name('update-recipe.info');

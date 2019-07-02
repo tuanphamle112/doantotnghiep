@@ -1,0 +1,48 @@
+.wrap-item-confirm {
+    height: 150px;
+    margin-bottom: 20px;
+    width: 80%;
+    margin:auto;
+}
+.confirm-item {
+    float: left;
+    background-color: #fff;
+}
+.confirm-gift {
+    padding: 5px;
+    float: left;
+    height: 110px;
+    width: 70%;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-bottom: 5px;
+}
+.confirm-gift img {
+    float: left;
+    width: 100px;
+    height: 100px;
+    border: 1px solid #ccc;
+    padding: 2px;
+}
+.confirm-gift .gift-info {
+    float: left;
+    width: 76%;
+    margin-left: 15px;
+}
+.confirm-gift .gift-info p {
+    margin-top: 10px;
+}
+.pagination {
+    width: 100% !important;
+}
+.pagination li {
+    padding: 0px !important;
+}
+.confirm-gift .gift-info {
+    width: 80% !important;
+}
+.gift-info .time-taken {
+    float: right;
+    font-size: 13px;
+    color: #ccc;
+}

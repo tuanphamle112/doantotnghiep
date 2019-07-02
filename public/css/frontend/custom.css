@@ -2,7 +2,7 @@
     border: 1px solid transparent;
     vertical-align: middle;
     margin-top: 13px;
-    margin-left: 130px;
+    margin-left: 90px;
     border-radius: 5px;
 }
 .user-info>a>img {
@@ -60,4 +60,32 @@ li.star-num i {
 }
 .pagination .page-item:before {
     content: '';
+}
+
+/* noti */
+.notification .badge {
+position: absolute;
+top: -10px;
+right: -10px;
+padding: 5px 10px;
+border-radius: 50%;
+background: red;
+color: white;
+}
+.main-nav .notification-ul {
+    padding: 0px!important;
+    width: 350px !important;
+
+}
+.main-nav .notification-ul li {
+    border: 1px solid;
+    padding: 10px;
+    border-bottom: 1px solid #cccccc54;
+}
+.main-nav ul ul li {
+    float: left;
+    width: 100%;
+    position: relative;
+    background: none;
+    text-transform: none;
 }
