@@ -8,6 +8,7 @@ use App\Constracts\Eloquent\CategoryRepository;
 use App\Constracts\Eloquent\RecipeRepository;
 use App\Constracts\Eloquent\UserRepository;
 use App\Constracts\Eloquent\LevelRepository;
+use App\Notifications\GiftNotification;
 use App\Models\Gift;
 use App\Helpers\Helper;
 use Carbon\Carbon;
@@ -106,6 +107,8 @@ class GiftController extends Controller
                 'message' => __('Your exchange are on process. We will tell you when we ship the good'),
                 'alert-type' => 'success',
             ];
+
+            $user->notify(new GiftNotification($gift));
         } else {
             $notification = [
                 'message' => __('You do not have enough star for changing this gift. Please take anothers'),

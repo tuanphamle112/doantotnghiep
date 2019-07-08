@@ -27,7 +27,7 @@
                         <div class="input-group">
                             <label class="mainFileContainer">
                                 <i class="fa fa-camera"></i>
-                                <span>{{ __('Click to add a main picture') }}</span>
+                                <span class="main-pic">{{ __('Click to add a main picture') }}</span>
                                 <img id="img-upload" alt="">
                                 <input type="file" id="imgInp" class="pro-image" name="main_image" class="form-control">
                             </label>

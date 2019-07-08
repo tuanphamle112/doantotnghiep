@@ -45,7 +45,7 @@
                         <div class="input-group">
                             <label class="mainFileContainer">
                                 <i class="fa fa-camera"></i>
-                                <span>{{ __('Click to add a main picture') }}</span>
+                                <span class="main-pic">{{ __('Click to add a main picture') }}</span>
                                 @if ($recipe->image != null)
                                 <img id="img-upload" src="{{ asset(config('manual.recipe_url') . $recipe->image) }}" alt="{{ $recipe->name }}">
                                 @else

@@ -42,6 +42,9 @@ Route::group(['middleware' => 'locale'], function () {
     //user route
     Route::group(['namespace' => 'Frontend'], function () {
         Route::group(['middleware' => 'isLogin'], function () {
+            Route::resource('follow', 'FollowController');
+            Route::get('following/{userId}', 'FollowController@getFollowing')->name('following');
+            Route::get('follower/{userId}', 'FollowController@getFollower')->name('follower');
             Route::group(['prefix' => 'create-recipe'], function () {
                 Route::get('recipe-info', 'CreateRecipeController@showName')->name('form.name');
                 Route::post('submit-recipe-info', 'CreateRecipeController@createName')->name('recipe.name');
@@ -58,6 +61,7 @@ Route::group(['middleware' => 'locale'], function () {
                 Route::post('categories/{id}', 'CreateRecipeController@submitCategories')->name('recipe.categories');
             });
             Route::get('notifications', 'NotificationController@index')->name('notification.index');
+            Route::get('notifications/{id}', 'NotificationController@show')->name('notification.show');
             Route::resource('my-recipe', 'MyRecipeController');
             Route::group(['prefix' => 'update-recipe'], function () {
                 Route::post('submit-recipe-info/{id}', 'MyRecipeController@updateRecipeInfo')->name('update-recipe.info');

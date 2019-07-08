@@ -25,14 +25,17 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         view()->composer('frontend.layouts.master', function ($view) {
-            $user = Auth::user();
             $dataNoti = [];
-            $notifications = $user->notifications()->paginate(10);
-            $unreadNotifications = $user->unreadNotifications;
-            $unreadNotificationsNum = count($unreadNotifications);
-            $dataNoti['notifications'] = $notifications;
-            $dataNoti['unreadNum'] = $unreadNotificationsNum;
-            
+            if (Auth::check()) {
+                $user = Auth::user();
+
+                $notifications = $user->notifications()->paginate(5);
+                $unreadNotifications = $user->unreadNotifications;
+                $unreadNotificationsNum = count($unreadNotifications);
+                $dataNoti['notifications'] = $notifications;
+                $dataNoti['unreadNum'] = $unreadNotificationsNum;
+            }
+
             $view->with('dataNoti', $dataNoti);
         });
     }

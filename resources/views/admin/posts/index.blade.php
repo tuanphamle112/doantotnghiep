@@ -148,7 +148,7 @@
                                 @endif
 
                                 <td><a href="{{ route('posts.show', $post->id) }}">{{ __('Detail') }}</a></td>
-                                <td><a href="{{ route('posts.edit', $post->id) }}">{{ __('Edit') }}</a></td>
+                                <td><a href="{{ route('my-posts.edit', $post->id) }}">{{ __('Edit') }}</a></td>
                                 <td class="wrap-delete-form">
                                     <a href="javascript:void(0)"
                                         data-text="{{ __('Do you want to delete this post?') }}" class="delete">

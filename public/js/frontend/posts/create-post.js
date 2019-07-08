@@ -6,7 +6,7 @@ $(document).ready(function() {
         readURL(this);
         $('#img-upload').attr('style', 'width:100%;height:300px');
         $('.mainFileContainer').attr('style', 'border:1px solid #ccc');
-        $('.mainFileContainer i,span').attr('style', 'font-size:16px;');
+        $('.mainFileContainer .main-pic').attr('style', 'font-size:16px;');
     }); 
 
     // read url main image

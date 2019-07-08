@@ -4,7 +4,7 @@ $(document).ready(function() {
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
-    });
+    }); 
 
     $('#commentform').submit(function(e) {     
         if ($('#comment').val().trim() == '') {
@@ -66,6 +66,11 @@ $(document).ready(function() {
         e.preventDefault();
         $(this).closest('.comment-box').find('.edit-comment-form').submit();
     });
+
+    $('body').on('click', '.cancel-comment', function (e) {
+        location.reload();
+    });
+    
 });
 $('body').on('click', '.reply', function (e) {
     e.preventDefault();

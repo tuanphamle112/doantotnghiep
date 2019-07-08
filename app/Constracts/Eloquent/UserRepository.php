@@ -9,4 +9,6 @@ interface UserRepository extends BaseRepository
     public function getFeatureMember($with = [], $select = ['*']);
 
     public function getNewestStarPoint($id, $point = 0);
+    
+    public function getFeatureMemberList($with = [], $select = ['*']);
 }

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Constracts\Eloquent\CategoryRepository;
 use App\Constracts\Eloquent\UserRepository;
-
+use App\Models\Follow;
 use App\Helpers\Helper;
 use Auth;
 use Hash;
@@ -42,17 +42,42 @@ class NotificationController extends Controller
     public function index()
     {
         $categories = $this->getCategoriesForNav();
-        $user = Auth::user();
-        $notifications = $user->notifications()->paginate(5);
-        $unreadNotifications = $user->unreadNotifications()->paginate(5);
-        $notificationsNum = count($user->unreadNotifications);
+        if (Auth::check()) {
+            $user = Auth::user();
+            $notifications = $user->notifications()->paginate(5);
+            $unreadNotifications = $user->unreadNotifications()->paginate(5);
+            $notificationsNum = count($user->unreadNotifications);
+            $following = Follow::where('user_id_follow', $user->id)->with('getUserBeFollow')->paginate(8);
+            $follower = Follow::where('user_id', $user->id)->with('getUserFollowing')->paginate(8);
+        }
 
         return view('frontend.notifications.index', compact(
             'categories',
             'user',
             'notifications',
             'unreadNotifications',
-            'notificationsNum'
+            'notificationsNum',
+            'following',
+            'follower'
         ));
+    }
+
+    public function show($id)
+    {
+        if (Auth::check()) {
+            $notification = Auth::user()->notifications()->where('id', $id)->first();
+            if ($notification) {
+                $notification->markAsRead();
+                if ($notification->type == 'App\Notifications\RecipeNotification') {
+                    return redirect()->route('detail-recipe', [changeLink($notification->data['name']), $notification->data['id']]);
+                }
+                if ($notification->type == 'App\Notifications\GiftNotification') {
+                    return redirect()->route('gift.list');
+                }
+                if ($notification->type == 'App\Notifications\PostNotification') {
+                    return redirect()->route('posts.show', $notification->data['id']);
+                }
+            }
+        }
     }
 }

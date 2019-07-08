@@ -75,12 +75,21 @@ color: white;
 .main-nav .notification-ul {
     padding: 0px!important;
     width: 350px !important;
-
+    margin-left: -95px !important;
 }
-.main-nav .notification-ul li {
+.main-nav .notification-ul a {
     border: 1px solid;
     padding: 10px;
     border-bottom: 1px solid #cccccc54;
+}
+.main-nav .notification-ul .noti-item a {
+    color: #fff !important;
+}
+.main-nav .notification-ul a:hover span {
+    color: #fff !important;
+}
+.main-nav .notification-ul a:hover {
+    background-color: #ec7a6a;
 }
 .main-nav ul ul li {
     float: left;
@@ -89,3 +98,56 @@ color: white;
     background: none;
     text-transform: none;
 }
+.main-nav .notification-ul li.li-bottom a:hover{
+    background-color: #fff;
+}
+.main-nav .notification-ul li.li-bottom a {
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 2px;
+    text-align: center;
+}
+.unread {
+    background-color: #eef3fa !important;
+}
+.user-list-homepage>a>img {
+    margin-top: 10px;
+}
+.user-list-homepage .avatar-homepage {
+    width: 70px !important;
+    height: 70px !important;
+    border-radius: 50%;
+}
+.user-list-homepage .infor-member-homepage {
+    float: left;
+    margin-left: 18px;
+    margin-top: 10px;
+    line-height: 25px;
+    font-size: 13px;
+    font-weight: 300;
+}
+.user-list-homepage .infor-member-homepage .mem-name-homepage {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+/* custom css follow */
+.follow-item {
+    width: 14%;
+    margin: 15px;
+    float: left;
+    text-align: center;
+    line-height: 28px;
+}
+.follow-item img {
+    width: 100px;
+    height: 100px;
+    border: 5px solid #fff;
+    padding: 5px;
+}
+.follow-item span>a {
+    color: #666 !important;
+    font-weight: bold;
+}
+/* end custom css follow */

@@ -21,8 +21,19 @@ class UserRepositoryEloquent extends BaseRepositoryEloquent implements UserRepos
         $user = $this->model
         ->with($with)
         ->where('permission', config('manual.permission.user'))
-        ->orderBy('id', 'DESC')
+        ->orderBy('star_num', 'DESC')
         ->firstOrFail();
+        
+        return $user;
+    }
+    public function getFeatureMemberList($with = [], $select = ['*'])
+    {
+        $user = $this->model
+        ->with($with)
+        ->where('permission', config('manual.permission.user'))
+        ->orderBy('star_num', 'DESC')
+        ->take(5)
+        ->get();
         
         return $user;
     }

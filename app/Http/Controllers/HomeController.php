@@ -50,6 +50,8 @@ class HomeController extends Controller
         $featureRecipe = $this->recipe->getOneFeatureRecipe(['level']);
 
         $featureMember = $this->user->getFeatureMember();
+        $featureMemberList = $this->user->getFeatureMemberList(['recipe', 'post']);
+
         $latestPost = $this->post->getNewestPostForHomepage();
 
         $porpularPost = $this->post->getPopularPostForHomepage();
@@ -69,7 +71,8 @@ class HomeController extends Controller
             'featureMember',
             'latestPost',
             'porpularPost',
-            'popularRecipes'
+            'popularRecipes',
+            'featureMemberList'
         ));
     }
 

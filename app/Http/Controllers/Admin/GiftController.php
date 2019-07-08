@@ -11,6 +11,7 @@ use App\Constracts\Eloquent\CategoryRepository;
 use App\Constracts\Eloquent\WishlistRepository;
 use App\Constracts\Eloquent\UserRepository;
 use App\Constracts\Eloquent\PostRepository;
+use App\Notifications\GiftNotification;
 use App\Helpers\Helper;
 use App\Models\Gift;
 
@@ -237,8 +238,12 @@ class GiftController extends Controller
     public function giftChangeStatus($id)
     {
         $data = ['status' => config('manual.gift_status.Shipped')];
-
-        DB::table('gift_user')->where('id', $id)->update($data);
+        $statusSaved = DB::table('gift_user')->where('id', $id)->update($data);
+        $exchange = DB::table('gift_user')->where('id', $id)->first();
+        $owner = $this->user->findOrFail($exchange->user_id);
+        $gift = Gift::findOrFail($id);
+        $gift->status = $statusSaved;
+        $owner->notify(new GiftNotification($gift));
 
         $notification = [
             'message' => __('Exchange are confirmed!'),

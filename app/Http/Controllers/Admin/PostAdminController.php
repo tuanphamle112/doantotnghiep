@@ -10,7 +10,7 @@ use App\Constracts\Eloquent\RecipeRepository;
 use App\Constracts\Eloquent\LevelRepository;
 use App\Constracts\Eloquent\CategoryRepository;
 use App\Constracts\Eloquent\WishlistRepository;
-
+use App\Notifications\PostNotification;
 class PostAdminController extends Controller
 {
     /**
@@ -127,7 +127,7 @@ class PostAdminController extends Controller
     public function updateStatus($id)
     {
         $post = $this->post->findOrFail($id);
-
+        $owner = $post->user;
         $currentPoint = $post->user->star_num;
         $newPoint = $currentPoint + config('manual.star_num.be_commented');
 
@@ -135,6 +135,7 @@ class PostAdminController extends Controller
 
         $post->save();
         $this->user->getNewestStarPoint($post->user->id, $newPoint);
+        $owner->notify(new PostNotification($post));
 
         $notification = [
             'message' => __('Accept post successfully!'),

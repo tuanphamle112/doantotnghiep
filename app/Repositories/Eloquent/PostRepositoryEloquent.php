@@ -19,7 +19,7 @@ class PostRepositoryEloquent extends BaseRepositoryEloquent implements PostRepos
     public function getNewestPostForHomepage()
     {
         return $this->model
-        ->take(6)
+        ->take(3)
         ->orderBy('id', 'DESC')
         ->where('status', config('manual.post_status.Actived'))
         ->get();

@@ -115,7 +115,7 @@
                                 <div class="input-group">
                                     <label class="mainFileContainer">
                                         <i class="fa fa-camera"></i>
-                                        <span>{{ __('Click to add a main picture') }}</span>
+                                        <span class="main-pic">{{ __('Click to add a main picture') }}</span>
                                         <img id="img-upload" alt="" src="{{ asset(config('manual.recipe_url') . $recipe->image) }}">
                                         <input type="file" id="imgInp" class="pro-image" name="main_image" class="form-control">
                                         <input type="hidden" name="main_image_old" value="{{ $recipe->image }}">

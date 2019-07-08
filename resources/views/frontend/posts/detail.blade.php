@@ -134,7 +134,7 @@
                                     <!-- show when edit comment -->
                                     <div class="wrap-open-edit">
                                         <a class="comment-reply-link save-comment" href="#">Save</a>
-                                        <a class="comment-reply-link delete cancel-comment" href="#">Cancel</a>
+                                        <a class="comment-reply-link cancel-comment" href="#">Cancel</a>
                                     </div>
                                 </div>
                                 @else

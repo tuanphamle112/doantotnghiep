@@ -21,7 +21,7 @@
                 </p>
             </div>
             <div id="socialchef_search_widget-3" class="socialchef_search_widget one-fourth">
-                <div class="container">
+                <!-- <div class="container">
                     <div class="textwrap">
                         <h5>{{ __('Refine search results') }}</h5>
                         <p>{{ __('custom.search_term') }}</p>
@@ -46,7 +46,7 @@
                 </div>
                 <div class="f-row bwrap">
                     <input type="submit" value="{{ __('Start cooking!') }}">
-                </div>
+                </div> -->
                 </form>
             </div>
         </div>
@@ -214,7 +214,7 @@
                             </figure>
                             <div class="container">
                                 <h2>
-                                    <a href="{{ route('profile.index', $featureMember->id) }}">{{ $featureMember->name }}</a>
+                                    <a href="{{ route('profile.index', $featureMember->id) }}">{{ $featureMember->name . '( ' .  $featureMember->star_num }} <i class="fa fa-star" style="color: #e68609"></i> ) </a>
                                 </h2>
                                 <blockquote>
                                     <i class="fa fa-quote-left" aria-hidden="true"></i>
@@ -346,7 +346,43 @@
                 </div>
             </div>
         </section>
-
+        <!-- right side -->
+        <aside id="secondary-right" class="right-sidebar sidebar widget-area one-fourth" role="complementary">
+            <ul>
+                <li class="widget widget-sidebar">
+                    <!--cwrap-->
+                    <div class="cwrap">
+                        <h5>{{ __('Featured Members') }}</h5>
+                        <ul class="articles_latest">
+                            @foreach ($featureMemberList as $member)
+                            <li class="user-list-homepage">
+                                <a href="{{ route('profile.index', $member->id) }}">
+                                    @if ($featureMember->avatar !== null)
+                                    <img class="avatar-homepage" src="{{ asset('uploads/avatars/' . $member->avatar) }}"
+                                        alt="{{ __('Profile Photo') }}">
+                                    @else
+                                    <img class="avatar-homepage" src="{{ config('manual.default_media.avatar.man') }}"
+                                        alt="{{ __('Profile Photo') }}">
+                                    @endif
+                                    <div class="infor-member-homepage">
+                                        <span class="mem-name-homepage">{{ $member->name }}</span><br>
+                                        <span>Total star : {{ $member->star_num }} <i class="fa fa-star" style="color: #e68609"></i></span><br>
+                                        <span>Total recipes : {{ count($member->recipe) }}</span>
+                                    </div>
+                                </a>
+                            </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    <!--//cwrap-->
+                </li>
+                <li class="widget widget-sidebar">
+                    <div class="textwidget"><a href="#" style="margin:0 -20px;float:left;"><img src=""></a>
+                    </div>
+                </li>
+            </ul>
+        </aside>
+        <!-- End right side -->
         <!-- right side -->
         <aside id="secondary-right" class="right-sidebar sidebar widget-area one-fourth" role="complementary">
             <ul>

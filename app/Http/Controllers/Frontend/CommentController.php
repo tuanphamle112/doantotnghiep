@@ -37,15 +37,17 @@ class CommentController extends Controller
         $userImage = Auth::user()->avatar;
         $avatar = asset('uploads/avatars/' . $userImage);
         $userCommentId = Auth::user()->id;
+        $ratingPoint = 0;
         if ($request->commentType == 'recipe') {
             $recipe = $this->recipe->findOrfail($id);
-
+            $ratingPoint = $request->ratingPoint;
             $currentPoint = $recipe->user->star_num;
             $newPoint = $currentPoint + config('manual.star_num.be_commented');
             $comment = $recipe->comments()->create([
                 'content' => $request->comment,
                 'commentable_id' => $id,
                 'user_id' => $userCommentId,
+                'rating_point' => $ratingPoint,
             ]);
 
             if ($recipe->user->id !== Auth::user()->id) {
@@ -73,6 +75,7 @@ class CommentController extends Controller
             'avatar' => $avatar,
             'content' => $request->comment,
             'userLink' => $request->userLink,
+            'ratingPoint' => $ratingPoint,
             'createAt' => $createAt,
             'deleteUrl' => $deleteUrl,
         ]);

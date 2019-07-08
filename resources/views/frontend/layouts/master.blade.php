@@ -55,6 +55,7 @@
                     </li>
                     <li><a href="{{ route('gift.list') }}"><span>{{ __('Gifts') }}</span></a>
                     </li>
+                    @if (Auth::check())
                     <li class="wrap-noti">
                         <a href="javascript:void(0)" class="notification">
                             <span>Notifications</span>
@@ -65,23 +66,66 @@
                                 <li>You have no notifications</li>
                             @else
                                 @foreach ($dataNoti['notifications'] as $noti)
-                                <li>
-                                    <span><b>Your recipes status has been changed to
-                                        @if ($notification->data['status'] == config('manual.recipe_status.Pending'))
-                                            <span class="label label-warning">{{ __('Pending') }}</span>
-                                        @elseif ($notification->data['status'] == config('manual.recipe_status.Actived'))
-                                            <td><span class="label label-success">{{ __('Actived') }}</span></td>
-                                        @else
-                                            <td><span class="label label-danger">{{ __('Reject') }}</span></td>
-                                        @endif
-                                    </b></span>
-                                    <span class="time-taken">Action taken at: <b>{{ $notification->updated_at }}</b></span>
-                                </li>
+                                    @if ($noti->type == 'App\Notifications\RecipeNotification')
+                                    <li class="noti-item @if ($noti->read_at == null) unread @endif">
+                                        <small style="padding-left: 10px; color: #999">Recipe</small>
+                                        <a href="{{ route('notification.show', $noti->id) }}">
+                                            <span style="margin-bottom: 15px;">Your recipes status has been changed to
+                                                @if ($noti->data['status'] == config('manual.recipe_status.Pending'))
+                                                    <b style="color: yellow !important">{{ __('Pending') }}</b>
+                                                @elseif ($noti->data['status'] == config('manual.recipe_status.Actived'))
+                                                    <b style="color: green !important">{{ __('Actived') }}</b>
+                                                @else
+                                                    <b  style="color: red !important">{{ __('Reject') }}</b>
+                                                @endif
+                                            </span>
+                                            <span class="time-taken">{{ $noti->updated_at }}</span>
+                                        </a>
+                                    </li>
+                                    @endif
+                                    @if ($noti->type == 'App\Notifications\PostNotification')
+                                    <li class="noti-item @if ($noti->read_at == null) unread @endif">
+                                        <small style="padding-left: 10px; color: #999">Post</small>
+                                        <a href="{{ route('notification.show', $noti->id) }}">
+                                            <span style="margin-bottom: 15px;">Your posts status has been changed to
+                                                @if ($noti->data['status'] == config('manual.post_status.Pending'))
+                                                    <b style="color: yellow !important">{{ __('Pending') }}</b>
+                                                @elseif ($noti->data['status'] == config('manual.post_status.Actived'))
+                                                    <b style="color: green !important">{{ __('Actived') }}</b>
+                                                @else
+                                                    <b  style="color: red !important">{{ __('Reject') }}</b>
+                                                @endif
+                                            </span>
+                                            <span class="time-taken">{{ $noti->updated_at }}</span>
+                                        </a>
+                                    </li>
+                                    @endif
+                                    @if ($noti->type == 'App\Notifications\GiftNotification')
+                                    <li class="noti-item @if ($noti->read_at == null) unread @endif">
+                                        <small style="padding-left: 10px; color: #999">Gift</small>
+                                        <a href="{{ route('notification.show', $noti->id) }}">
+                                            <span style="margin-bottom: 15px;">
+                                                    You changed <b>{{ $noti->data['star_point'] }}</b>
+                                                    <i class="fa fa-star"></i>
+                                                    with <b>{{$noti->data['name']}}</b>. 
+                                                    @if (isset($noti->data['status']))
+                                                        We've shipped it already.
+                                                    @else
+                                                        Please wait while we processing your exchange!
+                                                    @endif
+
+                                            </span>
+                                            <span class="time-taken">{{ $noti->updated_at }}</span>
+                                        </a>
+                                    </li>
+                                    @endif
                                 @endforeach
+                                <li class="li-bottom"><a href="{{ route('notification.index') }}">See all notifications</a></li>
                             @endif
                             
                         </ul>
                     </li>
+                    @endif
                     @if (Auth::check())
                     <li class="user-info">
                         @if (Auth::user()->avatar != null)

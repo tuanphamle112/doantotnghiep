@@ -9,6 +9,7 @@ use App\Constracts\Eloquent\CategoryRepository;
 use App\Constracts\Eloquent\RecipeRepository;
 use App\Constracts\Eloquent\WishlistRepository;
 use App\Helpers\Helper;
+use DB;
 use Auth;
 
 class DetailRecipeController extends Controller
@@ -45,13 +46,34 @@ class DetailRecipeController extends Controller
     public function index($name, $id)
     {
         $wishlist = null;
-
+        $totalRatingArray = [];
         $recipe = $this->recipe->findOrFail($id);
         $cookingSteps = $recipe->cookingStep;
         $createdAtRecipe = $recipe->user->created_at->format('Y-m-d');
         $ingredientArray = explodeComma($recipe->ingredient->name);
         $comments = $recipe->comments;
         $categories = $this->getCategoriesForNav();
+        if (Auth::check()) {
+            $userRated = DB::table('comments')
+            ->where('commentable_id', $id)
+            ->where('commentable_type', 'App\Models\Recipe')
+            ->where('user_id', Auth::user()->id)
+            ->first();
+        }
+        foreach ($comments as $comment) {
+            if (!array_key_exists($comment->user_id, $totalRatingArray)) {
+                $totalRatingArray[$comment->user_id] = $comment->rating_point;
+            }
+        }
+        
+        $voteNum = count($totalRatingArray);
+
+        if ($voteNum > 0) {
+            $totalRatingPoint = array_sum($totalRatingArray)/$voteNum;
+        } else {
+            $totalRatingPoint = 0;
+        }
+
 
         if (Auth::check()) {
             $wishlist = $this->wishlist->showWistList(Auth::user()->id, $recipe->id);
@@ -63,7 +85,10 @@ class DetailRecipeController extends Controller
             'ingredientArray',
             'cookingSteps',
             'comments',
-            'wishlist'
+            'wishlist',
+            'totalRatingPoint',
+            'voteNum',
+            'userRated'
         ));
     }
 }

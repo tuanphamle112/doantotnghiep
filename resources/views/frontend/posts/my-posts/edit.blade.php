@@ -1,6 +1,6 @@
 @extends('frontend.layouts.master')
 
-@section('title', __('Create recipe'))
+@section('title', __('Edit Post'))
 
 @section('custom_css')
 <link rel="stylesheet" href="{{ asset('css/frontend/posts/create-post.css') }}">
@@ -28,7 +28,7 @@
                         <div class="input-group">
                             <label class="mainFileContainer">
                                 <i class="fa fa-camera"></i>
-                                <span>{{ __('Click to add a main picture') }}</span>
+                                <span class="main-pic">{{ __('Click to add a main picture') }}</span>
                                 @if ($post->image != null)
                                 <img id="img-upload" src="{{ asset(config('manual.posts_url') . $post->image) }}" alt="{{ $post->title }}" style="width:100%; height:300px !important;">
                                 @else

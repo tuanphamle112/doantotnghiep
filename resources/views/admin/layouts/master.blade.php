@@ -46,8 +46,6 @@
                 <div class="navbar-custom-menu">
                     <ul class="nav navbar-nav">
                         <li><a href="{{ route('home') }}">{{ __('Go To User Page') }}</a></li>
-                        <li><a href="{{ route('change-language', ['vi']) }}">{{ __('Vietnamese') }}</a></li>
-                        <li><a href="{{ route('change-language', ['en']) }}">{{ __('English') }}</a></li>
                         <li class="dropdown user user-menu">
                             <!-- Menu Toggle Button -->
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">

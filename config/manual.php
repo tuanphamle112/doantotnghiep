@@ -7,7 +7,7 @@ return [
     ],
     'pagination' => [
         'default' => 2,
-        'user' => 3,
+        'user' => 8,
         'recipe' => 5,
         'category' => 2,
         'recipe_home' => 12,

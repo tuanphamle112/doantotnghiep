@@ -6,7 +6,27 @@ $(document).ready(function() {
         }
     });
 
-    $('#commentform').submit(function(e) {     
+    $.fn.stars = function() {
+        return this.each(function(i,e){$(e).html($('<span/>').width($(e).text()*16));});
+    };
+    
+    $('.stars').stars();
+
+    $(function () {
+        $("#rateYo").rateYo({
+          starWidth: "20px",
+          rating    : 5
+        });
+      });
+    $('#commentform').submit(function(e) {  
+        e.preventDefault();
+        
+        var $rateYo = $("#rateYo").rateYo();
+        if ($('#user_rated_save').length) {
+            var rating = $('#user_rated_save').val();
+        } else {
+            var rating = $rateYo.rateYo("rating");
+        }
         if ($('#comment').val().trim() == '') {
             $(this).find('.filling-error').addClass('active');
             return false;
@@ -18,7 +38,8 @@ $(document).ready(function() {
         var commentType = 'recipe';
         formdata.push(
             { name: "userLink", value: userLink },
-            { name: "commentType", value: commentType }
+            { name: "commentType", value: commentType },
+            { name: "ratingPoint", value: rating }
         );
         e.preventDefault();
         $.ajax({
@@ -39,6 +60,7 @@ $(document).ready(function() {
                                                 "<a class='comment-reply-link delete' href='#'>Delete</a>" + 
                                             "</div>" +
                                             "<div class='comment-text'>" +
+                                                "<span>" + response.ratingPoint + "</span>" + 
                                                 "<p>" + response.content + "</p>" +
                                             "</div>" +
                                         "</div>" +
@@ -65,6 +87,10 @@ $(document).ready(function() {
     $('body').on('click', '.save-comment', function (e) {
         e.preventDefault();
         $(this).closest('.comment-box').find('.edit-comment-form').submit();
+    });
+
+    $('body').on('click', '.cancel-comment', function (e) {
+        location.reload();
     });
 
     $('#heart-link').on('click', function (e) {

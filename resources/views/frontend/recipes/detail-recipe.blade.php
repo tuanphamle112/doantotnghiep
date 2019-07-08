@@ -4,6 +4,7 @@
 
 @section('custom_css')
 <link rel="stylesheet" href="{{ asset('css/frontend/detail.css') }}">
+<link rel="stylesheet" href="{{ asset('bower_components/rateyo/min/jquery.rateyo.min.css') }}"
 @endsection
 
 @section('content')
@@ -34,19 +35,9 @@
                                         <div
                                             class="gdrts-stars-rating gdrts-font-star gdrts-stars-length-5 gdrts-with-fonticon gdrts-fonticon-font">
                                             <div class="gdrts-sr-only">
-                                                <label>{{ __('Rate this item:') }}
-                                                    <div class="selector">
-                                                        <span>1.00</span>
-                                                        <select class="gdrts-sr-rating">
-                                                            <option value="1.00">1.00</option>
-                                                            <option value="2.00">2.00</option>
-                                                            <option value="3.00">3.00</option>
-                                                            <option value="4.00">4.00</option>
-                                                            <option value="5.00">5.00</option>
-                                                        </select>
-                                                    </div>
+                                                <label>{{ __('Rate this item:') }} <br>
+                                                    <span class="stars">{{ $totalRatingPoint }}</span>
                                                 </label>
-                                                <button class="gdrts-sr-button">{{ __('Submit Rating') }}</button>
                                             </div>
                                             <input type="hidden" value="0" name="">
                                             <span class="gdrts-stars-empty">
@@ -55,7 +46,7 @@
                                             </span>
                                         </div>
                                         <div class="gdrts-rating-text">{{ __('Rating:') }}
-                                            <strong>4.3</strong>{{ __('') }}/5. From 93 votes. </div>
+                                            <strong>{{ $totalRatingPoint }}</strong>/5. From {{ $voteNum }} votes. </div>
                                     </div>
                                 </div>
                             </div>
@@ -77,7 +68,7 @@
                                 <dd class="vcard author post-author user-avt-post">
                                     <span class="fn">
                                         <a href="{{ route('profile.index', $recipe->user->id) }}">
-                                            @if ($recipe->user->avatar != null)
+                                            @if ($recipe->user->avatar !== null)
                                             <img src="{{ asset('uploads/avatars/' . $recipe->user->avatar) }}">
                                             @else
                                             <img src="{{ asset(config('manual.default_media.avatar.man')) }}">
@@ -200,8 +191,13 @@
                         @foreach ($comments as $comment)
                         <li class="comment clearfix">
                             <div class="avatar">
+                                @if ($comment->user->avatar !== null)
                                 <img alt="" src="{{ asset('uploads/avatars/' . $comment->user->avatar) }}"
                                     class="avatar avatar-90 photo" height="90" width="90">
+                                @else
+                                <img alt="" src="{{ asset(config('manual.default_media.avatar.man')) }}"
+                                    class="avatar avatar-90 photo" height="90" width="90">
+                                @endif
                             </div>
                             <div class="comment-box">
                                 <div class="comment-author meta">
@@ -229,7 +225,7 @@
                                         <!-- show when edit comment -->
                                         <div class="wrap-open-edit">
                                             <a class="comment-reply-link save-comment" href="#">Save</a>
-                                            <a class="comment-reply-link delete cancel-comment" href="#">Cancel</a>
+                                            <a class="comment-reply-link cancel-comment" href="#">Cancel</a>
                                         </div>
                                     </div>
                                     @else
@@ -239,6 +235,7 @@
                                     @endif
                                 </div>
                                 <div class="comment-text">
+                                    <span class="stars">{{ $comment->rating_point }}</span>
                                     <p class="comment-view">{{ $comment->content }}</p>
                                     @if (Auth::check() && Auth::user()->id == $comment->user->id)
                                         <form action="{{ route('comment.edit', $comment->id) }}" name="edit_comment" class="edit-comment-form" method="post">
@@ -268,6 +265,14 @@
                                 <p>{{ __('Logged in as') }} <a
                                         href="{{ route('profile.index', Auth::user()->id) }}">{{ Auth::user()->name }}</a>
                                 </p>
+                                @if ($userRated !== null)
+                                <span style="float:left">You left your rating for this recipe before :&nbsp;</span>
+                                <span class="stars">{{ $userRated->rating_point }}</span>
+                                <input type="hidden" id="user_rated_save" value="{{ $userRated->rating_point }}">
+                                @else
+                                <span style="float:left">Your rating about this recipes : </span>
+                                <div id="rateYo" style="margin-bottom: 10px;float:left"></div><br>
+                                @endif
                                 <div class="f-row">
                                     <textarea id="comment" name="comment" rows="10" cols="10"></textarea>
                                 </div>
@@ -297,5 +302,6 @@
 
 @section('script')
 @parent
+<script src="{{ asset('bower_components/rateyo/min/jquery.rateyo.min.js') }}"></script>
 <script src="{{ asset('js/frontend/recipes/detail.js') }}"></script>
 @endsection

@@ -145,3 +145,20 @@ input[type="file"] {
 .star-num i {
     color: #e68609;
 }
+.wrap-follow-button {
+    margin-top: 20px;
+}
+.wrap-follow-button .follow-button {
+    width: 113px;
+    color: #f78474 !important;
+    background-color: #fff !important;
+    border: 3px solid #f78474;
+    height: 43px;
+}
+.unfollow-button {
+    width: 113px !important;
+    color: #fff !important;
+    background-color: #f78474 !important;
+    border: 3px solid #fff !important;
+    height: 43px !important;
+}

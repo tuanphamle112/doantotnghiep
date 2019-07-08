@@ -74,11 +74,11 @@
                                     href="{{ route('notification.index') }}">{{ __('Notifications') }} <span
                                         class="no-count">{{ $notificationsNum }}</span></a></li>
                             @endif
-                            <li id="friends-personal-li"><a id="user-friends" href="#">{{ __('Following') }} <span
-                                        class="no-count">0</span></a>
+                            <li id="friends-personal-li"><a id="user-friends" href="{{ route('following', $user->id) }}">{{ __('Following') }} <span
+                                        class="no-count">{{ count($following) }}</span></a>
                             </li>
-                            <li id="groups-personal-li"><a id="user-groups" href="#">{{ __('Follower') }}
-                                    <span class="no-count">0</span></a></li>
+                            <li id="groups-personal-li"><a id="user-groups" href="{{ route('follower', $user->id) }}">{{ __('Follower') }}
+                                    <span class="no-count">{{ count($follower) }}</span></a></li>
                         </ul>
                     </div>
                 </div><!-- #item-nav -->
@@ -86,9 +86,9 @@
                 <div id="item-body" role="main">
                     <div class="item-list-tabs no-ajax" id="subnav" aria-label="Member secondary navigation">
                         <ul class="tab">
-                            <li id="public-personal-li"><a href="#unread">{{ __('Unread') }}</a>
-                            </li>
                             <li id="edit-personal-li"><a id="edit" href="#all">{{ __('All') }}</a>
+                            </li>
+                            <li id="public-personal-li"><a href="#unread">{{ __('Unread') }}</a>
                             </li>
                         </ul>
                     </div><!-- .item-list-tabs -->
@@ -101,6 +101,7 @@
                             </div>
                             @else
                                 @foreach ($unreadNotifications as $notification)
+                                    @if ($notification->type == 'App\Notifications\RecipeNotification')
                                     <div class="confirm-item confirm-gift">
                                         <img src="{{ asset('uploads/recipes/' . $notification->data['image']) }}">
                                         <div class="gift-info">
@@ -114,10 +115,45 @@
                                                 @endif
                                             </b></span>
                                             <p>This notification let you know that admin has been taken an action on your recipes.</p>
-                                            <a href="{{ url('/recipe/' . changeLink($notification->data['name']) . '/' . $notification->data['id']) }}">Let's check it out</a>
+                                            <a href="{{ route('notification.show', $notification->id) }}">Let's check it out</a>
                                             <span class="time-taken">Action taken at: <b>{{ $notification->updated_at }}</b></span>
                                         </div>
                                     </div>
+                                    @endif
+                                    @if ($notification->type == 'App\Notifications\PostNotification')
+                                    <div class="confirm-item confirm-gift">
+                                        <img src="{{ asset('uploads/posts/' . $notification->data['image']) }}">
+                                        <div class="gift-info">
+                                            <span><b>Your posts status has been changed to
+                                                @if ($notification->data['status'] == config('manual.post_status.Pending'))
+                                                    <span class="label label-warning">{{ __('Pending') }}</span>
+                                                @elseif ($notification->data['status'] == config('manual.post_status.Actived'))
+                                                    <td><span class="label label-success">{{ __('Actived') }}</span></td>
+                                                @else
+                                                    <td><span class="label label-danger">{{ __('Reject') }}</span></td>
+                                                @endif
+                                            </b></span>
+                                            <p>This notification let you know that admin has been taken an action on your posts.</p>
+                                            <a href="{{ route('notification.show', $notification->id) }}">Let's check it out</a>
+                                            <span class="time-taken">Action taken at: <b>{{ $notification->updated_at }}</b></span>
+                                        </div>
+                                    </div>
+                                    @endif
+                                    @if ($notification->type == 'App\Notifications\GiftNotification')
+                                    <div class="confirm-item confirm-gift">
+                                        <img src="{{ asset('uploads/gifts/' . $notification->data['image']) }}">
+                                        <div class="gift-info">
+                                            <span style="margin-bottom: 15px;">
+                                                    You changed <b>{{ $notification->data['star_point'] }}</b>
+                                                    <i class="fa fa-star"></i>
+                                                    with <b>{{$notification->data['name']}}</b>.
+                                            </span>
+                                            <p>Please wait while we processing your exchange!.</p>
+                                            <a href="{{ route('notification.show', $notification->id) }}">I want more</a>
+                                            <span class="time-taken">Action taken at: <b>{{ $notification->updated_at }}</b></span>
+                                        </div>
+                                    </div>
+                                    @endif
                                 @endforeach
                                 {{ $unreadNotifications->links() }}
 
@@ -130,6 +166,7 @@
                             </div>
                             @else
                                 @foreach ($notifications as $notification)
+                                @if ($notification->type == 'App\Notifications\RecipeNotification')
                                 <div class="confirm-item confirm-gift">
                                     <img src="{{ asset('uploads/recipes/' . $notification->data['image']) }}">
                                     <div class="gift-info">
@@ -142,10 +179,27 @@
                                                 <td><span class="label label-danger">{{ __('Reject') }}</span></td>
                                             @endif
                                         </b></span>
-                                        <p><a href="{{ url('/recipe/' . changeLink($notification->data['name']) . '/' . $notification->data['id']) }}">Let's check it out</a></p>
-                                        <span>Action taken at: <b>{{ $notification->updated_at }}</b></span>
+                                        <p>This notification let you know that admin has been taken an action on your recipes.</p>
+                                        <a href="{{ url('/recipe/' . changeLink($notification->data['name']) . '/' . $notification->data['id']) }}">Let's check it out</a>
+                                        <span class="time-taken">Action taken at: <b>{{ $notification->updated_at }}</b></span>
                                     </div>
                                 </div>
+                                @endif
+                                @if ($notification->type == 'App\Notifications\GiftNotification')
+                                    <div class="confirm-item confirm-gift">
+                                        <img src="{{ asset('uploads/gifts/' . $notification->data['image']) }}">
+                                        <div class="gift-info">
+                                            <span style="margin-bottom: 15px;">
+                                                    You changed <b>{{ $notification->data['star_point'] }}</b>
+                                                    <i class="fa fa-star"></i>
+                                                    with <b>{{$notification->data['name']}}</b>.
+                                            </span>
+                                            <p>Please wait while we processing your exchange!.</p>
+                                            <a href="{{ route('gift.list') }}">I want more</a>
+                                            <span class="time-taken">Action taken at: <b>{{ $notification->updated_at }}</b></span>
+                                        </div>
+                                    </div>
+                                    @endif
                                 @endforeach
                                 {{ $notifications->links() }}
 

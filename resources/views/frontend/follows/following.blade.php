@@ -1,6 +1,6 @@
 @extends('frontend.layouts.master')
 
-@section('title', __('Profile'))
+@section('title', __('Following'))
 
 @section('custom_css')
 <link rel="stylesheet" href="{{ asset('css/frontend/create-recipe/general.css') }}">
@@ -15,12 +15,12 @@
     <nav role="navigation" class="breadcrumbs">
         <ul>
             <li><a href="{{ route('home') }}">'{{ __('Home') }}</a></li>
-            <li>{{ __('Profiles') }}</li>
+            <li>{{ __('Following') }}</li>
         </ul>
     </nav>
     <div class="row">
         <header class="s-title">
-            <h1>{{ __('Profile') }}</h1>
+            <h1>{{ __('Following') }}</h1>
         </header>
 
         <!-- profile content -->
@@ -147,14 +147,14 @@
                 <div id="item-nav">
                     <div class="item-list-tabs no-ajax" id="object-nav" role="navigation">
                         <ul>
-                            <li id="xprofile-personal-li" class="current selected"><a id="user-xprofile"
+                            <li id="xprofile-personal-li"><a id="user-xprofile"
                                     href="{{ route('profile.index', $user->id) }}">{{ __('Profile') }}</a></li>
                             @if (Auth::user()->id == $user->id)
                             <li id="notifications-personal-li"><a id="user-notifications"
                                     href="{{ route('notification.index') }}">{{ __('Notifications') }} <span
                                         class="no-count">{{ $notificationsNum }}</span></a></li>
                             @endif
-                            <li id="friends-personal-li"><a id="user-friends" href="{{ route('following', $user->id) }}">{{ __('Following') }} <span
+                            <li id="friends-personal-li" class="current selected"><a id="user-friends" href="{{ route('following', $user->id) }}">{{ __('Following') }} <span
                                         class="no-count">{{ count($following) }}</span></a>
                             </li>
                             <li id="groups-personal-li"><a id="user-groups" href="{{ route('follower', $user->id) }}">{{ __('Follower') }}
@@ -164,105 +164,29 @@
                 </div><!-- #item-nav -->
 
                 <div id="item-body" role="main">
-                    <div class="item-list-tabs no-ajax" id="subnav" aria-label="Member secondary navigation">
-                        <ul class="tab">
-                            <li id="public-personal-li"><a href="#personal-information">{{ __('View') }}</a>
-                            </li>
-                            @if (Auth::user()->id == $user->id)
-                            <li id="edit-personal-li"><a id="edit" href="#edit-information">{{ __('Edit') }}</a>
-                            </li>
-                            <li id="edit-personal-li"><a id="edit"
-                                    href="{{ route('changePassword.form') }}">{{ __('Change Password') }}</a>
-                            </li>
-                            @endif
-                        </ul>
-                    </div><!-- .item-list-tabs -->
-                    <div class="tab-content">
-                        <div class="profile tab-item" id="personal-information">
-                            <div class="bp-widget base">
-                                <table class="profile-fields">
-                                    <tbody>
-                                        <tr
-                                            class="field_1 field_name required-field visibility-public field_type_textbox">
-                                            <td class="label">{{ __('Name') }}</td>
-                                            <td class="data">
-                                                <p>{{ $user->name }}</p>
-                                            </td>
-                                        </tr>
-                                        <tr
-                                            class="field_1 field_name required-field visibility-public field_type_textbox">
-                                            <td class="label">{{ __('Email') }}</td>
-                                            <td class="data">
-                                                <p>{{ $user->email }}</p>
-                                            </td>
-                                        </tr>
-                                        <tr
-                                            class="field_1 field_name required-field visibility-public field_type_textbox">
-                                            <td class="label">{{ __('Phone') }}</td>
-                                            <td class="data">
-                                                <p>{{ $user->phone }}</p>
-                                            </td>
-                                        </tr>
-                                        <tr
-                                            class="field_1 field_name required-field visibility-public field_type_textbox">
-                                            <td class="label">{{ __('Gender') }}</td>
-                                            <td class="data">
-                                                <p>{{ $user->gender }}</p>
-                                            </td>
-                                        </tr>
-                                        <tr
-                                            class="field_1 field_name required-field visibility-public field_type_textbox">
-                                            <td class="label">{{ __('Permission') }}</td>
-                                            <td class="data">
-                                                @if ($user->permission == config('manual.permission.admin'))
-                                                <p>{{ __('Admin') }}</p>
-                                                @else
-                                                <p>{{ __('User') }}</p>
-                                                @endif
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div><!-- .profile -->
-                        <div class="tab-item" id="edit-information">
-                            <form action="{{ route('profile.info', Auth::user()->id) }}" class="wrap-update-user"
-                                method="post">
-                                {{ method_field('PUT') }}
-                                {{ csrf_field() }}
-                                <div class="wrap-form-input">
-                                    <div class="form-group display-name">
-                                        <label for="name">{{ __('Display Name') }}</label>
-                                        <input type="text" class="form-control" placeholder="{{ __('Display Name') }}"
-                                            name="name" value="{{ Auth::user()->name }}">
-                                        <div class="filling-error">{{ __('The display name are require') }}</div>
-
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="description">{{ __('Phone') }}</label>
-                                        <input type="number" class="form-control input-error"
-                                            placeholder="{{ __('Phone') }}" name="phone"
-                                            value="{{ Auth::user()->phone }}">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="gender">{{ __('Gender') }}</label>
-                                        <select class="form-control" name="gender">
-                                            <option value="female" @if (Auth::user()->gender == "female") selected
-                                                @endif>{{ __('Female') }}</option>
-                                            <option value="male" @if (Auth::user()->gender == "male") selected
-                                                @endif>{{ __('Male') }}</option>
-                                            <option value="other" @if (Auth::user()->gender == "other") selected
-                                                @endif>{{ __('Other') }}</option>
-                                        </select>
-                                    </div>
-                                    <div class="f-row full center-input update-user">
-                                        <input type="submit" value="{{ __('Update') }}" name="updateInfo"
-                                            id="submit-user" class="button">
-                                    </div>
-                            </form>
-                        </div>
+                    @foreach ($following as $follow)
+                    <div class="follow-item">
+                        @if ($follow->getUserBeFollow->avatar != null)
+                        <a href="{{ route('profile.index', $follow->getUserBeFollow->id) }}">
+                        <img src="{{ asset('uploads/avatars/' . $follow->getUserBeFollow->avatar) }}" class="avatar-round" alt="{{ $follow->getUserBeFollow->name }}">
+                        </a>
+                        
+                        @else
+                        <a href="{{ route('profile.index', $follow->getUserBeFollow->id) }}">
+                            <img src="{{ asset(config('manual.default_media.avatar.man')) }}"
+                                class="avatar-round">   
+                        </a>
+                        @endif
+                        <span><a href="{{ route('profile.index', $follow->getUserBeFollow->id) }}">{{ $follow->getUserBeFollow->name }}</a></span><br>
+                        @if (Auth::user()->id == $user->id)
+                        <form action="{{ route('follow.destroy', $follow->id) }}" method="POST">
+                            {{ csrf_field() }}
+                            {{ method_field('DELETE') }}
+                            <button class="unfollow-button" style="border: none !important;"></i> Unfollow</button>
+                        </form>
+                        @endif
                     </div>
-
+                    @endforeach
                 </div>
             </article>
             <!--//container-->

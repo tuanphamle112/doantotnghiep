@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Constracts\Eloquent\CategoryRepository;
 use App\Constracts\Eloquent\UserRepository;
+use App\Models\Follow;
 
 use App\Helpers\Helper;
 use Auth;
@@ -44,12 +45,17 @@ class ProfileController extends Controller
         $categories = $this->getCategoriesForNav();
         $user = $this->user->findOrFail($id);
         $notificationsNum = count($user->unreadNotifications);
-
+        $followStatus = Follow::where('user_id', $user->id)->where('user_id_follow', Auth::user()->id)->first();
+        $following = Follow::where('user_id_follow', $id)->with('getUserBeFollow')->paginate(8);
+        $follower = Follow::where('user_id', $id)->with('getUserFollowing')->paginate(8);
 
         return view('frontend.profiles.index', compact(
             'categories',
             'user',
-            'notificationsNum'
+            'notificationsNum',
+            'followStatus',
+            'following',
+            'follower'
         ));
     }
 
