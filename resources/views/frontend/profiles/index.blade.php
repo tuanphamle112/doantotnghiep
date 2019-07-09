@@ -159,6 +159,8 @@
                             </li>
                             <li id="groups-personal-li"><a id="user-groups" href="{{ route('follower', $user->id) }}">{{ __('Follower') }}
                                     <span class="no-count">{{ count($follower) }}</span></a></li>
+                            <li id="groups-personal-li"><a id="user-groups" href="{{ route('recipe.ofUser', $user->id) }}">{{ __('Recipes') }}
+                            <span class="no-count">{{ count($recipeOfUser) }}</span></a></li>
                         </ul>
                     </div>
                 </div><!-- #item-nav -->

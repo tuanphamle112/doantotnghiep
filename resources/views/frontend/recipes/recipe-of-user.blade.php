@@ -1,6 +1,6 @@
 @extends('frontend.layouts.master')
 
-@section('title', __('Following'))
+@section('title', __('Recipes Of User'))
 
 @section('custom_css')
 <link rel="stylesheet" href="{{ asset('css/frontend/create-recipe/general.css') }}">
@@ -15,12 +15,12 @@
     <nav role="navigation" class="breadcrumbs">
         <ul>
             <li><a href="{{ route('home') }}">'{{ __('Home') }}</a></li>
-            <li>{{ __('Following') }}</li>
+            <li>{{ __('Recipes Of User') }}</li>
         </ul>
     </nav>
     <div class="row">
         <header class="s-title">
-            <h1>{{ __('Following') }}</h1>
+            <h1>{{ __('Recipes Of User') }}</h1>
         </header>
 
         <!-- profile content -->
@@ -154,41 +154,64 @@
                                     href="{{ route('notification.index') }}">{{ __('Notifications') }} <span
                                         class="no-count">{{ $notificationsNum }}</span></a></li>
                             @endif
-                            <li id="friends-personal-li" class="current selected"><a id="user-friends" href="{{ route('following', $user->id) }}">{{ __('Following') }} <span
+                            <li id="friends-personal-li"><a id="user-friends" href="{{ route('following', $user->id) }}">{{ __('Following') }} <span
                                         class="no-count">{{ count($following) }}</span></a>
                             </li>
                             <li id="groups-personal-li"><a id="user-groups" href="{{ route('follower', $user->id) }}">{{ __('Follower') }}
                                     <span class="no-count">{{ count($follower) }}</span></a></li>
-                            <li id="groups-personal-li"><a id="user-groups" href="{{ route('recipe.ofUser', $user->id) }}">{{ __('Recipes') }}
+                            <li id="groups-personal-li" class="current selected"><a id="user-groups" href="{{ route('recipe.ofUser', $user->id) }}">{{ __('Recipes') }}
                             <span class="no-count">{{ count($recipeOfUser) }}</span></a></li>
                         </ul>
                     </div>
                 </div><!-- #item-nav -->
 
                 <div id="item-body" role="main">
-                    @foreach ($following as $follow)
-                    <div class="follow-item">
-                        @if ($follow->getUserBeFollow->avatar != null)
-                        <a href="{{ route('profile.index', $follow->getUserBeFollow->id) }}">
-                        <img src="{{ asset('uploads/avatars/' . $follow->getUserBeFollow->avatar) }}" class="avatar-round" alt="{{ $follow->getUserBeFollow->name }}">
-                        </a>
-                        
-                        @else
-                        <a href="{{ route('profile.index', $follow->getUserBeFollow->id) }}">
-                            <img src="{{ asset(config('manual.default_media.avatar.man')) }}"
-                                class="avatar-round">   
-                        </a>
-                        @endif
-                        <span><a href="{{ route('profile.index', $follow->getUserBeFollow->id) }}">{{ $follow->getUserBeFollow->name }}</a></span><br>
-                        @if (Auth::user()->id == $user->id)
-                        <form action="{{ route('follow.destroy', $follow->id) }}" method="POST">
-                            {{ csrf_field() }}
-                            {{ method_field('DELETE') }}
-                            <button class="unfollow-button" style="border: none !important;"></i> Unfollow</button>
-                        </form>
-                        @endif
+                    <div class="entries row">
+                        <!--item-->
+                        @foreach ($recipeOfUser as $activeRecipe)
+                        <div class="entry one-third recipe-item" style="width:25%;">
+                            <figure>
+                                @if ($activeRecipe->image != null)
+                                <img src="{{ asset(config('manual.recipe_url') . $activeRecipe->image) }}">
+                                @else
+                                <img src="{{ config('manual.default_media.recipe') }}" alt="{{ $activeRecipe->name }}">
+                                @endif
+                                <figcaption>
+                                    <a
+                                        href="{{ url('/recipe/' . changeLink($activeRecipe->name) . '/' . $activeRecipe->id) }}"><i
+                                            class="icon icon-themeenergy_eye2"></i>
+                                        <span>{{ __('View recipe') }}</span></a>
+                                </figcaption>
+                            </figure>
+                            <div class="container">
+                                <h2>
+                                    <a
+                                        href="{{ url('/recipe/' . changeLink($activeRecipe->name) . '/' . $activeRecipe->id) }}">{{ $activeRecipe->name }}</a>
+                                </h2>
+                                <div class="actions">
+                                    <div>
+                                        @if ($activeRecipe->level->name == "Easy")
+                                        <div class="difficulty"><i class="ico i-easy"></i> {{ $activeRecipe->level->name }}
+                                        </div>
+                                        @elseif ($activeRecipe->level->name == "Normal")
+                                        <div class="difficulty"><i class="ico i-moderate"></i>
+                                            {{ $activeRecipe->level->name }}</div>
+                                        @else
+                                        <div class="difficulty"><i class="ico i-hard"></i> {{ $activeRecipe->level->name }}
+                                        </div>
+                                        @endif
+                                        <div class="comments"><i class="fa fa-comment" aria-hidden="true"></i><a
+                                                href="">{{ count($activeRecipe->comments) }}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                        <div class="quicklinks">
+                            {{ $recipeOfUser->links() }}
+                        </div>
                     </div>
-                    @endforeach
                 </div>
             </article>
             <!--//container-->

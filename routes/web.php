@@ -17,7 +17,6 @@ Route::group(['middleware' => 'locale'], function () {
     Auth::routes();
     Route::get('/', 'HomeController@index')->name('home');
     Route::get('/change-language/{language}', 'HomeController@changeLanguage')->name('change-language');
-
     Route::get('search/index', 'SearchController@index')->name('search.index');
     Route::post('search/ingredient', 'SearchController@searchByIngredient')->name('search.ingredient');
     Route::post('search/recipe', 'SearchController@searchByRecipe')->name('search.recipe');
@@ -104,6 +103,8 @@ Route::group(['middleware' => 'locale'], function () {
         });
         Route::resource('posts', 'PostController');
         Route::get('gift-list', 'GiftController@index')->name('gift.list');
+        Route::get('/recipes-of-user/{id}', 'RecipeController@getAllRecipesOfUser')->name('recipe.ofUser');
+
         Route::get('/recipes', 'RecipeController@index')->name('list-recipe.index');
         Route::get('/{parent}', 'RecipeController@showParentCategories')->name('nav');
         Route::get('/{parentLink}/{subLink}', 'RecipeController@showSubCategory')->name('sub_Nav');

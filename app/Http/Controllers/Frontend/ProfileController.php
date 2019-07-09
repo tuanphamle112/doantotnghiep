@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Constracts\Eloquent\CategoryRepository;
 use App\Constracts\Eloquent\UserRepository;
 use App\Models\Follow;
+use App\Models\Recipe;
 
 use App\Helpers\Helper;
 use Auth;
@@ -48,6 +49,7 @@ class ProfileController extends Controller
         $followStatus = Follow::where('user_id', $user->id)->where('user_id_follow', Auth::user()->id)->first();
         $following = Follow::where('user_id_follow', $id)->with('getUserBeFollow')->paginate(8);
         $follower = Follow::where('user_id', $id)->with('getUserFollowing')->paginate(8);
+        $recipeOfUser = Recipe::where('user_id', $id)->where('status', config('manual.recipe_status.Actived'))->paginate(8);
 
         return view('frontend.profiles.index', compact(
             'categories',
@@ -55,7 +57,8 @@ class ProfileController extends Controller
             'notificationsNum',
             'followStatus',
             'following',
-            'follower'
+            'follower',
+            'recipeOfUser'
         ));
     }
 

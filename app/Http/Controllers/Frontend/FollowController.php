@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Follow;
 use App\Constracts\Eloquent\CategoryRepository;
 use App\Constracts\Eloquent\UserRepository;
+
+use App\Models\Recipe;
 use Auth;
 
 class FollowController extends Controller
@@ -126,6 +128,7 @@ class FollowController extends Controller
         $followStatus = Follow::where('user_id', $userId)->where('user_id_follow', Auth::user()->id)->first();
         $following = Follow::where('user_id_follow', $userId)->with('getUserBeFollow')->paginate(8);
         $follower = Follow::where('user_id', $userId)->with('getUserFollowing')->paginate(8);
+        $recipeOfUser = Recipe::where('user_id', $userId)->where('status', config('manual.recipe_status.Actived'))->paginate(8);
 
         return view('frontend.follows.following', compact(
             'categories',
@@ -133,7 +136,8 @@ class FollowController extends Controller
             'followStatus',
             'following',
             'notificationsNum',
-            'follower'
+            'follower',
+            'recipeOfUser'
         ));
     }
 
@@ -145,6 +149,7 @@ class FollowController extends Controller
         $followStatus = Follow::where('user_id', $userId)->where('user_id_follow', Auth::user()->id)->first();
         $following = Follow::where('user_id_follow', $userId)->with('getUserBeFollow')->paginate(12);
         $follower = Follow::where('user_id', $userId)->with('getUserFollowing')->paginate(12);
+        $recipeOfUser = Recipe::where('user_id', $userId)->where('status', config('manual.recipe_status.Actived'))->paginate(8);
 
         return view('frontend.follows.follower', compact(
             'categories',
@@ -152,7 +157,8 @@ class FollowController extends Controller
             'followStatus',
             'following',
             'notificationsNum',
-            'follower'
+            'follower',
+            'recipeOfUser'
         ));
     }
 

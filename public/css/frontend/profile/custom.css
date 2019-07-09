@@ -133,9 +133,9 @@ input[type="file"] {
     color: #c70808;
     display:none;
 }
-.active {
+/* .active {
     display: block !important;
-}
+} */
 
 .star-num {
     width: 100%;
