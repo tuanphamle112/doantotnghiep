@@ -201,6 +201,7 @@
                                 @endif
                                 <td>{{ $user->star_num }}</td>
                                 <td>{{ $user->gender }}</td>
+                                @if ($user->permission !== config('manual.permission.admin') || Auth::user()->id == config('manual.super_admin'))
                                 <td><a href="{{ route('users.edit', ['id'=> $user->id]) }}">{{ __('Edit') }}</a></td>
                                 <td class="wrap-delete-form">
                                     <!-- <a href="#" class="delete-user">Delete</a> -->
@@ -219,6 +220,7 @@
                                         </div>
                                     </form>
                                 </td>
+                                @endif
                             </tr>
                             @endforeach
 

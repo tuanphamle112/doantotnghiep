@@ -6,11 +6,13 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Models\Relations\UserRelation;
+use Laravel\Scout\Searchable;
 
 class User extends Authenticatable
 {
     use Notifiable;
     use UserRelation;
+    use Searchable;
     /**
      * The attributes that are mass assignable.
      *
@@ -47,4 +49,17 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function toSearchableArray()
+    {
+        $array = $this->toArray();
+
+        return array(
+            'id' => $array['id'],
+            'name' => $array['name'],
+            'email' => $array['email'],
+            'phone' => $array['phone'],
+            'address' => $array['address']
+        );
+    }
 }

@@ -121,7 +121,18 @@ class UserController extends Controller
     {
         $user = $this->user->findOrFail($id);
 
-        return view('admin.users.update', compact('user'));
+        $users = $this->user->paginate(config('manual.pagination.user'));
+        $recipes = $this->recipe->getAllRecipeDesc(config('manual.pagination.recipe'), ['level']);
+        $wishlist = $this->wishlist->all();
+        $posts = $this->post->all();
+
+        return view('admin.users.update', compact(
+            'user',
+            'users',
+            'recipes',
+            'wishlist',
+            'posts'
+        ));
     }
 
     /**

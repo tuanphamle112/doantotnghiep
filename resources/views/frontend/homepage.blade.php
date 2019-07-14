@@ -73,7 +73,7 @@
                     <div class="one-sixth">
                         <div class="container">
                             <i class="icon icon-themeenergy_chef-hat"></i>
-                            <span class="title dynamic-number" data-dnumber="494">494</span>
+                            <span class="title dynamic-number" data-dnumber="494">{{ $dataNum['memberNum'] }}</span>
                             <span class="subtitle">{{ __('Members') }}</span>
                         </div>
                     </div>
@@ -83,7 +83,7 @@
                     <div class="one-sixth">
                         <div class="container">
                             <i class="icon icon-themeenergy_pan"></i>
-                            <span class="title dynamic-number" data-dnumber="16">16</span>
+                            <span class="title dynamic-number" data-dnumber="16">{{ $dataNum['recipeNum'] }}</span>
                             <span class="subtitle">{{ __('Recipes') }}</span>
                         </div>
                     </div>
@@ -92,9 +92,9 @@
                     <!--item-->
                     <div class="one-sixth">
                         <div class="container">
-                            <i class="icon icon-themeenergy_image"></i>
-                            <span class="title dynamic-number" data-dnumber="284">284</span>
-                            <span class="subtitle">{{ __('photos') }}</span>
+                            <i class="icon icon-themeenergy_heart"></i>
+                            <span class="title dynamic-number" data-dnumber="284">{{ $dataNum['love'] }}</span>
+                            <span class="subtitle">{{ __('loves') }}</span>
                         </div>
                     </div>
                     <!--//item-->
@@ -103,7 +103,7 @@
                     <div class="one-sixth">
                         <div class="container">
                             <i class="icon icon-themeenergy_pencil"></i>
-                            <span class="title dynamic-number" data-dnumber="13">13</span>
+                            <span class="title dynamic-number" data-dnumber="13">{{ $dataNum['postNum'] }}</span>
                             <span class="subtitle">{{ __('forum posts') }}</span>
                         </div>
                     </div>
@@ -113,7 +113,7 @@
                     <div class="one-sixth">
                         <div class="container">
                             <i class="icon icon-themeenergy_chat-bubbles"></i>
-                            <span class="title dynamic-number" data-dnumber="56">56</span>
+                            <span class="title dynamic-number" data-dnumber="56">{{ $dataNum['commentNum'] }}</span>
                             <span class="subtitle">{{ __('comments') }}</span>
                         </div>
                     </div>
@@ -123,7 +123,7 @@
                     <div class="one-sixth">
                         <div class="container">
                             <i class="icon icon-themeenergy_stars"></i>
-                            <span class="title dynamic-number" data-dnumber="10">10</span>
+                            <span class="title dynamic-number" data-dnumber="10">{{ $dataNum['articles'] }}</span>
                             <span class="subtitle">{{ __('articles') }}</span>
                         </div>
                     </div>
@@ -197,14 +197,12 @@
                                     <img src="{{ asset('uploads/avatars/' . $featureMember->avatar) }}"
                                         class="avatar user-1-avatar avatar-270 photo"
                                         width="270"
-                                        height="270"
-                                        alt="{{ __('Profile Photo') }}">
+                                        alt="{{ __('Profile Photo') }}" style="max-height:320px !important;">
                                     @else
                                     <img src="{{ config('manual.default_media.avatar.man') }}"
                                         class="avatar user-1-avatar avatar-270 photo"
                                         width="270"
-                                        height="270"
-                                        alt="{{ __('Profile Photo') }}">
+                                        alt="{{ __('Profile Photo') }}" style="max-height:320px !important;">
                                     @endif
                                 </a>
 
@@ -357,7 +355,7 @@
                             @foreach ($featureMemberList as $member)
                             <li class="user-list-homepage">
                                 <a href="{{ route('profile.index', $member->id) }}">
-                                    @if ($featureMember->avatar !== null)
+                                    @if ($member->avatar !== null)
                                     <img class="avatar-homepage" src="{{ asset('uploads/avatars/' . $member->avatar) }}"
                                         alt="{{ __('Profile Photo') }}">
                                     @else

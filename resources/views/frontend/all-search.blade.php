@@ -83,9 +83,34 @@
                     </form>
                 </div>
             </div>
-            <!-- recipe result -->
+            <h1>{{ __('There is ') . $resultNum . __(' results with "') .  $keyword. '"' }}</h1>
+            <!-- users results -->
+            @if (isset($users))
+            <div class="search-badge">
+                <span>Users {{ '(' . count($users) . ')'  }}</span>
+            </div>
+            @foreach ($users as $user)
+                <div class="follow-item" style="width: 9% !important">
+                    @if ($user->avatar != null)
+                    <a href="{{ route('profile.index', $user->id) }}">
+                    <img src="{{ asset('uploads/avatars/' . $user->avatar) }}" class="avatar-round" alt="{{ $user->name }}">
+                    </a>
+                    @else
+                    <a href="{{ route('profile.index', $user->id) }}">
+                        <img src="{{ asset(config('manual.default_media.avatar.man')) }}"
+                            class="avatar-round">   
+                    </a>
+                    @endif
+                    <span><a href="{{ route('profile.index', $user->id) }}">{{ $user->name }}</a></span><br>
+                </div>
+            @endforeach
+            @endif
+            <!-- end users results -->
+            <!-- recipe results -->
             @if (isset($recipes))
-            <h1>{{ __('There is ') . count($recipes) . __(' results with "') .  $keyword. '"' }}</h1>
+            <div class="search-badge">
+                <span>Recipes {{ '(' . count($recipes) . ')'  }}</span>
+            </div>
             @foreach ($recipes as $recipe)
             <div class="entry one-fourth recipe-item">
                 <figure>
@@ -116,7 +141,44 @@
             </div>
             @endforeach
             @endif
-            <!-- end recipe result -->
+            <!-- end recipe results -->
+            <!-- Post result -->
+            @if (isset($posts))
+            <div class="search-badge">
+                <span>Posts {{ '(' . count($posts) . ')'  }}</span>
+            </div>
+            @foreach ($posts as $post)
+            <div class="entry one-fourth recipe-item">
+                <figure>
+                    @if ($post->image != null)
+                    <img src="{{ asset(config('manual.posts_url') . $post->image) }}">
+                    @else
+                    <img src="{{ config('manual.default_media.recipe') }}" alt="{{ $post->name }}">
+                    @endif
+                    <figcaption><a href="{{ route('posts.show', $post->id) }}"><i
+                                class="icon icon-themeenergy_eye2"></i><span>{{ __('View post') }}</span></a>
+                    </figcaption>
+                </figure>
+                <div class="container">
+                    <h2>
+                        <a
+                            href="{{ route('posts.show', $post->id) }}">{{ $post->title }}</a>
+                    </h2>
+                    <div class="actions">
+                        <div>
+                            <div class="date"><i class="fa fa-calendar"
+                                    aria-hidden="true"></i>{{ $post->created_at->format('Y-m-d H:s') }}</div>
+                        </div>
+                    </div>
+                    <div class="excerpt">
+                        <p>{{ $post->description }}</p>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+            @endif
+            <!-- end post result -->
+
         </section>
     </div>
     <!--//row-->

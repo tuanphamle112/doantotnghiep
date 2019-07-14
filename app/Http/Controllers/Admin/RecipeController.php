@@ -72,9 +72,18 @@ class RecipeController extends Controller
         $levels = $this->level->all();
         $categories = $this->category->all();
 
+        $recipes = $this->recipe->getAllRecipeDesc(config('manual.pagination.recipe'), ['level']);
+        $wishlist = $this->wishlist->all();
+        $users = $this->user->all();
+        $posts = $this->post->all();
+
         return view('admin.recipes.create', compact(
             'levels',
-            'categories'
+            'categories',
+            'recipes',
+            'wishlist',
+            'users',
+            'posts'
         ));
     }
 
@@ -182,6 +191,11 @@ class RecipeController extends Controller
         $numberOfStep = count($cookingSteps);
         $categoriesSelected = $recipe->categories;
 
+        $recipes = $this->recipe->getAllRecipeDesc(config('manual.pagination.recipe'), ['level']);
+        $wishlist = $this->wishlist->all();
+        $users = $this->user->all();
+        $posts = $this->post->all();
+
         return view('admin.recipes.update', compact(
             'recipe',
             'cookingSteps',
@@ -191,7 +205,11 @@ class RecipeController extends Controller
             'ingredientsSet',
             'numberOfStep',
             'categories',
-            'categoriesSelected'
+            'categoriesSelected',
+            'recipes',
+            'wishlist',
+            'users',
+            'posts'
         ));
     }
 

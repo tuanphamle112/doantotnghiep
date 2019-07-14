@@ -33,7 +33,8 @@ class Recipe extends Model
             'id' => $array['id'],
             'name' => $array['name'],
             'description' => $array['description'],
-            'user_id' => $array['user_id']
+            'user_id' => $array['user_id'],
+            'recipe_number' => $array['recipe_number']
         );
     }
 }

@@ -11,6 +11,8 @@ use App\Constracts\Eloquent\UserRepository;
 use App\Constracts\Eloquent\PostRepository;
 
 use App\Helpers\Helper;
+use App\Models\Comment;
+use App\Models\Wishlist;
 
 class HomeController extends Controller
 {
@@ -45,7 +47,13 @@ class HomeController extends Controller
     {
         $categories = [];
         $categoryParents = $this->category->getAllParentCategories();
-
+        $dataNum = [];
+        $dataNum['memberNum'] = count($this->user->all());
+        $dataNum['recipeNum'] = count($this->recipe->all());
+        $dataNum['postNum'] = count($this->post->all());
+        $dataNum['commentNum'] = count(Comment::all());
+        $dataNum['love'] = count(Wishlist::all());
+        $dataNum['articles'] = $dataNum['recipeNum'] + $dataNum['postNum'];
         $allActiveRecipes = $this->recipe->getAllActiveRecipe(['level', 'comments']);
         $featureRecipe = $this->recipe->getOneFeatureRecipe(['level']);
 
@@ -57,6 +65,7 @@ class HomeController extends Controller
         $porpularPost = $this->post->getPopularPostForHomepage();
 
         $popularRecipes = $this->recipe->getPopularRecipesForHomepage();
+        // dd($featureMemberList);
         foreach ($categoryParents as $categoryParent) {
             $parentId = $categoryParent->id;
             $categoryChildren = $this->category->getChildrenCategories($parentId);
@@ -72,7 +81,8 @@ class HomeController extends Controller
             'latestPost',
             'porpularPost',
             'popularRecipes',
-            'featureMemberList'
+            'featureMemberList',
+            'dataNum'
         ));
     }
 

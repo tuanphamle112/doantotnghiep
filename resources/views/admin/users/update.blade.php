@@ -23,14 +23,14 @@
                 <!-- small box -->
                 <div class="small-box bg-aqua">
                     <div class="inner">
-                        <h3>{{ __('1500') }}</h3>
-
-                        <p>{{ __('User') }}</p>
+                        <h3>{{ count($recipes) }}</h3>
+                        <p>{{ __('Recipes') }}</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-bag"></i>
                     </div>
-                    <a href="#" class="small-box-footer">{{ __('More info') }} <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="{{ route('recipes.index') }}" class="small-box-footer">{{ __('More info') }} <i
+                            class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
@@ -38,14 +38,15 @@
                 <!-- small box -->
                 <div class="small-box bg-green">
                     <div class="inner">
-                        <h3>{{ __('53') }}</h3>
+                        <h3>{{ count($wishlist) }}</h3>
 
-                        <p>{{ __('Likes') }}</p>
+                        <p>{{ __('Loves') }}</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-stats-bars"></i>
                     </div>
-                    <a href="#" class="small-box-footer">{{ __('More info') }} <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="#" class="small-box-footer">{{ __('More info') }} <i
+                            class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
@@ -53,14 +54,15 @@
                 <!-- small box -->
                 <div class="small-box bg-yellow">
                     <div class="inner">
-                        <h3>{{ __('44') }}</h3>
+                        <h3>{{ count($users) }}</h3>
 
                         <p>{{ __('Register') }}</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-person-add"></i>
                     </div>
-                    <a href="#" class="small-box-footer">{{ __('More info') }} <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="{{ route('users.index') }}" class="small-box-footer">{{ __('More info') }} <i
+                            class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
@@ -68,14 +70,15 @@
                 <!-- small box -->
                 <div class="small-box bg-red">
                     <div class="inner">
-                        <h3>{{ __('65') }}</h3>
+                        <h3>{{ count($posts) }}</h3>
 
-                        <p>{{ __('Users') }}</p>
+                        <p>{{ __('Posts') }}</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-pie-graph"></i>
                     </div>
-                    <a href="#" class="small-box-footer">{{ __('More info') }} <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="{{ route('manage-post.index') }}" class="small-box-footer">{{ __('More info') }} <i
+                            class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->

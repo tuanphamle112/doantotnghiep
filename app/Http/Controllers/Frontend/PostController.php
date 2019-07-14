@@ -211,7 +211,7 @@ class PostController extends Controller
     {
         $post =$this->post->findOrFail($id);
 
-        $postImageName = null;
+        $postImageName = $request->post_image_old;
         if ($request->categories == null) {
             return redirect()->back()->withErrors(['categories' => __('Please take at least one category')]);
         }

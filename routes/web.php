@@ -20,6 +20,7 @@ Route::group(['middleware' => 'locale'], function () {
     Route::get('search/index', 'SearchController@index')->name('search.index');
     Route::post('search/ingredient', 'SearchController@searchByIngredient')->name('search.ingredient');
     Route::post('search/recipe', 'SearchController@searchByRecipe')->name('search.recipe');
+    Route::post('search/all', 'SearchController@searchAll')->name('search.all');
     // admin route
     Route::group(['middleware' => 'admin', 'prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::resource('users', 'UserController');

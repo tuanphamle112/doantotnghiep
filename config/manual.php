@@ -5,6 +5,7 @@ return [
         'admin' => 1,
         'user' => 2,
     ],
+    'super_admin' => 1,
     'pagination' => [
         'default' => 2,
         'user' => 8,

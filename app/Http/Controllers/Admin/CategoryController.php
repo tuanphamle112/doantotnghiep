@@ -130,12 +130,19 @@ class CategoryController extends Controller
     public function edit($id)
     {
         $category = $this->category->findOrFail($id);
-
+        $wishlist = $this->wishlist->all();
+        $users = $this->user->all();
+        $posts = $this->post->all();
+        $recipes = $this->recipe->getAllRecipeDesc(config('manual.pagination.recipe'), ['level']);
         $optionParentCategory = $this->category->getOptionParentCategories();
 
         return view('admin.categories.update', compact(
             'category',
-            'optionParentCategory'
+            'optionParentCategory',
+            'recipes',
+            'wishlist',
+            'users',
+            'posts'
         ));
     }
 
@@ -180,12 +187,19 @@ class CategoryController extends Controller
     public function subCreate($id)
     {
         $parentCategory = $this->category->findOrFail($id);
-
+        $wishlist = $this->wishlist->all();
+        $users = $this->user->all();
+        $posts = $this->post->all();
+        $recipes = $this->recipe->getAllRecipeDesc(config('manual.pagination.recipe'), ['level']);
         $optionParentCategory = $this->category->getOptionParentCategories();
 
         return view('admin.categories.addSub', compact(
             'parentCategory',
-            'optionParentCategory'
+            'optionParentCategory',
+            'recipes',
+            'wishlist',
+            'users',
+            'posts'
         ));
     }
 

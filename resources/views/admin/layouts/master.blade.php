@@ -55,7 +55,7 @@
                                 <!-- The user image in the menu -->
                                 <li class="user-header">
                                     @if (Auth::user()->avatar != null)
-                                    <img src="{{ asset('upload/' . Auth::user()->avatar) }}" class="img-circle">
+                                    <img src="{{ asset('uploads/avatars/' . Auth::user()->avatar) }}" class="img-circle">
                                     @else
                                     <img src="{{ asset('images/default2.png') }}" class="img-circle">
                                     @endif
